@@ -1,57 +1,87 @@
-const handler = async (m, {conn, usedPrefix}) => {
-  const doc = ['pdf', 'zip', 'vnd.openxmlformats-officedocument.presentationml.presentation', 'vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'vnd.openxmlformats-officedocument.wordprocessingml.document'];
-  const document = doc[Math.floor(Math.random() * doc.length)];
-  const text = `*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴 𝙼𝙸 𝙲𝚁𝙴𝙰𝙳𝙾𝚁 𝙴𝚂 wa.me/5219992095479*
+import { createHash } from 'crypto'
+import { canLevelUp, xpRange } from '../lib/levelling.js'
+import fetch from 'node-fetch'
+import fs from 'fs'
+const { levelling } = '../lib/levelling.js'
+import moment from 'moment-timezone'
+import { promises } from 'fs'
+import { join } from 'path'
+const time = moment.tz('Egypt').format('HH')
+let wib = moment.tz('Egypt').format('HH:mm:ss')
+//import db from '../lib/database.js'
 
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 𝟷 𝙴𝚂 wa.me/34642467703*
+let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPrems}) => {
+    let d = new Date(new Date + 3600000)
+    let locale = 'ar'
+    let week = d.toLocaleDateString(locale, { weekday: 'long' })
+    let date = d.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })
+    let _uptime = process.uptime() * 1000
+    let uptime = clockString(_uptime)
+let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
+let videoUrl = 'https://telegra.ph/file/7179860e8634bd3d453e6.mp4';
+  let vn = './media/menu.mp3';
+  const user = global.db.data.users[m.sender];
+  const {money, joincount} = global.db.data.users[m.sender];
+  const {exp, limit, level, role} = 
+    global.db.data.users[m.sender];
+let { min, xp, max } = xpRange(user.level, global.multiplier)
+let username = conn.getName(who)
+let math = max - xp
+let sn = createHash('md5').update(who).digest('hex')
+let totalreg = Object.keys(global.db.data.users).length;
+let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length 
+let more = String.fromCharCode(8206)
+let readMore = more.repeat(900) 
+  const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
+let str = ` 
+✧⏤✧⏤ *حالة* ⏤✧⏤✧⏤✧
+🦾 اهلا,* ${taguser}
+⩥ الوقت${uptime}
+⩥ التاريخ${date}
+⩥ المستخدمين${rtotalreg}
+⩥ المنصه ⩾ HEROKU
+✧⏤✧⏤✧⏤✧⏤✧⏤✧⏤✧⏤✧
+⇟ *معلومات المطور* ⇟
+𐎄   🤿‏محمد 𓂄*اسم المطور*𓂁
 
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 2 𝙴𝚂 wa.me/50499698072*
+𐎄 𓂄 JOHAN ⚰𓂁*لقب المطور* 
 
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 3 𝙴𝚂 wa.me/595986460945*
+𐎄  𓂄 https://wa.me/+22237979043 ‬‏𓂁*رقم المطور*
 
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 4 𝙴𝚂 wa.me/51940617554*
+𐎄BOT b𝐼𝑂 بوت تحت تطوير ففيه اوامر يمكن ماتشتغل لهيك قول لي اذا فيه امر مايشتغل`.trim();
 
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 5 𝙴𝚂 wa.me/51995386439*
+conn.sendMessage(m.chat, {
+        video: { url: videoUrl }, caption: str,
+  mentions: [m.sender,global.conn.user.jid],
+  gifPlayback: true,gifAttribution: 0
+    }, { quoted: m });
+}; 
+handler.help = ['main']
+handler.tags = ['group']
+handler.command = ['المطور'] 
 
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 6 𝙴𝚂 wa.me/593991398786*
+export default handler
+function clockString(ms) {
+    let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
+    let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+    let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')}
 
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 7 𝙴𝚂 wa.me/51996089079*
-
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 8 𝙴𝚂 wa.me/573225236629*
-
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 9 𝙴𝚂 wa.me/593959425714*
-
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 10 𝙴𝚂 wa.me/50246028932*
-
-*—◉ 𝙴𝙻 𝙲𝙾𝙽𝚃𝙰𝙲𝚃𝙾 𝙳𝙴 𝙻𝙰 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁𝙰 11 𝙴𝚂 https://instagram.com/gata_dios*
-
-*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴𝙻 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁 12 𝙴𝚂 wa.me/5212412377467*`.trim();
-  const buttonMessage= {
-    'document': {url: `https://github.com/BrunoSobrino/TheMystic-Bot-MD`},
-    'mimetype': `application/${document}`,
-    'fileName': `「  𝑯𝒆𝒍𝒍𝒐 𝑾𝒐𝒓𝒍𝒅 」`,
-    'fileLength': 99999999999999,
-    'pageCount': 200,
-    'contextInfo': {
-      'forwardingScore': 200,
-      'isForwarded': true,
-      'externalAdReply': {
-        'mediaUrl': 'https://github.com/BrunoSobrino/TheMystic-Bot-MD',
-        'mediaType': 2,
-        'previewType': 'pdf',
-        'title': 'ᴇʟ ᴍᴇᴊᴏʀ ʙᴏᴛ ᴅᴇ ᴡʜᴀᴛsᴀᴘᴘ⁩',
-        'body': wm,
-        'thumbnail': imagen1,
-        'sourceUrl': 'https://www.youtube.com/channel/UCSTDMKjbm-EmEovkygX-lCA'}},
-    'caption': text,
-    'footer': wm,
-    // 'buttons':[
-    // {buttonId: `${usedPrefix}menu`, buttonText: {displayText: '𝙼𝙴𝙽𝚄'}, type: 1},
-    // {buttonId: `${usedPrefix}donar`, buttonText: {displayText: '𝙳𝙾𝙽𝙰𝚁'}, type: 1}],
-    'headerType': 6};
-  conn.sendMessage(m.chat, buttonMessage, {quoted: m});
-};
-handler.help = ['owner', 'creator'];
-handler.tags = ['info'];
-handler.command = /^(owner|creator|creador|propietario)$/i;
-export default handler;
+    function ucapan() {
+      const time = moment.tz('Egypt').format('HH')
+      let res = "بداية يوم سعيده ☀️"
+      if (time >= 4) {
+        res = "صباح الخير 🌄"
+      }
+      if (time >= 10) {
+        res = "مساء الخير ☀️"
+      }
+      if (time >= 15) {
+        res = "مساء الخير 🌇"
+      }
+      if (time >= 18) {
+        res = "مساء الخير 🌙"
+      }
+      return res
+      }
