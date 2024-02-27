@@ -47,7 +47,15 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
  ▢ *Tokens:* ${joincount}
  ▢ *Premium:* ${user.premiumTime > 0 ? '✅' : (isPrems ? '✅' : '❌') || ''}
  ${readMore}
-
+1.الى_انمي
+2.الى_جيف
+3.الى_صورة 
+4.الىmp3
+5.الىvn
+6.الى_رابط
+7.الى_فيديو
+8.انطق
+9.انطق2
     `.trim();
 
     // اختيار عشوائي بين الرابطين
