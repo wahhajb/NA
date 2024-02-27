@@ -8,9 +8,8 @@ import { promises } from 'fs'
 import { join } from 'path'
 const time = moment.tz('Egypt').format('HH')
 let wib = moment.tz('Egypt').format('HH:mm:ss')
-//import db from '../lib/database.js'
 
-let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPrems}) => {
+let handler = async (m, { conn, usedPrefix, usedPrefix: _p, __dirname, text, isPrems }) => {
     let d = new Date(new Date + 3600000)
     let locale = 'ar'
     let week = d.toLocaleDateString(locale, { weekday: 'long' })
@@ -19,23 +18,19 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
     let uptime = clockString(_uptime)
     let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
     if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
-    let videoUrl1 = 'https://telegra.ph/file/16eec5dd6cfcf34cc2043.mp4';
-    let videoUrl2 = 'https://telegra.ph/file/7b74465ddc6bfa00a84ff.mp4';
-    let vn = './media/menu.mp3';
     const user = global.db.data.users[m.sender];
-    const {money, joincount} = global.db.data.users[m.sender];
-    const {exp, limit, level, role} = 
-        global.db.data.users[m.sender];
+    const { money, joincount } = global.db.data.users[m.sender];
+    const { exp, limit, level, role } = global.db.data.users[m.sender];
     let { min, xp, max } = xpRange(user.level, global.multiplier)
     let username = conn.getName(who)
     let math = max - xp
     let sn = createHash('md5').update(who).digest('hex')
     let totalreg = Object.keys(global.db.data.users).length;
-    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length 
+    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
     let more = String.fromCharCode(8206)
-    let readMore = more.repeat(900) 
-    const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
-    let str = ` 
+    let readMore = more.repeat(900)
+    const taguser = '@' + m.sender.split('@s.whatsapp.net')[0];
+    let str = `
   ⟫ *مرحبا يا,* ${taguser}
  مرحبا انا سانكارا 
 اذا تبغى الاوامر
@@ -47,19 +42,21 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
 
     `.trim();
 
-    // اختيار عشوائي بين الرابطين
-    const randomVideoUrl = Math.random() < 0.5 ? videoUrl1 : videoUrl2;
+    // اختيار الصورة المستخدمة
+    const imageUrl1 = 'https://example.com/your-image1.jpg';
+    const imageUrl2 = 'https://example.com/your-image2.jpg';
+    const randomImageUrl = Math.random() < 0.5 ? imageUrl1 : imageUrl2;
 
     conn.sendMessage(m.chat, {
-        video: { url: randomVideoUrl }, caption: str,
-        mentions: [m.sender,global.conn.user.jid],
-        gifPlayback: true,gifAttribution: 0
+        image: { url: randomImageUrl }, caption: str,
+        mentions: [m.sender, global.conn.user.jid],
+        gifPlayback: true, gifAttribution: 0
     }, { quoted: m });
-}; 
+};
 
 handler.help = ['main']
 handler.tags = ['group']
-handler.command = ['بوت'] 
+handler.command = ['بوت']
 
 export default handler
 
@@ -86,4 +83,4 @@ function ucapan() {
         res = "مساء الخير 🌙"
     }
     return res
-}
+}  
