@@ -36,26 +36,19 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
     let readMore = more.repeat(900) 
     const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
     let str = ` 
-  ▢ *Hola,* ${taguser}
+  • *مرحبا يا,* ${taguser}
   
- _*< TUS ESTADÍSTICAS />*_
- ▢ *Nivel:* ${level}
- ▢ *Experiencia:* ${exp}
- ▢ *Rango:* ${role}
- ▢ *Diamantes:* ${limit}
- ▢ *MysticCoins:* ${money}
- ▢ *Tokens:* ${joincount}
- ▢ *Premium:* ${user.premiumTime > 0 ? '✅' : (isPrems ? '✅' : '❌') || ''}
- ${readMore}
-1.الى_انمي
-2.الى_جيف
-3.الى_صورة 
-4.الىmp3
-5.الىvn
-6.الى_رابط
-7.الى_فيديو
-8.انطق
-9.انطق2
+ ←🎆مرحبا بك في قاىمة تحويلات🎆→
+→.✨الى_انمي
+→.✨الى_جيف
+→.✨الى_صورة 
+→.✨الىmp3
+→.✨الىvn
+→.✨الى_رابط
+→.✨الى_فيديو
+→.✨انطق
+→.✨انطق2
+
     `.trim();
 
     // اختيار عشوائي بين الرابطين
