@@ -1,7 +1,7 @@
 import {webp2mp4} from '../lib/webp2mp4.js';
 import {ffmpeg} from '../lib/converter.js';
 const handler = async (m, {conn, usedPrefix, command}) => {
-  if (!m.quoted) throw `*[❗😌❗] أجب على ملصق ترغب في تحويله إلى فيديو باستخدام الأمر ${usedPrefix + command}*`;
+  if (!m.quoted) throw `*[❗👍❗] أجب على ملصق ترغب في تحويله إلى فيديو باستخدام الأمر ${usedPrefix + command}*`;
   const mime = m.quoted.mimetype || '';
   if (!/webp/.test(mime)) throw `*[❗😉❗] يرجى الرد على ملصق ترغب في تحويله إلى فيديو باستخدام الأمر ${usedPrefix + command}*`;
   const media = await m.quoted.download();
