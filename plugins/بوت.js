@@ -37,7 +37,14 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
     const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
     let str = ` 
   ⟫ *مرحبا يا,* ${taguser}
- 
+ مرحبا انا سانكارا 
+اذا تبغى الاوامر
+اكتب
+(.اوامر)
+وقت 
+بوت شغال خاص وفي لجروبات كمان 
+اذا تبغى المطور اكتب (.المطور)
+
     `.trim();
 
     // اختيار عشوائي بين الرابطين
