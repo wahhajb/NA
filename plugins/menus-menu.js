@@ -36,24 +36,26 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
     let readMore = more.repeat(900) 
     const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
     let str = ` 
-  ▢ *Hola,* ${taguser}
+  ▢ *مرحبا يا,* ${taguser}
   
- _*< TUS ESTADÍSTICAS />*_
- ▢ *Nivel:* ${level}
- ▢ *Experiencia:* ${exp}
- ▢ *Rango:* ${role}
- ▢ *Diamantes:* ${limit}
- ▢ *MysticCoins:* ${money}
- ▢ *Tokens:* ${joincount}
- ▢ *Premium:* ${user.premiumTime > 0 ? '✅' : (isPrems ? '✅' : '❌') || ''}
+ 🎯* احصائياتك *
+ → *مستوى:* ${level}
+ → *نقاطك:* ${exp}
+ → *رتبة:* ${role}
+ → *ألماس:* ${limit}
+ → *عملك:* ${money}
+ → *توكن:* ${joincount}
+ → *مميز:* ${user.premiumTime > 0 ? '✅' : (isPrems ? '✅' : '❌') || ''}
  ${readMore}
-1.تحويلات
-2.tagall
-3.hidetag
-4.play
-5.play2
-6.المطور
-7....
+ *مرحبا بك في قائمة توضيحية للأوامر في بوت سانكارا*
+ 
+».🎗️*تحويلات*
+».🎡*tagall*
+».🎐*hidetag*
+».🎶*play*
+».🎞️play2
+».👓*المطور*
+»...*coming soon*
     `.trim();
 
     // اختيار عشوائي بين الرابطين
