@@ -44,7 +44,7 @@ let handler = async (m, { conn, usedPrefix, usedPrefix: _p, __dirname, text, isP
 
     // اختيار الصورة المستخدمة
     const imageUrl1 = 'https://telegra.ph/file/c794596e06293dcfbf766.jpg';
-    const imageUrl2 = 'https://example.com/your-image2.jpg';
+    const imageUrl2 = 'https://telegra.ph/file/4ad1bf38a3ef76e41d5eb.jpg';
     const randomImageUrl = Math.random() < 0.5 ? imageUrl1 : imageUrl2;
 
     conn.sendMessage(m.chat, {
