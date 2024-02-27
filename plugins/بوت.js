@@ -43,7 +43,7 @@ let handler = async (m, { conn, usedPrefix, usedPrefix: _p, __dirname, text, isP
     `.trim();
 
     // اختيار الصورة المستخدمة
-    const imageUrl1 = 'https://example.com/your-image1.jpg';
+    const imageUrl1 = 'https://telegra.ph/file/c794596e06293dcfbf766.jpg';
     const imageUrl2 = 'https://example.com/your-image2.jpg';
     const randomImageUrl = Math.random() < 0.5 ? imageUrl1 : imageUrl2;
 
