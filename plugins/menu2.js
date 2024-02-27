@@ -190,7 +190,7 @@ import {
    throw e
   }
  }
- handler.command = /^(menu2|h2|hh|help2|\?)$/i
+ handler.command = /^(kk|h1|hh|help2|\?)$/i
  
 
  
