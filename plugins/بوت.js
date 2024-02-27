@@ -32,7 +32,7 @@ let handler = async (m, { conn, usedPrefix, usedPrefix: _p, __dirname, text, isP
     const taguser = '@' + m.sender.split('@s.whatsapp.net')[0];
     let str = `
   ⟫ *مرحبا يا,* ${taguser}
- *مرحبا انا سانكارا* 
+ *مرحبا انا سونكاراا* 
 *اذا تبغى الاوامر*
 *اكتب*
 (. *اوامر* )
