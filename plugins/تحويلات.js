@@ -20,7 +20,7 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
     let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
     if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
     let videoUrl1 = 'https://telegra.ph/file/c8ce091cfe6354a5b29af.mp4';
-    let videoUrl2 = 'https://telegra.ph/file/0e5232a2955f2b33d9ec0.mp4';
+    let videoUrl2 = 'https://telegra.ph/file/389ad77c830a785555d75.mp4';
     let vn = './media/menu.mp3';
     const user = global.db.data.users[m.sender];
     const {money, joincount} = global.db.data.users[m.sender];
