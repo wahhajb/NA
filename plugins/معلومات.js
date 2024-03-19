@@ -7,23 +7,11 @@ conn.sendFile(m.chat, haha, 'error.jpg', `
  
  *『 ️الوتس 』⇦*
  
- https://wa.me/+905360504045?text=جاي_من_البوت_🫴🫀
+ https://wa.me/+22247072475?text=جاي_من_البوت_🫴🫀
  
  
 
-*『 ️جروب الوتس 』⇦*
-
-https://chat.whatsapp.com/IqinkrUsBHzCWX8DdvUHLv
-
-
-*『 ️الانستا 』⇦*
- 
-https://www.instagram.com/_ahmad__khattab_?igsh=MXFmaGFkOWg5MTc1Yw==
-
-*♡  ㅤ    ❍ㅤ     ⎙ㅤ     ⌲*
-*Like  comment   seva   send*
-
-✧ ▬▭▬ ✦✧✦ ▬▭▬ ✧ `, m)
+ `, m)
 }
 handler.command = handler.help = ['معلومات','الدعم']
 handler.tags = ['kaneki']
