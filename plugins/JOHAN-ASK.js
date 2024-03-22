@@ -14,7 +14,7 @@ const handler = async (m, {conn, usedPrefix}) => {
     conn.reply(m.chat, tradutor.texto1, conn.tekateki[id][0]);
     throw false;
   }
-  const tekateki = JSON.parse(fs.readFileSync(`./src/game/acertijo.json`));
+  const tekateki = JSON.parse(fs.readFileSync(`./src/game/dean.json`));
   const json = tekateki[Math.floor(Math.random() * tekateki.length)];
   const _clue = json.response;
   const clue = _clue.replace(/[A-Za-z]/g, '_');
@@ -33,5 +33,5 @@ ${tradutor.texto2[1]} +${poin} Exp
 };
 handler.help = ['acertijo'];
 handler.tags = ['game'];
-handler.command = /^(acertijo|acert|pregunta|adivinanza|tekateki)$/i;
+handler.command = /^(دين|acert|pregunta|adivinanza|tekateki)$/i;
 export default handler;
