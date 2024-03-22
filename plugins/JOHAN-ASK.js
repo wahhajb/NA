@@ -1,37 +1,38 @@
-import fs from 'fs';
-import _translate from "./_translate.js"
-const tradutor = _translate.plugins.game_acertijo
-// Para configurar o idioma, na raiz do projeto altere o arquivo config.json
-// Para configurar el idioma, en la raíz del proyecto, modifique el archivo config.json.
-// To set the language, in the root of the project, modify the config.json file.
+import fs from 'fs'
 
-const timeout = 60000;
-const poin = 500;
-const handler = async (m, {conn, usedPrefix}) => {
-  conn.tekateki = conn.tekateki ? conn.tekateki : {};
-  const id = m.chat;
-  if (id in conn.tekateki) {
-    conn.reply(m.chat, tradutor.texto1, conn.tekateki[id][0]);
-    throw false;
-  }
-  const tekateki = JSON.parse(fs.readFileSync(`./src/game/dean.json`));
-  const json = tekateki[Math.floor(Math.random() * tekateki.length)];
-  const _clue = json.response;
-  const clue = _clue.replace(/[A-Za-z]/g, '_');
-  const caption = `
+let timeout = 60000
+let poin = 500
+
+let handler = async (m, { conn, usedPrefix }) => {
+    conn.tekateki = conn.tekateki ? conn.tekateki : {}
+    let id = m.chat
+    if (id in conn.tekateki) {
+        conn.reply(m.chat, '❐┃لم يتم الاجابة علي السؤال بعد┃❌ ❯', conn.tekateki[id][0])
+        throw false
+    }
+    let tekateki = JSON.parse(fs.readFileSync(`./src/game/acertijo.json`))
+    let json = tekateki[Math.floor(Math.random() * tekateki.length)]
+    let _clue = json.response
+    let clue = _clue.replace(/[A-Za-z]/g, '_')
+    let caption = `
 ⷮ *${json.question}*
-${tradutor.texto2[0]} ${(timeout / 1000).toFixed(2)} segundos
-${tradutor.texto2[1]} +${poin} Exp
-`.trim();
-  conn.tekateki[id] = [
-    await conn.reply(m.chat, caption, m), json,
-    poin,
-    setTimeout(async () => {
-      if (conn.tekateki[id]) await conn.reply(m.chat, `${tradutor.texto3} ${json.response}`, conn.tekateki[id][0]);
-      delete conn.tekateki[id];
-    }, timeout)];
-};
-handler.help = ['acertijo'];
-handler.tags = ['game'];
-handler.command = /^(دين|acert|pregunta|adivinanza|tekateki)$/i;
-export default handler;
+
+*❐↞┇الـوقـت⏳↞ ${(timeout / 1000).toFixed(2)}┇*
+*❐↞┇الـجـائـزة💰↞ ${poin} نقاط┇*
+*★صنع بحب من قبل يوهان★*
+`.trim()
+    conn.tekateki[id] = [
+       await conn.reply(m.chat, caption, m),
+        json, poin,
+        setTimeout(async () => {
+            if (conn.tekateki[id]) await conn.reply(m.chat, `*❮ ⌛┇انتهي الوقت┇⌛❯*\n *❐↞┇الاجـابـة✅↞ ${json.response}┇*`, conn.tekateki[id][0])
+            delete conn.tekateki[id]
+        }, timeout)
+    ]
+}
+
+handler.help = ['acertijo']
+handler.tags = ['game']
+handler.command = /^(سؤ|دين)$/i
+
+export default handler
