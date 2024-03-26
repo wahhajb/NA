@@ -46,7 +46,7 @@ conn.sendMessage(m.chat, {
 }; 
 handler.help = ['main']
 handler.tags = ['group']
-handler.command = ['يوهان'] 
+handler.command = ['المهام'] 
 
 export default handler
 function clockString(ms) {
