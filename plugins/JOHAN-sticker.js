@@ -1,4 +1,5 @@
 let axios = require('axios')
+const { MessageType } = require('@adiwajshing/baileys')
 
 let handler = async (m, { conn }) => {
     let res = await axios.get('https://telegra.ph/file/ea03bbc1d2dbd77af8a57.jpg', { responseType: 'arraybuffer' })
