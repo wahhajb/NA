@@ -6,7 +6,7 @@ let done = '🩶';
     let taguser = '@' + m.sender.split("@s.whatsapp.net")[0];
     let message = `تقصد نفسك`;
 
-    conn.sendFile(m.chat, 'تحط الصوره هنا تليجرام', 'image.jpg', message, m);
+    conn.sendFile(m.chat, 'https://telegra.ph/file/ff953c8a1a8329c441961.jpg', 'image.jpg', message, m);
 };
 
 handler.customPrefix = /^(bot|بوت)$/i;
