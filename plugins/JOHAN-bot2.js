@@ -1,5 +1,5 @@
 let handler = async (m, { conn }) => {
-let done = '🩶'; 
+let done = '🐤'; 
        m.react(done);
     let user = global.db.data.users[m.sender];
     let name = conn.getName(m.sender);
