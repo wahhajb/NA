@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-let data = JSON.parse(fs.readFileSync('src/games/anime_characters.json'));
+let data = JSON.parse(fs.readFileSync('./src/game/cah.json'));
 
 let handler = async (m, { conn }) => {
     let randomIndex = Math.floor(Math.random() * data.length);
