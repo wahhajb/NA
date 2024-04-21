@@ -11,7 +11,7 @@ const handler = async (m, {conn, usedPrefix, command}) => {
   if (!res.ok) throw await res.text();
   const json = await res.json();
   if (!json.url) throw 'Error!';
-  conn.sendFile(m.chat, json, 'error.jpg', , m);
+  conn.sendFile(m.chat, res, 'error.jpg', json.url, m);
 // conn.sendButton(m.chat, `𝙰-𝙰𝚁𝙰 𝙰𝚁𝙰 𝚂𝙴𝙼𝙿𝙰𝙸~~`, author, json.url, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], m)
 };
 handler.help = ['waifu'];
