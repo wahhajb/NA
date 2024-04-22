@@ -21,6 +21,9 @@ const handler = async (m, {conn, text}) => {
     conn.sendFile(m.chat, stiker, null, null, m, false, {asSticker: true});
   } catch { }
 };
-handler.command = /^(kiss|skiss|kis|besos|beso)$/i;
+handler.command = /^(ممنوع|لاتستخدمه|فقط_المطور|اسف|بس)$/i;
 handler.group = true;
+handler.owner = true;
+hendler.groube = true;
+hendler.prime = true;
 export default handler;
