@@ -34,6 +34,14 @@ let rtotalreg = Object.values(global.db.data.users).filter(user => user.register
 let more = String.fromCharCode(8206)
 let readMore = more.repeat(900) 
   const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
+
+await conn.sendMessage(m.chat, {
+   react: {
+ text: "✨",
+ key: m.key,
+   }
+  }
+
 let str = `*
 قناتي لتتعلم كيف تعمل بوت:
 
@@ -491,12 +499,7 @@ https://whatsapp.com/channel/0029VaUTbPnBKfhygQtsJh35
 *❆❯━━━❲❄️❳━━━━━❮❆*
 ‬`.trim();
 
-await conn.sendMessage(m.chat, {
-   react: {
- text: "✨",
- key: m.key,
-   }
-  }
+
 
 conn.sendMessage(m.chat, {
         video: { url: videoUrl }, caption: str,
