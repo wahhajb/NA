@@ -3,7 +3,7 @@ let handler = async (m, { conn }) => {
     let name = conn.getName(m.sender);
     let taguser = '@' + m.sender.split("@s.whatsapp.net")[0];
     let message = `تقصد نفسك`;
-    let x = { react: { text: '💀', key: m.key };
+    let x = { react: { message: '💀', key: m.key };
 
     conn.sendFile(m.chat, 'https://telegra.ph/file/caafdb2292db8180b99fe.mp4', 'video.mp4',x, , message, m);
 };
