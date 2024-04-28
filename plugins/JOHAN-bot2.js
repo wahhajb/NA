@@ -5,7 +5,7 @@ let handler = async (m, { conn }) => {
     let message = `تقصد نفسك`;
     
 
-    conn.sendFile(m.chat, 'https://telegra.ph/file/caafdb2292db8180b99fe.mp4', 'video.mp4', message, m);
+    conn.sendFile(m.chat, 'https://telegra.ph/file/caafdb2292db8180b99fe.mp4', 'video.mp4',{ react: { text: '💀', key: m.key } , message, m);
 };
 
 handler.customPrefix = /^(bot|بوت)$/i;
