@@ -5,7 +5,7 @@ let handler = async (m, { conn }) => {
     let message = `تقصد نفسك`;
     await conn.sendMessage(m.chat, {
    react: {
- text: "⚽",
+ text: "💀",
  key: m.key,
    }
   })
