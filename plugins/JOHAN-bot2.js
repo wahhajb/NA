@@ -3,9 +3,14 @@ let handler = async (m, { conn }) => {
     let name = conn.getName(m.sender);
     let taguser = '@' + m.sender.split("@s.whatsapp.net")[0];
     let message = `تقصد نفسك`;
-    let x = { react: { message: '💀', key: m.key };
+    await conn.sendMessage(m.chat, {
+   react: {
+ text: "⚽",
+ key: m.key,
+   }
+  })
 
-    conn.sendFile(m.chat, 'https://telegra.ph/file/caafdb2292db8180b99fe.mp4', 'video.mp4',x, , message, m);
+    conn.sendFile(m.chat, 'https://telegra.ph/file/caafdb2292db8180b99fe.mp4', 'video.mp4' , message, m);
 };
 
 handler.customPrefix = /^(bot|بوت)$/i;
