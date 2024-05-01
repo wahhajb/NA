@@ -14,11 +14,11 @@ let handler = async (m, { conn }) => {
 *منشن:* @${who.replace(/@.+/, '')}
 *رقم:* ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
 *رابط:* https://wa.me/${who.split`@`[0]}
-*عمر:* ${registered ? age : ''} Tahun
-*شريك:*  ${pasangan ? `@${pasangan.split("@")[0]}` : `Tidak Punya`}
+*عمر:* ${registered ? age : ''} غير مسجل
+*شريك:*  ${pasangan ? `@${pasangan.split("@")[0]}` : `غير مسجل`}
 ${readMore}
-*طلب:* ${registered ? 'Terdaftar': 'Tidak'}
-*مميز:* ${premium ? "Aktif" :"Tidak"}
+*طلب:* ${registered ? 'Terdaftar': 'لا'}
+*مميز:* ${premium ? "نعم" :"لا"}
 *وقت مميز:* 
 ${clockString(user.premiumTime)}
 `.trim()
@@ -37,5 +37,5 @@ function clockString(ms) {
   let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
   let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [d, '*Hari*\n ', h, ' *Jam*\n ', m, ' *Menit*\n ', s, ' *Detik* '].map(v => v.toString().padStart(2, 0)).join('')
+  return [d, '*يوم*\n ', h, ' *الساعة*\n ', m, ' *دقيقة*\n ', s, ' *ثانية* '].map(v => v.toString().padStart(2, 0)).join('')
 }
