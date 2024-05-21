@@ -4,7 +4,7 @@ let handler = async (m, { conn, text }) => {
     let who
     if (m.isGroup) who = m.mentionedJid[0]
     else who = m.chat
-    if (!who) throw '✳️ منشن المتخدم'
+    if (!who) throw '✳️ منشن المستخدم'
     let txt = text.replace('@' + who.split`@`[0], '').trim()
     if (!txt) throw '✳️ أدخل المبلغ * الحد * الذي تريد إضافته'
     if (isNaN(txt)) throw '🔢 مجرد ارقام'
@@ -18,7 +18,7 @@ let handler = async (m, { conn, text }) => {
     await m.reply(`≡ *💎 
 إضافة*
 ┌──────────────
-▢ *Total:* ${dmt}
+▢ *المجموعه:* ${dmt}
 └──────────────`)
    conn.fakeReply(m.chat, `▢ 
 يحصل \n\n *+${dmt}* الحد`, who, m.text)
