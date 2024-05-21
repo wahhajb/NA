@@ -18,7 +18,7 @@ let handler = async (m, {conn, text }) => {
 }
 handler.help = ['ytsearch *<texto>*'] 
 handler.tags = ['search']
-handler.command = ['يوتيوبس', 'بحثيوت'] 
+handler.command = ['يوتيوبس', 'بحث'] 
 
 
 export default handler
