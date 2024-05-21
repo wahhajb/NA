@@ -4,69 +4,65 @@ import cheerio from 'cheerio';
 import {tiktok} from '@xct007/frieren-scraper';
 import {generateWAMessageFromContent} from '@whiskeysockets/baileys';
 import {tiktokdl} from '@bochilteam/scraper';
-
-
-
 const CFROSAPI = global.APIs.CFROSAPI;
 const handler = async (m, {conn, text, args, usedPrefix, command}) => {
-  const datas = global
-  const idioma = datas.db.data.users[m.sender].language
-  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
-  const tradutor = _translate.plugins.descargas_tiktok
-
-
-  if (!text) throw `${tradutor.texto1} _${usedPrefix + command} https://vm.tiktok.com/ZM686Q4ER/_`;
-  if (!/(?:https:?\/{2})?(?:w{3}|vm|vt|t)?\.?tiktok.com\/([^\s&]+)/gi.test(text)) throw `${tradutor.texto2} _${usedPrefix + command} https://vm.tiktok.com/ZM686Q4ER/_`;
-  const texto = `${tradutor.texto3}`;
+  if (!text) throw `_*تيك توك*_\n\n*_Past a tiktok link._*\n\n*_Example:_* _${usedPrefix + command} Url here_`;
+  if (!/(?:https:?\/{2})?(?:w{3}|vm|vt|t)?\.?tiktok.com\/([^\s&]+)/gi.test(text)) throw `_*PRINCE TIKTOK DL*_\n\n*_Enter a TikTok link._*\n\n*_Example:_* _${usedPrefix + command} Url here_`;
+  
   // let buttons = [{ buttonText: { displayText: '♫ 𝙰𝚄𝙳𝙸𝙾 ♫' }, buttonId: `${usedPrefix}tomp3` }]
   try {
-    const aa = {quoted: m, userJid: conn.user.jid};
-    const prep = generateWAMessageFromContent(m.chat, {extendedTextMessage: {text: texto, contextInfo: {externalAdReply: {title: 'ᴛʜᴇ ᴍʏsᴛɪᴄ - ʙᴏᴛ', body: null, thumbnail: imagen1, sourceUrl: 'https://github.com/BrunoSobrino/TheMystic-Bot-MD'}, mentionedJid: [m.sender]}}}, aa);
-    await conn.relayMessage(m.chat, prep.message, {messageId: prep.key.id, mentions: [m.sender]});
+    m.react(rwait)
     const dataFn = await conn.getFile(`${CFROSAPI}/api/tiktokv2?url=${args[0]}`);
-    const desc1n = `${tradutor.texto4[0]} _${usedPrefix}tomp3_ ${tradutor.texto4[1]}`;
+    const desc1n = `*_Here is your requested video_*`;
     await conn.sendMessage(m.chat, {video: dataFn.data, caption: desc1n}, {quoted: m});
+ m.react(done)
   } catch (ee1) {
+    
   try {
     //const aa = {quoted: m, userJid: conn.user.jid};
-    //const prep = generateWAMessageFromContent(m.chat, {extendedTextMessage: {text: texto, contextInfo: {externalAdReply: {title: 'ᴛʜᴇ ᴍʏsᴛɪᴄ - ʙᴏᴛ', body: null, thumbnail: imagen1, sourceUrl: 'https://github.com/BrunoSobrino/TheMystic-Bot-MD'}, mentionedJid: [m.sender]}}}, aa);
+    //const prep = generateWAMessageFromContent(m.chat, {extendedTextMessage: {text: texto, contextInfo: {externalAdReply: {title: '𝘗𝘙𝘐𝘕𝘊𝘌-𝘉𝘖𝘛-𝘔𝘋', body: null, thumbnail: imagen1, sourceUrl: 'https://github.com/PRINCE-GDS/THE-PRINCE-BOT'}, mentionedJid: [m.sender]}}}, aa);
     //await conn.relayMessage(m.chat, prep.message, {messageId: prep.key.id, mentions: [m.sender]});
     const dataF = await tiktok.v1(args[0]);
-    // let desc1 =  `*𝙽𝙸𝙲𝙺𝙽𝙰𝙼𝙴:* ${dataF.nickname || 'Indefinido'}`
-    const desc1 = `${tradutor.texto5[0]} _${usedPrefix}tomp3_ ${tradutor.texto5[1]}`;
+    // let desc1 =  `*كنيه:* ${dataF.nickname || 'Indefinido'}`
+    const desc1 = `*_تم التحميل_*`;
     await conn.sendMessage(m.chat, {video: {url: dataF.play}, caption: desc1}, {quoted: m});
+  m.react(done)
   } catch (e1) {
     try {
       const tTiktok = await tiktokdlF(args[0]);
-      // let desc2 = `🔗 *Url:* ${tTiktok.video}`
-      const desc2 = `${tradutor.texto6[0]} _${usedPrefix}tomp3_ ${tradutor.texto6[1]}`;
+      // let desc2 = `🔗 *الرابط:* ${tTiktok.video}`
+      const desc2 = `*_تم التحميل_*`;
       await conn.sendMessage(m.chat, {video: {url: tTiktok.video}, caption: desc2}, {quoted: m});
+    m.react(done)
     } catch (e2) {
       try {
         const p = await fg.tiktok(args[0]);
-        // let te = `*𝚄𝚂𝙴𝚁𝙽𝙰𝙼𝙴:* ${p.author || 'Indefinido'}`
-        const te = `${tradutor.texto7[0]} _${usedPrefix}tomp3_ ${tradutor.texto7[1]}`;
+        // let te = `*الاسم:* ${p.author || 'Indefinido'}`
+        const te = `*_تم التحميل_*`;
         await conn.sendMessage(m.chat, {video: {url: p.nowm}, caption: te}, {quoted: m});
+    m.react(done)
       } catch (e3) {
         try {
           const {author: {nickname}, video, description} = await tiktokdl(args[0]);
           const url = video.no_watermark2 || video.no_watermark || 'https://tikcdn.net' + video.no_watermark_raw || video.no_watermark_hd;
-          // let cap = `*𝙽𝙸𝙲𝙺𝙽𝙰𝙼𝙴:* ${nickname || 'Indefinido'}`
-          const cap = `${tradutor.texto8[0]} _${usedPrefix}tomp3_ ${tradutor.texto8[1]}`;
+          // let cap = `*كنيه:* ${nickname || 'Indefinido'}`
+          const cap = `*_تم التحميل_*`;
           await conn.sendMessage(m.chat, {video: {url: url}, caption: cap}, {quoted: m});
+      m.react(done)
         } catch {
-          throw `${tradutor.texto9}`;
+          throw `*_حصل خطاء يرجى المحاوله لاحقاً._*`;
           }
         }
       }
     }
   }
 };
-handler.command = /^(تيك|ttdl|tiktokdl|tiktoknowm|tt|ttnowm|tiktokaudio)$/i;
+handler.command = /^(تيك-توك|tk|ttdl|tiktokdl|tiktoknowm|تيك|ttnowm|tiktokaudio)$/i;
+handler.tags = ['downloader'];
 export default handler;
 
 async function tiktokdlF(url) {
-  if (!/tiktok/.test(url)) return `${tradutor.texto10} _${usedPrefix + command} https://vm.tiktok.com/ZM686Q4ER/_`;
+  if (!/tiktok/.test(url)) return `_*تيك توك*_\n\n*_Past a tiktok link._*\n\n*_Example:_* _${usedPrefix + command} Url here_`;
   const gettoken = await axios.get('https://tikdown.org/id');
   const $ = cheerio.load(gettoken.data);
   const token = $('#download-form > input[type=hidden]:nth-child(2)').attr( 'value' );
@@ -78,4 +74,4 @@ async function tiktokdlF(url) {
   } else {
     return {status: false};
   }
-}
+      }
