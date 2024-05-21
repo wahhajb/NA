@@ -1,63 +1,134 @@
-import fetch from "node-fetch";
-import uploadImage from "../lib/uploadImage.js";
-let handler = async (m, { conn, usedPrefix, command }) => {
-conn.unblur_high = conn.unblur_high ? conn.unblur_high : {}
-if (m.sender in conn.unblur_high) throw "*تحويل صورة قديمة الى صورة ذات جودة عالية*"
-let q = m.quoted ? m.quoted : m
-let mime = (q.msg || q).mimetype || q.mediaType || ""
-if (!mime) throw `*ارسل صورة مصحوبة بكلمة ${usedPrefix + command}*`
-if (!/image\/(jpe?g|png)/.test(mime)) throw `*[❗] 𝙴𝙻 𝙵𝙾𝚁𝙼𝙰𝚃𝙾 𝙳𝙴𝙻 𝙰𝚁𝙲𝙷𝙸𝚅𝙾 (${mime}) 𝙽𝙾 𝙴𝚂 𝙲𝙾𝙼𝙿𝙰𝚁𝚃𝙸𝙱𝙻𝙴, 𝙴𝙽𝚅𝙸𝙰 𝙾 𝚁𝙴𝚂𝙿𝙾𝙽𝙳𝙴 𝙰 𝚄𝙽𝙰 𝙵𝙾𝚃𝙾*`
-else conn.unblur_high[m.sender] = true
-m.reply('*جاري معالجة الصورة*')
-let img = await q.download?.()
-let upld = await uploadImage(img)
-let img2
-try {
-img2 = await fetch(`https://api.itsrose.site/image/unblur?url=${upld}&apikey=${global.itsrose}`)
-let image = await img2.arrayBuffer()
-conn.sendFile(m.chat, image, null, '', m)
-} catch {
-m.reply("*error*");
-} finally {
-delete conn.unblur_high[m.sender]
-}}
-handler.help = ["remini", "hd", "enhance"]
-handler.tags = ["ai", "tools"]
-handler.command = ["remini", "hd", "جوده"]
-export default handler
+import FormData from "form-data";
+import Jimp from "jimp";
 
-/*import uploadImage from '../lib/uploadImage.js'
-import deepai from 'deepai'
-import fetch from 'node-fetch'
-import FormData from 'form-data'
-deepai.setApiKey('04f02780-e0bd-44c1-afa2-14cf5a78948c')
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-let q = m.quoted ? m.quoted : m
-let mime = (q.msg || q).mimetype || q.mediaType || ''
-if (/image/g.test(mime) && !/webp/g.test(mime)) {
-try {
-let img = await q.download?.()
-let out = await uploadImage(img)
-var resp = await deepai.callStandardApi("waifu2x", { image: out })
-let w2x1 = resp['output_url']
-var resep = await deepai.callStandardApi("waifu2x", { image: w2x1 })
-let w2x2 = resep['output_url']
-var resup = await   deepai.callStandardApi("torch-srgan", { image: w2x2 })
-await conn.sendFile(m.chat, resup['output_url'], 'error.png', '', m)
-} catch {
-await m.reply(global.wait)
-let q = m.quoted ? m.quoted : m
-let mime = (q.msg || q).mimetype || q.mediaType || ''
-if (!mime) throw '*[❗] 𝙴𝙽𝚅𝙸𝙰 𝙾 𝚁𝙴𝚂𝙿𝙾𝙽𝙳𝙴 𝙰 𝚄𝙽𝙰 𝙵𝙾𝚃𝙾*'
-if (!/image\/(jpe?g|png)/.test(mime)) throw `*[❗] 𝙴𝙻 𝙵𝙾𝚁𝙼𝙰𝚃𝙾 𝙳𝙴𝙻 𝙰𝚁𝙲𝙷𝙸𝚅𝙾 (${mime}) 𝙽𝙾 𝙴𝚂 𝙲𝙾𝙼𝙿𝙰𝚁𝚃𝙸𝙱𝙻𝙴, 𝙴𝙽𝚅𝙸𝙰 𝙾 𝚁𝙴𝚂𝙿𝙾𝙽𝙳𝙴 𝙰 𝚄𝙽𝙰 𝙵𝙾𝚃𝙾*`
-let img = await q.download()
-let body = new FormData
-body.append('image', img, 'image')
-let res = await fetch('http://max-image-resolution-enhancer.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/model/predict', { method: 'POST', body })
-if (res.status !== 200) throw await res.json()
-await conn.sendFile(m.chat, await res.buffer(), 'error.jpg', '', m)}} else {
-m.reply(`*[❗] 𝙴𝙽𝚅𝙸𝙴 𝚄𝙽𝙰 𝙸𝙼𝙰𝙶𝙴𝙽 𝙾 𝚁𝙴𝚂𝙿𝙾𝙽𝙳𝙰 𝙰 𝚄𝙽𝙰 𝙸𝙼𝙰𝙶𝙴𝙽 𝙲𝙾𝙽 𝙴𝙻 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 ${usedPrefix + command}*`)}}
-handler.help = ['hd', 'enhance']
-handler.tags = ['tools']
-handler.command = /^(hd|enhance)$/i
-export default handler*/
+let handler = async (m, { conn, usedPrefix, command }) => {
+	switch (command) {
+		case "dehaze":
+			{
+				conn.enhancer = conn.enhancer ? conn.enhancer : {};
+				let q = m.quoted ? m.quoted : m;
+				let mime = (q.msg || q).mimetype || q.mediaType || "";
+				if (!mime)
+					throw `رد على الصوره`;
+				if (!/image\/(jpe?g|png)/.test(mime))
+					throw `Mime ${mime} tidak support`;
+				else conn.enhancer[m.sender] = true;
+				m.reply(wait);
+				let img = await q.download?.();
+				let error;
+				try {
+					const This = await processing(img, "dehaze");
+					conn.sendFile(m.chat, This, "", "تم الرفع", m);
+				} catch (er) {
+					error = true;
+				} finally {
+					if (error) {
+						m.reply("Proses Gagal :(");
+					}
+					delete conn.enhancer[m.sender];
+				}
+			}
+			break;
+		case "recolor":
+			{
+				conn.recolor = conn.recolor ? conn.recolor : {};
+				let q = m.quoted ? m.quoted : m;
+				let mime = (q.msg || q).mimetype || q.mediaType || "";
+				if (!mime)
+					throw `رد على الصوره`;
+				if (!/image\/(jpe?g|png)/.test(mime))
+					throw `Mime ${mime} tidak support`;
+				else conn.recolor[m.sender] = true;
+				m.reply(wait);
+				let img = await q.download?.();
+				let error;
+				try {
+					const This = await processing(img, "recolor");
+					conn.sendFile(m.chat, This, "", "تم الرفع", m);
+				} catch (er) {
+					error = true;
+				} finally {
+					if (error) {
+						m.reply("Proses Gagal :(");
+					}
+					delete conn.recolor[m.chat];
+				}
+			}
+			break;
+		case "hdr":
+			{
+				conn.hdr = conn.hdr ? conn.hdr : {};
+				let q = m.quoted ? m.quoted : m;
+				let mime = (q.msg || q).mimetype || q.mediaType || "";
+				if (!mime)
+					throw `photo?`;
+				if (!/image\/(jpe?g|png)/.test(mime))
+					throw `Mime ${mime} tidak support`;
+				else conn.hdr[m.sender] = true;
+				m.reply(wait);
+				let img = await q.download?.();
+				let error;
+				try {
+					const This = await processing(img, "enhance");
+					conn.sendFile(m.chat, This, "", "تم رفع الجوده", m);
+				} catch (er) {
+					error = true;
+				} finally {
+					if (error) {
+						m.reply("Proses Gagal :(");
+					}
+					delete conn.hdr[m.sender];
+				}
+			}
+			break;
+	}
+};
+handler.help = ["dehaze","recolor","hdr"];
+handler.tags = ["tools"];
+handler.command = ["dehaze","جوده","hdr"];
+export default handler;
+
+async function processing(urlPath, method) {
+	return new Promise(async (resolve, reject) => {
+		let Methods = ["enhance", "recolor", "dehaze"];
+		Methods.includes(method) ? (method = method) : (method = Methods[0]);
+		let buffer,
+			Form = new FormData(),
+			scheme = "https" + "://" + "inferenceengine" + ".vyro" + ".ai/" + method;
+		Form.append("model_version", 1, {
+			"Content-Transfer-Encoding": "binary",
+			contentType: "multipart/form-data; charset=uttf-8",
+		});
+		Form.append("image", Buffer.from(urlPath), {
+			filename: "enhance_image_body.jpg",
+			contentType: "image/jpeg",
+		});
+		Form.submit(
+			{
+				url: scheme,
+				host: "inferenceengine" + ".vyro" + ".ai",
+				path: "/" + method,
+				protocol: "https:",
+				headers: {
+					"User-Agent": "okhttp/4.9.3",
+					Connection: "Keep-Alive",
+					"Accept-Encoding": "gzip",
+				},
+			},
+			function (err, res) {
+				if (err) reject();
+				let data = [];
+				res
+					.on("data", function (chunk, resp) {
+						data.push(chunk);
+					})
+					.on("end", () => {
+						resolve(Buffer.concat(data));
+					});
+				res.on("error", (e) => {
+					reject();
+				});
+			}
+		);
+	});
+}
