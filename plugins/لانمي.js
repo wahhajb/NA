@@ -3,7 +3,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 let q = m.quoted ? m.quoted : m
 let mime = (q.msg || q).mimetype || q.mediaType || ""
 if (!/image/g.test(mime)) throw  '*Respond to a image* '
-m.reply('*تحويل صورة لانمي* \n ثانية من وقتك تابع صاحب البوت في قناته حتى تكون اول من يصله جديد البوتات  \n https://whatsapp.com/channel/0029VaUTbPnBKfhygQtsJh35 ')    
+m.reply('*تحويل صورة لانمي*')    
 let data = await q.download?.()
 let image = await uploadImage(data)
 try {
