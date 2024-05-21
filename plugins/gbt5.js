@@ -104,5 +104,5 @@ const handler = async (m, {conn, text, usedPrefix, command}) => {
   }}
  }}
 };
-handler.command = /^(gpt|هنري)$/i;
+handler.command = /^(gpt|هيسوكا)$/i;
 export default handler;
