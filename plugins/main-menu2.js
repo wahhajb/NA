@@ -34,10 +34,7 @@ let rtotalreg = Object.values(global.db.data.users).filter(user => user.register
 let more = String.fromCharCode(8206)
 let readMore = more.repeat(900) 
   const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
-let str = `*
-قناتي لتتعلم كيف تعمل بوت:
-
-https://whatsapp.com/channel/0029VaUTbPnBKfhygQtsJh35
+let str = `
 
 *💥❯══⊹⊱≼ اوامر البوت ≽⊰⊹══❮💥*
 
@@ -308,6 +305,9 @@ https://whatsapp.com/channel/0029VaUTbPnBKfhygQtsJh35
 *⚡┣.Yts*
 ❍↜بينزل فيديوهات بجوده عاليه
 
+*⚡┣.ميديافاير*
+❍↜بيحمل من ميديافاير 
+
 *❆❯══⊹⊱≼ ❄️ ≽⊰⊹══❮❆*
 
 *『 ️☁️ 』⇦ قسم البحث ╿↶*
@@ -489,8 +489,6 @@ https://whatsapp.com/channel/0029VaUTbPnBKfhygQtsJh35
 *❆❯══⊹⊱≼ ❄️ ≽⊰⊹══❮❆*
 
 ❍↜صلي علي النبي 🤍-
-
-❍↜رقمي 🤍-
 
 
 
