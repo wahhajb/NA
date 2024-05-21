@@ -9,11 +9,11 @@ let handler = async (m, { conn, usedPrefix: prefix, command, text }) => {
       let data = await download(text);
 
       if (data.size.replace(' MB', '') > 200) {
-        return await conn.sendMessage(m.chat, { text: '*⚠️The File Is Too Large.*' }, { quoted: m });
+        return await conn.sendMessage(m.chat, { text: '*⚠️ التطبيق حجمه كبير*' }, { quoted: m });
       }
 
       if (data.size.includes('GB')) {
-        return await conn.sendMessage(m.chat, { text: '*⚠️The File Is Too Large.*' }, { quoted: m });
+        return await conn.sendMessage(m.chat, { text: '*⚠️ التطبيق حجمه كبير*' }, { quoted: m });
       }
 
       await conn.sendMessage(
@@ -27,5 +27,5 @@ let handler = async (m, { conn, usedPrefix: prefix, command, text }) => {
   }
 };
 
-handler.command = /^apk/i;
+handler.command = /^تطبيق/i;
 export default handler;
