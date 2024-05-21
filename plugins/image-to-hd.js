@@ -55,13 +55,13 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				}
 			}
 			break;
-		case "hdr":
+		case "جوده":
 			{
 				conn.hdr = conn.hdr ? conn.hdr : {};
 				let q = m.quoted ? m.quoted : m;
 				let mime = (q.msg || q).mimetype || q.mediaType || "";
 				if (!mime)
-					throw `photo?`;
+					throw `رد على الصوره`;
 				if (!/image\/(jpe?g|png)/.test(mime))
 					throw `Mime ${mime} tidak support`;
 				else conn.hdr[m.sender] = true;
@@ -85,7 +85,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 };
 handler.help = ["dehaze","recolor","hdr"];
 handler.tags = ["tools"];
-handler.command = ["dehaze","جوده","hdr"];
+handler.command = ["جوده","جوده"];
 export default handler;
 
 async function processing(urlPath, method) {
