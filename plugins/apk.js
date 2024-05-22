@@ -27,5 +27,5 @@ let handler = async (m, { conn, usedPrefix: prefix, command, text }) => {
   }
 };
 
-handler.command = /^apk/i;
+handler.command = /^تطبيق/i;
 export default handler;
