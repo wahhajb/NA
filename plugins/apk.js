@@ -18,7 +18,7 @@ let handler = async (m, { conn, usedPrefix: prefix, command, text }) => {
 
       await conn.sendMessage(
         m.chat,
-        { document: { url: data.dllink }, mimetype: 'application/vnd.android.package-archive', fileName: data.name + '.تطبيق', caption: null },
+        { document: { url: data.dllink }, mimetype: 'application/vnd.android.package-archive', fileName: data.name + '.apk', caption: null },
         { quoted: m }
       );
     }
