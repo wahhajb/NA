@@ -2,13 +2,13 @@ import { download } from 'aptoide-scraper';
 
 let handler = async (m, { conn, usedPrefix: prefix, command, text }) => {
   try {
-    if (command === 'apk') {
+    if (command === 'تطبيق') {
       if (!text) throw `🎯حط اسم العبه اللي عايز او التطبيق اللي عايز تنزله وانتظر حتي تتم العملية.`;
 
       await conn.reply(m.chat, global.wait, m);
       let data = await download(text);
 
-      if (data.size.replace(' MB', '') > 200) {
+      if (data.size.replace(' MB', '') > 500) {
         return await conn.sendMessage(m.chat, { text: '*⚠️ التطبيق حجمه كبير*' }, { quoted: m });
       }
 
@@ -18,7 +18,7 @@ let handler = async (m, { conn, usedPrefix: prefix, command, text }) => {
 
       await conn.sendMessage(
         m.chat,
-        { document: { url: data.dllink }, mimetype: 'application/vnd.android.package-archive', fileName: data.name + '.apk', caption: null },
+        { document: { url: data.dllink }, mimetype: 'application/vnd.android.package-archive', fileName: data.name + '.تطبيق', caption: null },
         { quoted: m }
       );
     }
