@@ -1,116 +1,155 @@
-import fetch from 'node-fetch';
-import axios from 'axios';
-import {youtubedl, youtubedlv2} from '@bochilteam/scraper';
-import fs from "fs";
-import yts from 'yt-search';
+/*let fs = require("fs");
+let ytdl = require("distube/ytdl-core");
 
-let limit1 = 100;
-let limit2 = 400;
-let limit_a1 = 50;
-let limit_a2 = 400;
-const handler = async (m, {conn, command, args, text, usedPrefix}) => {
-  const datas = global
-  const idioma = datas.db.data.users[m.sender].language
-  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
-  const tradutor = _translate.plugins.descargas_play
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+	conn["youtube_mp4"] = conn["youtube_mp4"] ? conn["youtube_mp4"] : {};
+	if (m.sender in conn["youtube_mp4"]) {
+		return;
+	}
 
-  if (!text) throw `${tradutor.texto1[0]} _${usedPrefix + command} ${tradutor.texto1[1]}`;
-    const yt_play = await search(args.join(' '));
-    let additionalText = '';
-    if (command === 'play') {
-      additionalText = 'audio';
-    } else if (command === 'play2') {
-      additionalText = 'vídeo';
-    }
-    const texto1 = `${tradutor.texto2[0]} ${yt_play[0].title}\n\n${tradutor.texto2[1]} ${yt_play[0].ago}\n\n${tradutor.texto2[2]} ${secondString(yt_play[0].duration.seconds)}\n\n${tradutor.texto2[3]} ${`${MilesNumber(yt_play[0].views)}`}\n\n${tradutor.texto2[4]} ${yt_play[0].author.name}\n\n${tradutor.texto2[5]} ${yt_play[0].videoId}\n\n${tradutor.texto2[6]} ${yt_play[0].type}\n\n${tradutor.texto2[7]} ${yt_play[0].url}\n\n${tradutor.texto2[8]} ${yt_play[0].author.url}\n\n${tradutor.texto2[9]} ${additionalText}. ${tradutor.texto2[10]}`.trim();
-    conn.sendMessage(m.chat, {image: {url: yt_play[0].thumbnail}, caption: texto1}, {quoted: m});
-    if (command == 'play') {
-    try {   
-    const audio = global.API('CFROSAPI', `/api/v1/ytmp3?url=${yt_play[0].url}`)
-    const ttl = await yt_play[0].title
-    const buff_aud = await getBuffer(audio);
-    const fileSizeInBytes = buff_aud.byteLength;
-    const fileSizeInKB = fileSizeInBytes / 1024;
-    const fileSizeInMB = fileSizeInKB / 1024;
-    const size = fileSizeInMB.toFixed(2);       
-    if (size >= limit_a2) {  
-    await conn.sendMessage(m.chat, {text: `${tradutor.texto3} _${audio}_`}, {quoted: m});
-    return;    
-    }     
-    if (size >= limit_a1 && size <= limit_a2) {  
-    await conn.sendMessage(m.chat, {document: buff_aud, mimetype: 'audio/mpeg', fileName: ttl + `.mp3`}, {quoted: m});   
-    return;
-    } else {
-    await conn.sendMessage(m.chat, {audio: buff_aud, mimetype: 'audio/mpeg', fileName: ttl + `.mp3`}, {quoted: m});   
-    return;    
-    }} catch {
-    throw tradutor.texto4;    
-    }}
-    if (command == 'play2') {
-    try {   
-    const video = global.API('CFROSAPI', `/api/v1/ytmp4?url=${yt_play[0].url}`)
-    const ttl2 = await yt_play[0].title
-    const buff_vid = await getBuffer(video);
-    const fileSizeInBytes2 = buff_vid.byteLength;
-    const fileSizeInKB2 = fileSizeInBytes2 / 1024;
-    const fileSizeInMB2 = fileSizeInKB2 / 1024;
-    const size2 = fileSizeInMB2.toFixed(2);       
-    if (size2 >= limit2) {  
-    await conn.sendMessage(m.chat, {text: `${tradutor.texto5} _${video}_`}, {quoted: m});
-    return;    
-    }     
-    if (size2 >= limit1 && size2 <= limit2) {  
-    await conn.sendMessage(m.chat, {document: buff_vid, mimetype: 'video/mp4', fileName: ttl2 + `.mp4`}, {quoted: m});   
-    return;
-    } else {
-    await conn.sendMessage(m.chat, {video: buff_vid, mimetype: 'video/mp4', fileName: ttl2 + `.mp4`}, {quoted: m});   
-    return;    
-    }} catch {
-    throw tradutor.texto6;    
+	if (!args[0]) {
+		return m.reply(
+			`example: *${
+				usedPrefix + command
+			}* https://www.youtube.com/watch?v=K9_VFxzCuQ0`
+		);
+	}
+	const isValid = await ytdl.validateURL(args[0]);
+	if (!isValid) {
+		return m.reply("*your link not suported.*");
+	}
+	conn.sendMessage(m.chat, {
+		react: {
+			text: '⏳',
+			key: m.key,
+		}
+	});
+
+	const _filename = `./tmp/${Math.random().toString(36).substring(2, 7)}.mp4`;
+	const writer = fs.createWriteStream(_filename);
+
+	conn["youtube_mp4"][m.sender] = true;
+	try {
+		const { formats, videoDetails } = await ytdl.getInfo(args[0]);
+		const { title, description, publishDate, author, isFamilySafe } =
+			videoDetails;
+		const { user } = author;
+		return new Promise(async (resolve, reject) => {
+			ytdl(args[0], {
+				quality: "lowest",
+			}).pipe(writer);
+			writer.on("error", () => {
+				m.reply("Failed sending video");
+				delete conn["youtube_mp4"][m.sender];
+				resolve();
+			});
+			writer.on("close", async () => {
+				try {
+					await conn.sendMessage(
+						m.chat,
+						{
+							video: {
+								stream: fs.createReadStream(_filename),
+							},
+							caption: `  ◦ *Title*: ${title}\n  ◦ *Published*: ${publishDate}\n  ◦ *Author*: ${user}\n\nYTdl By https://github.com/fent/node-ytdl-core\nSearch By https://github.com/talmobi/yt-search\nSent By Assistant Yula💕`,
+						},
+						{ quoted: m }
+					);
+				} catch {
+					await conn.sendMessage(
+						m.chat,
+						{
+							document: {
+								stream: fs.createReadStream(_filename),
+							},
+							fileName: `${title}.mp4`,
+							mimetype: "video/mp4",
+							caption: `  ◦ *Title*: ${title}\n  ◦ *Published*: ${publishDate}\n  ◦ *Author*: ${user}\n\nYTdl By https://github.com/fent/node-ytdl-core\nSearch By https://github.com/talmobi/yt-search\nSent By Assistant Yula💕`,
+						},
+						{ quoted: m }
+					);
+				}
+				fs.unlinkSync(_filename);
+				delete conn["youtube_mp4"][m.sender];
+				resolve();
+			});
+		});
+	} catch {
+		m.reply("*Failed get a video:(*");
+	}
+};
+
+const { youtubedlv2, youtubedl } = require('@bochilteam/scraper')
+
+const handler = async (m, { conn, args, usedPrefix, command }) => {
+  if (!args[0]) throw `example: *${usedPrefix}${command}* https://www.youtube.com/watch?v=K9_VFxzCuQ0`
+  const v = args[0]
+
+  const resolutions = ["144p", "240p", "360p"]
+  let qu = args[1] && resolutions.includes(args[1]) ? args[1] : "240p"
+  let q = qu.replace('p', '')
+
+  let thumb = {}
+  try {
+    const thumb2 = yt.thumbnails[0].url
+    thumb = { jpegThumbnail: thumb2 }
+  } catch (e) {}
+
+  let yt
+  try {
+    yt = await youtubedl(v)
+  } catch {
+    yt = await youtubedlv2(v)
+  }
+
+  const title = await yt.title
+
+  let size = ''
+  let dlUrl = ''
+  let selectedResolution = ''
+  let selectedQuality = ''
+  for (let i = resolutions.length - 1; i >= 0; i--) {
+    const res = resolutions[i]
+    if (yt.video[res]) {
+      selectedResolution = res
+      selectedQuality = res.replace('p', '')
+      size = await yt.video[res].fileSizeH
+      dlUrl = await yt.video[res].download()
+      break
     }
   }
-};
-handler.command = /^(شغل|فيديو)$/i;
-export default handler;
 
-async function search(query, options = {}) {
-  const search = await yts.search({query, hl: 'es', gl: 'ES', ...options});
-  return search.videos;
+  if (dlUrl) {
+    await m.reply(`YuLa Mengambil Data . . . .`)
+
+    await conn.sendMessage(m.chat, { video: { url: dlUrl, caption: title, ...thumb } }, { quoted: m })
+
+  } else {
+    await m.reply(`Video Tidak Dapat Di Unduh.`)
+  }
+}*/
+import api from 'api-dylux';
+
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+  
+if (!args[0]) throw `example: *${usedPrefix}${command}* https://www.youtube.com/watch?v=K9_VFxzCuQ0`
+if (!args[0].match(/youtu/)) throw `*خطاء في الرابط!!!*`
+m.reply(wait)
+    try {
+    let data = await api.ytmp4(args[0])
+    
+      conn.sendFile(m.chat, data.dl_url, "mtype.mp4", null, m)
+      } catch (e) {
+		console.log(e)
+		m.reply(`*خطاء في النظام*`)
+	}
 }
+handler.help = ["ytmp4 <url>"]
+handler.tags = ["downloader"];
+handler.command = /^(فيديو)$/i;
 
-function MilesNumber(number) {
-  const exp = /(\d)(?=(\d{3})+(?!\d))/g;
-  const rep = '$1.';
-  const arr = number.toString().split('.');
-  arr[0] = arr[0].replace(exp, rep);
-  return arr[1] ? arr.join('.') : arr[0];
-}
+handler.register = false
+handler.premium = false
+handler.limit = true
 
-function secondString(seconds) {
-  seconds = Number(seconds);
-  const d = Math.floor(seconds / (3600 * 24));
-  const h = Math.floor((seconds % (3600 * 24)) / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = Math.floor(seconds % 60);
-  const dDisplay = d > 0 ? d + (d == 1 ? 'd ' : 'd ') : '';
-  const hDisplay = h > 0 ? h + (h == 1 ? 'h ' : 'h ') : '';
-  const mDisplay = m > 0 ? m + (m == 1 ? 'm ' : 'm ') : '';
-  const sDisplay = s > 0 ? s + (s == 1 ? 's' : 's') : '';
-  return dDisplay + hDisplay + mDisplay + sDisplay;
-}
-
-function bytesToSize(bytes) {
-  return new Promise((resolve, reject) => {
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes === 0) return 'n/a';
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
-    if (i === 0) resolve(`${bytes} ${sizes[i]}`);
-    resolve(`${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`);
-  });
-}
-
-const getBuffer = async (url, options) => {
-    options ? options : {};
-    const res = await axios({method: 'get', url, headers: {'DNT': 1, 'Upgrade-Insecure-Request': 1,}, ...options, responseType: 'arraybuffer'});
-    return res.data;
-};
+export default handler
