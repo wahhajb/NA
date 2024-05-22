@@ -1,5 +1,5 @@
 smd({
-  pattern: "فيديو",
+  pattern: "video",
   desc: "Downloads video from yt.",
   category: "downloader",
   filename: __filename,
