@@ -5,7 +5,7 @@ let img = await(await fetch('https://chat.whatsapp.com/BxBsz6WSLiIK13w2NtWKJm'))
 let _uptime = process.uptime() * 1000
 let uptime = clockString(_uptime)
 let taguser = '@' + m.sender.split("@s.whatsapp.net")[0]
-let str = `╭────『👑┇JOHAN┇🤖┇BOT┇👑』
+let str = `╭────『👑┇HISOKA┇🤖┇BOT┇👑』
 │
 │ *➤ مرحبا ${taguser}*
 │
