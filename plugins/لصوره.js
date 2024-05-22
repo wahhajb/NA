@@ -1,6 +1,6 @@
 import { webp2png } from  '../lib/webp2mp4.js' 
 let handler = async (m, { conn, usedPrefix, command }) => {
-const notStickerMessage = `𝑹𝒆𝒔𝒑𝒐𝒏𝒅𝒂 𝒂 𝒖𝒏 𝒗𝒊́𝒅𝒆𝒐 𝒐 𝒏𝒐𝒕𝒂 𝒅𝒆 𝒗𝒐𝒛 𝒑𝒂𝒓𝒂 𝒄𝒐𝒏𝒗𝒆𝒓𝒕𝒊𝒓 𝒖𝒏 𝒂𝒖𝒅𝒊𝒐 𝑴𝑷3 *${usedPrefix + command}*`
+const notStickerMessage = `رد على على ملصق لتحويله الى صوره *${usedPrefix + command}*`
 if (!m.quoted) throw notStickerMessage
 const q = m.quoted || m
 let mime = q.mediaType ||'' 
