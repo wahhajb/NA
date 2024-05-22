@@ -14,10 +14,10 @@ conn.sendFile(m.chat, haha, 'error.jpg', `
 *⌬━━──⧉⊰🎴⊱⧉──━━⌬*
 ~⌬ تـوقيع المطور
 🤖┋«JOHAN»┋🤖
-*╰━━━━━━━━━━━━⬣*`, m)
+*╰━━━━━━━━━━━━⬣*, m)`
 }
 handler.comm = handler.help = ['فعالة','فعا']
 handler.tags = ['game']
-handler.command = /^(فعاليات)$/i
+handler.command = /^(فعالية)$/i
 handler.admin = true
 export default handler
