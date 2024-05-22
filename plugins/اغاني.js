@@ -21,16 +21,16 @@ var handler = async (m, { conn, command, text, usedPrefix }) => {
 ⬡ V: ${views}
 ⬡ S: ${ago}
 ⬡ E: ${url}
-╰────────⬣`, author.trim(), await( await conn.getFile(thumbnail)).data, ['📽 VIDEO', `${usedPrefix}getvid ${url} 360`], false, { quoted: m, 'document': { 'url':'https://wa.me/59176184204' },
+╰────────⬣`, author.trim(), await( await conn.getFile(thumbnail)).data, ['📽 VIDEO', `${usedPrefix}getvid ${url} 360`], false, { quoted: m, 'document': { 'url':'https://wa.me/967701530463' },
 'mimetype': global.dpdf,
 'fileName': `𝕐𝕠𝕦𝕋𝕦𝕓𝕖 ℙ𝕝𝕒𝕪`,
 'fileLength': 666666666666666,
 'pageCount': 2023,contextInfo: { externalAdReply: { showAdAttribution: true,
 mediaType:  2,
 mediaUrl: `${url}`,
-title: `BOBIZ IS HERE ♥...`,
+title: `HISOKA IS HERE ♥...`,
 body:author,
-sourceUrl: 'http://wa.me/59176184204', thumbnail: await ( await conn.getFile(thumbnail)).data
+sourceUrl: 'http://wa.me/+967701530463', thumbnail: await ( await conn.getFile(thumbnail)).data
   }
  } 
 })
