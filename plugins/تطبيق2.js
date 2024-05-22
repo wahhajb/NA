@@ -21,7 +21,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
   );
 }
 
-handler.command = /^(تطبيق٢)$/i;
+handler.command = /^(apk2)$/i;
 handler.help = ['apkpure'];
 handler.tags = ['downloader'];
 export default handler;
