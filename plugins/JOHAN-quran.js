@@ -133,8 +133,8 @@ let lkr = `
 conn.sendFile(m.chat, pp, 'perfil.jpg', lkr, m, false, { mentions: [who] })
 m.react(done)
 }
-handler.help = ['allmenu']
+handler.help = ['quran']
 handler.tags = ['main']
-handler.command = ['سوره', 'surah'] 
+handler.command = ['سوره'] 
 
 export default handler
