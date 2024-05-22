@@ -12,6 +12,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 }
 handler.help = ['tomp3']
 handler.tags = ['fun']
-handler.command = /^لصوت(صوت|a(udio)?)$/i
+handler.command = /^ل(صوت|a(udio)?)$/i
 
 export default handler
