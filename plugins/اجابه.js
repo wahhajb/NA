@@ -7,7 +7,7 @@ export async function before(m) {
         return !0
     this.tebakbendera = this.tebakbendera ? this.tebakbendera : {}
     if (!(id in this.tebakbendera))
-        return this.reply(m.chat, '*لقد انتهي هذا السؤال اكتب علم لتظهر أسأله جديده*', m)
+        return this.reply(m.chat, '*لقد انتهي هذا السؤال اكتب احزر او رياضة لتظهر أسأله جديده*', m)
     if (m.quoted.id == this.tebakbendera[id][0].id) {
         let isSurrender = /^(انسحب|surr?ender)$/i.test(m.text)
         if (isSurrender) {
