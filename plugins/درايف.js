@@ -6,7 +6,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	m.react(rwait) 
 	try {
 	let res = await fg.GDriveDl(args[0])
-	 await m.reply(`*جاري التنزيل*`)
+	 await m.reply(`
+  *جاري التنزيل*`)
 		
 	conn.sendMessage(m.chat, { document: { url: res.downloadUrl }, fileName: res.fileName, mimetype: res.mimetype }, { quoted: m })
 	m.react(done)
