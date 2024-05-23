@@ -35,5 +35,5 @@ const handler = async (m, {conn, text, usedPrefix, command}) => {
   }}
  }}
 };
-handler.command = ['تخيل', 'dalle', 'ia2', 'cimg', 'openai3', 'a-img', 'aimg', 'imagine'];
+handler.command = ['تخيل', 'dalle'];
 export default handler;
