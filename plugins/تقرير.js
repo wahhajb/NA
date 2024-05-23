@@ -1,15 +1,13 @@
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-if (!text) throw `*[❗] نسيت التقرير - البلاغ*\n\n*مثال:*\n*${usedPrefix + command} الامر ${usedPrefix}كيريتو عمكم*`
-if (text.length < 10) throw `*[❗] يجب أن يتكون التقرير من 10 أحرف على الأقل!*`
-if (text.length > 1000) throw `*[❗] التقرير يجب الا يزيد عن 1000حرف!*`
-let teks = `*❒═════[ تحذير ]═════❒*\n*┬*\n*├❧ الرقم:* wa.me/+22247072475{m.sender.split`@`[0]}\n*┴*\n*┬*\n*├❧ رسالة:* ${text}\n*┴*`
-conn.reply('wa.me/22247072475', m.quoted ? teks + m.quoted.text : teks, null, {
-contextInfo: {
-mentionedJid: [m.sender]
-}})
-m.reply(`*[ ✔️ ] تم إرسال التقرير بنجاح إلى منشئ الروبوت ، وسيتم التعامل مع تقريرك في أقرب وقت ممكن إذا كان خطأ أو مزحة سيتم تجاهله فقط*`)
+if (!text) throw `*ادخل مشكلتك و بلاغك*\n\n*مثال:*\n*${usedPrefix + command} مرحباً هنري${usedPrefix}كيف اخبارك*`
+if (text.length < 10) throw `*البلاغ لا يقل عن عشرة احرف*`
+if (text.length > 1000) throw `*البلاغ لا يزيد عن الف حرف*`
+let teks = `*❒═════[إبلاغ مهم]═════❒*\n*┬*\n*├❧ الرقم:* wa.me/${m.sender.split`@`[0]}\n*┴*\n*┬*\n*├❧ البلاغ:* ${text}\n*┴*`
+conn.reply('201280244814@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, null, { contextInfo: { mentionedJid: [m.sender] }})
+conn.reply('@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, null, { contextInfo: { mentionedJid: [m.sender] }})
+m.reply(`*[ ✔️ ] تم إبلاغ المطور و انشاء الله يكون ف خدمتك في أسرع وقت 🐦🫶🏻❤️*`)
 }
 handler.help = ['reporte', 'request'].map(v => v + ' <teks>')
 handler.tags = ['info']
-handler.command = /^(report|request|reporte|ابلاغ|تقرير|report-owner|reportes)$/i
+handler.command = /^(تقرير)$/i
 export default handler
