@@ -7,7 +7,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 	try {
 	let res = await fg.GDriveDl(args[0])
 	 await m.reply(`
-🐦 *جاري التنزيل*`)
+  *جاري التنزيل...*`)
 		
 	conn.sendMessage(m.chat, { document: { url: res.downloadUrl }, fileName: res.fileName, mimetype: res.mimetype }, { quoted: m })
 	m.react(done)
@@ -16,8 +16,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   }
 }
 handler.help = ['gdrive']
-handler.tags = ['downloader']
-handler.command = ['درايف']
+handler.tags = ['downloader', 'premium']
+handler.command = ['gdrive']
 handler.credit = true
 handler.premium = true
 
