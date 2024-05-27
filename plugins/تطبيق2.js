@@ -1,55 +1,33 @@
-import fetch from 'node-fetch';
+import { download } from 'aptoide-scraper';
 
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
-    if (!text) throw 'Ex: ' + usedPrefix + command + ' whatsapp';
+let handler = async (m, { conn, usedPrefix: prefix, command, text }) => {
+  try {
+    if (command === 'modapk') {
+      if (!text) throw `*[❗] رجاء قم بوضع اسم التطبيق.*`;
 
-    await m.reply('_In progress, please wait..._');
+      await conn.reply(m.chat, global.wait, m);
+      let data = await download(text);
 
-    let res = await apk(text);
-    
-    await conn.sendMessage(m.chat, {
-    image: { url: res.icon },
-    caption: `*Name:* ${res.name}\n*Downloads:* ${res.dc}\n*Package:* ${res.path}\n*File Size:* ${res.size}`,
-    footer: '_Apk files..._',
-  });
-    
-    const fileName = `${res.path}.${res.format}`;
-    await conn.sendMessage(
-    m.chat,
-    { document: { url: res.dl }, mimetype: res.mimetype, fileName: fileName },
-    { quoted: m }
-  );
-}
+      if (data.size.replace(' MB', '') > 200) {
+        return await conn.sendMessage(m.chat, { text: '*[⛔] حجم التطبيق كبير.*' }, { quoted: m });
+      }
 
-handler.command = /^(apk2)$/i;
-handler.help = ['apkpure'];
-handler.tags = ['downloader'];
-export default handler;
+      if (data.size.includes('GB', '') > 200) {
+        return await conn.sendMessage(m.chat, { text: '*[⛔] حجم التطبيق كبير.*' }, { quoted: m });
+      }
 
-async function apk(text) {
-  let response = await fetch(`https://energetic-charm-mastodon.glitch.me/search?q=${text}`);
-  let $ = await response.json();
-  let name = $.appName;
-  let icon = $.image;
-  let dl = $.Downloadlink;
-  let format = $.appFormat;
-  if(!dl) throw 'Can\'t download the apk!';
-  let dc = $.downloadCount;
-  let path = $.packageName;
-  let mimetype = (await fetch(dl, { method: 'head' })).headers.get('content-type');
-  const getsize = (await fetch(dl, { method: 'head' })).headers.get('Content-Length');
-  if (getsize > 9500000000) {
-  throw 'حجم ملف apk كبير جدًا. الحد الأقصى لحجم التنزيل هو 500 ميغابايت.';
-  }
-  let size = formatBytes(parseInt(getsize));
-  return { name, icon, dl, dc, path, format, size, mimetype}
-}
-
-function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+      await conn.sendMessage(
+        m.chat,
+        { document: { url: data.dllink }, mimetype: 'application/vnd.android.package-archive', fileName: data.name + '.apk', caption: null },
+        { quoted: m }
+      )
     }
+  } catch {
+    throw `*حدث خطاء لم اتمكن من تنزيل الملف*`;
+  }
+};
+
+handler.help = ['modapk']
+handler.tags = ['downloader']
+handler.command = /^modapk$/i;
+export default handler;
