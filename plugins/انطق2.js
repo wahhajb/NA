@@ -15,7 +15,7 @@ try { res = await tts(text, lang) }
 catch (e) {
 m.reply(e +'')
 text = args.join('')
-if (!text) throw `تحويل نص لاوديو مثال \n *.tts هنري أحسن بوت في العالم*`
+if (!text) throw `تحويل نص لاوديو مثال \n *.انطق2 هنري أحسن بوت في العالم*`
 res = await tts(text, defaultLang)
 } finally {
 if (res) conn.sendFile(m.chat, res,  'tts.opus', null, m, true)
