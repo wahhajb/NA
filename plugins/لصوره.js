@@ -1,23 +1,32 @@
-import {webp2png} from '../lib/webp2mp4.js';
-
-
-const handler = async (m, {conn, usedPrefix, command}) => {
-  const datas = global
-  const idioma = datas.db.data.users[m.sender].language
-  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
-  const tradutor = _translate.plugins.convertidor_toimg
-
-
-  const notStickerMessage = `*${tradutor.texto1} ${usedPrefix + command}*`;
-  if (!m.quoted) throw notStickerMessage;
-  const q = m.quoted || m;
-  const mime = q.mediaType || '';
-  if (!/sticker/.test(mime)) throw notStickerMessage;
-  const media = await q.download();
-  const out = await webp2png(media).catch((_) => null) || Buffer.alloc(0);
-  await conn.sendFile(m.chat, out, 'error.png', null, m);
-};
-handler.help = ['toimg (reply)'];
-handler.tags = ['sticker'];
-handler.command = ['لصوره'];
-export default handler;
+cmd({
+        pattern: "لصوره",
+        alias : ['لصورة', 'photo'],
+        desc: "Makes photo of replied sticker.",
+        category: "converter",
+        use: '<reply to any gif>',
+        filename: __filename
+    },
+    async(Void, citel, text) => {
+        const getRandom = (ext) => {
+            return `${Math.floor(Math.random() * 10000)}${ext}`
+        }
+        if (!citel.quoted) return citel.reply(`*رد على ملصق لتحويله الى صوره*`)
+        let mime = citel.quoted.mtype
+if (mime =="imageMessage" || mime =="stickerMessage")
+{
+        let media = await Void.downloadAndSaveMediaMessage(citel.quoted);
+        let name = await getRandom('.png')
+        exec(`ffmpeg -i ${media} ${name}`, (err) => {
+            let buffer = fs.readFileSync(media)
+            Void.sendMessage(citel.chat, { image: buffer }, { quoted: citel })
+          
+         fs.unlink(media, (err) => {
+         if (err) { return console.error('File Not Deleted from From TOPHOTO AT : ' , media,'\n while Error : ' , err);  }
+         else return console.log('File deleted successfully in TOPHOTO  at : ' , media);
+         });
+         
+        })
+        
+} else return citel.reply ("*رد على ملصق لتحويله الى صوره*")
+    }
+)
