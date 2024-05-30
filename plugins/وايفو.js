@@ -1,29 +1,20 @@
-cmd({
-        pattern: "وايفو",
-        desc: "To get Waifu Random Pics",
-        category: "Anime Pics",
-        filename: __filename
-    },
+import fetch from 'node-fetch';
 
-  async(Void, citel, text) => {
-        
-         let name1 = text.split("|")[0] || ''
-        let name2 = text.split("|")[1] || `1`
-        let cap = text.split("|")[1] ? '': '*֎╎تـم اخـتـيـار صـوره وايـفـو لـك┇*'
-         
-for (let i = 0; i < name2; i++)
-{
-        let response;
-        if(name1 == 'nsfw'){ response = await fetch("https://api.waifu.pics/nsfw/waifu");    }
-        else  { response = await fetch("https://api.waifu.pics/sfw/waifu");  }
-    
-    const nekodds = await response.json();
-    let buttonMessages = {
-        image: { url: nekodds.url, },
-        caption: cap,
-        headerType: 1,
-    };
-     await Void.sendMessage(citel.chat, buttonMessages, { quoted: citel })
-}
 
-})
+const handler = async (m, {conn, usedPrefix, command}) => {
+  const datas = global
+  const idioma = datas.db.data.users[m.sender].language
+  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
+  const tradutor = _translate.plugins.random_waifu
+
+  const res = await fetch('https://api.waifu.pics/sfw/waifu');
+  if (!res.ok) throw await res.text();
+  const json = await res.json();
+  if (!json.url) throw 'Error!';
+  conn.sendFile(m.chat, json.url, 'error.jpg', tradutor.texto1, m);
+// conn.sendButton(m.chat, `𝙰-𝙰𝚁𝙰 𝙰𝚁𝙰 𝚂𝙴𝙼𝙿𝙰𝙸~~`, author, json.url, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], m)
+};
+handler.help = ['waifu'];
+handler.tags = ['anime'];
+handler.command = /^وايفو$/i;
+export default handler;
