@@ -40,6 +40,6 @@ let stiker = false
 //lo mau apa??
 handler.help = ['tovideo']
 handler.tags = ['sticker']
-handler.command = /^tovideo$/i
+handler.command = /^tovid$/i
 
 export default handler
