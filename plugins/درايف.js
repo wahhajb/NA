@@ -27,7 +27,7 @@ let handler = async (m, { conn, args }) => {
 
 handler.help = ['gdrive2']
 handler.tags = ['downloader']
-handler.command = /^(gdrive2)$/i
+handler.command = /^(gdrive2|درايف2)$/i
 
 
 export default handler
