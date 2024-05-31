@@ -1,55 +1,123 @@
-import fg from 'api-dylux' 
-import fetch from 'node-fetch'
-import { savefrom, facebookdl, facebookdlv2 } from '@bochilteam/scraper'
-import fbDownloader from 'fb-downloader-scrapper'
-let handler = async (m, { conn, args, command, usedPrefix }) => {
-if (!args[0]) throw `*ارجو ان تعطيني رابط الفيديو المطلوب حتا يتم تنزيله🥱📖؛!!! 
-مثال:  ${usedPrefix + command}* https://fb.watch/fOTpgn6UFQ/` 
-if (!args[0].match(/www.facebook.com|fb.watch/g)) throw `*ارجو ان تعطيني رابط الفيديو المطلوب حتا يتم تنزيله🥱📖؛!!! 
-مثال:  ${usedPrefix + command}* https://fb.watch/fOTpgn6UFQ/`
-try {
-m.reply(`*ارجو منك ان تنتظر بعض دقايق حتا الجد الفيديو المطلوب! 😐📖*`)    
-let Rres = await fetch(`https://api.lolhuman.xyz/api/facebook?apikey=${lolkeysapi}&url=${args[0]}`)
-let Jjson = await Rres.json()
-let VIDEO = Jjson.result[0]
-if (VIDEO == '' || !VIDEO || VIDEO == null) VIDEO = Jjson.result[1]
-conn.sendFile(m.chat, VIDEO, 'error.mp4', `*𝙰𝚀𝚄𝙸 𝙴𝚂𝚃𝙰 𝚂𝚄 𝚅𝙸𝙳𝙴𝙾*`, m)    
-} catch (err1) {
-console.log('1 ' + err1)    
-try {
-let ress = await fg.fbdl(args[0])
-let urll = await ress.data[0].url    
-await conn.sendFile(m.chat, urll, 'error.mp4', '*هل هذا هو الفيديو*', m)     
-} catch (err2) {
-console.log('2 ' + err2)    
-try {
-let res = await fbDownloader(args[0])
-for (let result of res.download) {
-let ur = result.url    
-await conn.sendFile(m.chat, ur, 'error.mp4', '*هل هذا هو الفيديو*', m)}
-} catch (err3) {
-console.log('3 ' + err3)    
-try { 
-let vio = await fetch(`https://api.violetics.pw/api/downloader/facebook?apikey=beta&url=${args[0]}`)  
-let vioo = await vio.json()
-let videovio = `${vioo.result.hd.url || vioo.result.sd.url}`
-await conn.sendFile(m.chat, videovio, `error.mp4`, '*𝙰𝚀𝚄𝙸 𝙴𝚂𝚃𝙰 𝚂𝚄 𝚅𝙸𝙳𝙴𝙾*', m)
-} catch (err4) {
-console.log('4 ' + err4)    
-try {
-let res3 = await fetch(`https://latam-api.vercel.app/api/facebookdl?apikey=brunosobrino&q=${args[0]}`)  
-let json = await res3.json()
-let url3 = await json.video
-await conn.sendFile(m.chat, url3, 'error.mp4', '*هنا هو الفيديو الخاص بك', m)         
-} catch (err5) {
-console.log('5 ' + err5)    
-try {
-const { result } = await facebookdl(args[0]).catch(async _ => await facebookdlv2(args[0])).catch(async _ => await savefrom(args[0]))
-for (const { url, isVideo } of result.reverse()) await conn.sendFile(m.chat, url, `facebook.${!isVideo ? 'bin' : 'mp4'}`, '*هنا هو الفيديو الخاص بك*', m)    
-} catch (err6) {
-console.log('6 ' + err6)    
-throw `*حدث خطأ ما في تحميل الفيديو*`
-}}}}}}}
-handler.command = /^(فيسبوك|fb|facebookdl|fbdl|facebook2|fb2|facebookdl2|fbdl2|facebook3|fb3|facebookdl3|fbdl3|facebook4|fb4|facebookdl4|fbdl4|facebook5|fb5|facebookdl5|fbdl5)$/i
-export default handler
-              
+/*
+ * Kredit untuk: Xnuvers007, ImYanXiao, dan fdown.net
+ * 𝕏𝕟𝕦𝕧𝕖𝕣𝕤𝟘𝟘𝟟
+ * https://github.com/Xnuvers007
+ */
+
+import fetch from 'node-fetch';
+import cheerio from 'cheerio-without-node-native';
+import {
+    toPTT
+} from '../lib/converter.js';
+
+const handler = async (m, {
+    conn,
+    args,
+    usedPrefix,
+    command
+}) => {
+
+    const sender = m.sender.split(`@`)[0];
+
+    try {
+        if (!args[0] || !/^https?:\/\//i.test(args[0])) {
+            return conn.reply(m.chat, `*هذا الامر خاص بتحميل فيديوهات الفيسبوك على شكل ملف وايضا على شكل فيديو  سيرسلها لك بالجودة  العالية و المتوسطة نكتب هكذا مثال :*\n*.facebook3* https://www.facebook.com/CrazyEditor2/videos/1048242439453391`, m);
+        }
+
+        const response = await fetch('https://fdown.net/download.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'URLz': args[0]
+            }),
+        });
+
+        m.reply('انتظر من فضلك......\n'+wait);
+
+        const html = await response.text();
+        const $ = cheerio.load(html);
+
+        const title = $('.lib-row.lib-header').text().trim();
+        const description = $('.lib-row.lib-desc').text().trim();
+
+        const mp4Links = $('a[href*=".mp4"]').map((i, el) => $(el).attr('href')).get();
+
+        if (mp4Links.length === 0) {
+            return conn.reply(m.chat, 'لم يتم العثور على مقاطع فيديو MP4 في عنوان URL المحدد.', m);
+        }
+
+        let sdLink = mp4Links[0];
+        let hdLink = mp4Links.length > 1 ? mp4Links[1] : mp4Links[0];
+
+        const sizeSD = (await fetch(sdLink).then(res => res.buffer())).length;
+        const sizeHD = (await fetch(hdLink).then(res => res.buffer())).length;
+
+        let sdWarning = '';
+        let hdWarning = '';
+
+        if (sizeSD < sizeHD) {
+            sdWarning = 'سيتم تنزيل ملفات SD وارسالها لأنها أصغر من HD';
+            conn.reply(m.chat, sdWarning, m);
+        } else {
+            hdWarning = 'سيتم تنزيل الملفات عالية الدقة وارسالها لأنها أصغر من ملفات SD';
+            conn.reply(m.chat, hdWarning, m);
+        }
+
+        for (let index = 0; index < mp4Links.length; index++) {
+            const link = mp4Links[index];
+            const buffer = await fetch(link).then(res => res.buffer());
+            const resolution = index === 0 ? 'SD' : 'HD';
+            const caption = `جودة الفيديو: (${resolution})\n${title}\n\n${description}\nرابط الفيديو: ${args[0]}`;
+            await conn.sendMessage(
+                m.chat, {
+                    video: buffer,
+                    mimetype: "video/mp4",
+                    fileName: `video_${index + 1}.mp4`,
+                    caption: ` هذا هو الفيديو الخاص بك@${sender} \n${caption}`,
+                    mentions: [m.sender],
+                }, {
+                    quoted: m
+                },
+            );
+            await conn.sendMessage(
+                m.chat, {
+                    document: buffer,
+                    mimetype: "video/mp4",
+                    fileName: `video_${index + 1}.mp4`,
+                    caption: `هذا هو الفيديو الخاص بك @${sender} *DOCUMENT VERSION* \n${caption}`,
+                    mentions: [m.sender],
+                }, {
+                    quoted: m
+                },
+            );
+        }
+
+        const audioBuffer = await fetch(sdLink).then(res => res.buffer());
+
+        let audio = await toPTT(audioBuffer, 'mp4');
+        if (!audio.data) throw 'لا يمكن تحويل  هذا الفيديو إلى صوت';
+        conn.sendFile(m.chat, audio.data, 'audio.mp3', '', m, true, {
+            mimetype: 'audio/mp3'
+        });
+        await conn.sendMessage(
+            m.chat, {
+                audio: audioBuffer,
+                mimetype: "mpeg/mp3",
+                fileName: `audio.mp3`,
+                caption: ``,
+                mentions: [m.sender],
+            }, {
+                quoted: m
+            },
+        );
+
+    } catch (error) {
+        console.error('وقع خطأ:', error);
+        conn.reply(m.chat, 'حدث خطأ أثناء معالجة طلبك.');
+    }
+};
+
+handler.help = ['facebook3'];
+handler.tags = ['downloader'];
+handler.command = /^فيس3$/i;
+
+export default handler;
