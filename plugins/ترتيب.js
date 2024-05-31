@@ -55,4 +55,4 @@ function toNumber(property, _default = 0) {
 
 function enumGetKey(a) {
   return a.jid
-                                                                                                                                 }
+}
