@@ -10,22 +10,22 @@ let handler = async (m, { conn, command, usedPrefix }) => {
     }
     let src = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakbendera2.json')).json()
   let json = src[Math.floor(Math.random() * src.length)]
-    let caption = `*${command.toUpperCase()}*
-Timeout *${(timeout / 1000).toFixed(2)} second*
-use ${usedPrefix}fhint for hint
-Reward: ${poin} XP
+    let caption = `*${command.toUpperCase()}* يرجاء الاجابه باللغه الانجليزيه
+الوقت *${(timeout / 1000).toFixed(2)} ثانيه*
+استخدم ${usedPrefix} تلميح للتلميح
+الجائزة: ${poin} XP
     `.trim()
     conn.tebakbendera[id] = [
         await conn.sendFile(m.chat, json.img, '', caption, m),
         json, poin,
         setTimeout(() => {
-            if (conn.tebakbendera[id]) conn.reply(m.chat, `Time's up!\nThe answer is *${json.name}*`, conn.tebakbendera[id][0])
+            if (conn.tebakbendera[id]) conn.reply(m.chat, `انتهى الوقت!\n الاجابه هي *${json.name}*`, conn.tebakbendera[id][0])
             delete conn.tebakbendera[id]
         }, timeout)
     ]
 }
 handler.help = ['guessflag']
 handler.tags = ['game']
-handler.command = /^guessflag/i
+handler.command = /^علم/i
 
 export default handler
