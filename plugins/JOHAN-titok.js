@@ -57,7 +57,7 @@ const handler = async (m, {conn, text, args, usedPrefix, command}) => {
     }
   }
 };
-handler.command = /^(تيك-توك|tk|ttdl|tiktokdl|tiktoknowm|تيك|ttnowm|tiktokaudio)$/i;
+handler.command = /^(تيك-توك|tk|ttdl|tiktokdl|tiktoknowm|ttnowm|tiktokaudio)$/i;
 handler.tags = ['downloader'];
 export default handler;
 
