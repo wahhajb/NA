@@ -5,7 +5,7 @@ let handler = async (m, { conn }) => {
     let json = conn.tebakbendera[id][1]
     conn.reply(m.chat, '```' + json.name.replace(/[AIUEOaiueo]/ig, '_') + '```', m)
 }
-handler.command = /^انسحب$/i
+handler.command = /^تلميح$/i
 
 
 
