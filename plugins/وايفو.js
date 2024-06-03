@@ -20,19 +20,19 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   };
 
   switch (type) {
-    case 'loli':
+    case 'لولي:
       fetchImage('loli');
       break;
 
-    case 'waifu':
+    case 'وايفو':
       fetchImage('waifu');
       break;
 
-    case 'neko':
+    case 'نيكو':
       fetchImage('neko');
       break;
 
-    case 'zerotwo':
+    case 'زوروتو':
       fetchImage('zerotwo');
       break;
 
