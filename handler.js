@@ -1533,16 +1533,16 @@ let date = d.toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'nu
 
 global.dfail = (type, m, conn) => {
   const msg = {
-    rowner: '*[ ℹ️ ] Este comando solo puede ser utilizado por el propietario del bot.*',
-    owner: '*[ ℹ️ ] Este comando solo puede ser utilizado por el propietario del bot.*',
-    mods: '*[ ℹ️ ] Este comando solo puede ser utilizado por moderadores y el propietario del bot.*',
-    premium: '*[ ℹ️ ] Este comando solo puede ser utilizado por usurios premium y el propietario del bot.*',
-    group: '*[ ℹ️ ] Este comando solo puede ser utilizado en grupos.*',
-    private: '*[ ℹ️ ] Este comando solo puede ser utilizado en el chat privado del bot.*',
-    admin: '*[ ℹ️ ] Este comando solo puede ser usado por administradores del grupo.*',
-    botAdmin: '*[ ℹ️ ] Para utilizar este comando es necesario que el bot sea administrador del grupo.*',
-    unreg: '*[ ℹ️ ] Para utilizar este comando debes estar registrado.*\n\n*[ 💡 ] Utiliza el comando:* _/verificar nombre.edad_ *para registrarte.*',
-    restrict: '*[ ℹ️ ] Este comando fue desactivado por el propietario del bot.*',
+    rowner: '*[ ℹ️ ] لا يمكن استخدام هذا الامر الا من قبل مالك البوت.*',
+    owner: '*[ ℹ️ ] لا يمكن استخدام هذا الامر الا من قبل مالك البوت.*',
+    mods: '*[ ℹ️ ] لا يمكن استخدام هذا الامر الا من قبل المشرفين و مالك البوت.*',
+    premium: '*[ ℹ️ ] لايمكن استخدام الام الا من قبل المستخدمين المميزين و مالك البوت.*',
+    group: '*[ ℹ️ ] لا يمكن استخدام هذا الامر الا في الجروبات.*',
+    private: '*[ ℹ️ ] لا يمكن استخدام الامر الا في الدردشه الخاصه للبوت (استخدمه في الخاص).*',
+    admin: '*[ ℹ️ ] لا يمكن استخدام هذا الأمر إلا من قبل مسؤولي المجموعة.*',
+    botAdmin: '*[ ℹ️ ] لاستخدام هذا الأمر، من الضروري أن يكون الروبوت مسؤولاً عن المجموعة.*',
+    unreg: '*[ ℹ️ ] لأستخدام الامر يجب عليك التسجيل.*\n\n*[ 💡 ] استخدم الامر:* _/verificar nombre.edad_ *para registrarte.*',
+    restrict: '*[ ℹ️ ] تم تعطيل هذا الامر من قبل مالك البوت.*',
   }[type];
   const aa = {quoted: m, userJid: conn.user.jid};
   const prep = generateWAMessageFromContent(m.chat, {extendedTextMessage: {text: msg, contextInfo: {externalAdReply: {title: '*[ 🍊 ] Advertencia*', body: 'follow-me', thumbnail: imagen1, sourceUrl: 'https://www.instagram.com/mauhamed_98'}}}}, aa);
