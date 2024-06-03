@@ -10,7 +10,7 @@ m.reply(textprem, null, { mentions: conn.parseMention(textprem) })
 }
 handler.help = ['addprem <@user>']
 handler.tags = ['owner']
-handler.command = /^(add|\+)prem|بريم$/i
+handler.command = /^اضف-بريم$/i
 handler.group = true
 handler.rowner = true
 export default handler
