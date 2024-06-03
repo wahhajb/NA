@@ -20,7 +20,7 @@ if (!args[0] && !m.quoted) throw `✳️ حط رابط فيسبوك بعد ال�
 }
 handler.help = ['facebook'].map(v => v + ' <url>')
 handler.tags = ['downloader']
-handler.command = /^((فيسبوك|فيس)(downloder|dl)?)$/i
+handler.command = /^((فيسبو)(downloder|dl)?)$/i
 handler.diamond = false
 
 export default handler
