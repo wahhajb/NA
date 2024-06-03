@@ -12,9 +12,9 @@ global.prems.push(`${who.split`@`[0]}`)
 conn.reply(m.chat, `
 ✅ بريمو
 
-@${who.split`@`[0]} now you become a premium user
+@${who.split`@`[0]} انت الان مستخدم مميز للبوت
 ┌───────────
-▢ *الرقم:* ${user.name}
+▢ *الاسم:* ${user.name}
 └───────────
 `, m, { mentions: [who] })
 
