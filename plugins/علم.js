@@ -12,7 +12,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
   let json = src[Math.floor(Math.random() * src.length)]
     let caption = `*${command.toUpperCase()}*
 الوقت *${(timeout / 1000).toFixed(2)} second*
-اكتب ${usedPrefix}انسحب للانسحاب
+اكتب ${usedPrefix}تلميح للتلميح
 الجائزه: ${poin} XP
     `.trim()
     conn.tebakbendera[id] = [
