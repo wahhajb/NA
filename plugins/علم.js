@@ -11,15 +11,15 @@ let handler = async (m, { conn, command, usedPrefix }) => {
     let src = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakbendera2.json')).json()
   let json = src[Math.floor(Math.random() * src.length)]
     let caption = `*${command.toUpperCase()}*
-Timeout *${(timeout / 1000).toFixed(2)} second*
-use ${usedPrefix}fhint for hint
-Reward: ${poin} XP
+الوقت *${(timeout / 1000).toFixed(2)} second*
+اكتب ${usedPrefix}انسحب للانسحاب
+الجائزه: ${poin} XP
     `.trim()
     conn.tebakbendera[id] = [
         await conn.sendFile(m.chat, json.img, '', caption, m),
         json, poin,
         setTimeout(() => {
-            if (conn.tebakbendera[id]) conn.reply(m.chat, `Time's up!\nThe answer is *${json.name}*`, conn.tebakbendera[id][0])
+            if (conn.tebakbendera[id]) conn.reply(m.chat, `انتهاء الوقت!\nالاجابه هي *${json.name}*`, conn.tebakbendera[id][0])
             delete conn.tebakbendera[id]
         }, timeout)
     ]
