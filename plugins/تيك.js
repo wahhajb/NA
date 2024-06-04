@@ -28,7 +28,7 @@ await conn.sendFile(m.chat, maximus.audio[0], 'kasar.mp3', null, m)
 };
 handler.help = ['tiktok'].map(v => v + ' <url>');
 handler.tags = ['downloader'];
-handler.command = /^(تيك)$/i;
+handler.command = /^(2تيك)$/i;
 handler.limit = true;
 handler.register = false;
 export default handler;
