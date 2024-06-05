@@ -2,7 +2,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     conn.math = conn.math ? conn.math : {}
     
     if (args.length < 1) throw `
-  🧮 available difficulties : 
+  🧮 طريقه استخدام الامر : 
   
 ${Object.keys(modes).join(' | ')} 
 
@@ -10,7 +10,7 @@ _📌مثال : ${usedPrefix+command} متوسط_
 `.trim()
   let mode = args[0].toLowerCase()
   if (!(mode in modes)) throw `
-  🧮 available difficulties : 
+  🧮 طريقه استخدام الامر : 
   
  ${Object.keys(modes).join(' | ')}
 
@@ -21,7 +21,7 @@ _📌مثال : ${usedPrefix+command} متوسط_
     if (id in conn.math) return conn.reply(m.chat, '⚠️ مازال هناك سؤال لم تتم الاجابه عليه', conn.math[id][0])
     let math = genMath(mode)
     conn.math[id] = [
-        await conn.reply(m.chat, `▢ كم سعر *${math.str}*=\n\n_الوقت:_ ${(math.time / 1000).toFixed(2)} ثانيه\n\n🎁 الجائزه : ${math.bonus} XP`, m),
+        await conn.reply(m.chat, `✨ حل المسئله *${math.str}*=\n\n_الوقت:_ ${(math.time / 1000).toFixed(2)} ثانيه\n\n🎁 الجائزه : ${math.bonus} XP`, m),
         math, 4,
         setTimeout(() => {
             if (conn.math[id]) conn.reply(m.chat, `⏳ انتهى الوقت!\nالاجابه هي : *${math.result}*`, conn.math[id][0])
@@ -31,7 +31,7 @@ _📌مثال : ${usedPrefix+command} متوسط_
 }
 handler.help = ['Maths <modes>']
 handler.tags = ['game']
-handler.command = ['maths', 'math', 'matemáticas', 'ganit'] 
+handler.command = ['رياضيات', 'مسئله'] 
 
 
 let modes = {
