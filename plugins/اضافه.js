@@ -1,58 +1,22 @@
-/*
-recomiendo no usar en wa mod
-*/
-
-import fetch from 'node-fetch'
-/**
- * @type {import('@whiskeysockets/baileys')}
- */
-const { getBinaryNodeChild, getBinaryNodeChildren } = (await import('@whiskeysockets/baileys')).default
-let handler = async (m, { conn, text, participants }) => {
-    let _participants = participants.map(user => user.id)
-    let users = (await Promise.all(
-        text.split(',')
-            .map(v => v.replace(/[^0-9]/g, ''))
-            .filter(v => v.length > 4 && v.length < 20 && !_participants.includes(v + '@s.whatsapp.net'))
-            .map(async v => [
-                v,
-                await conn.onWhatsApp(v + '@s.whatsapp.net')
-            ])
-    )).filter(v => v[1][0]?.exists).map(v => v[0] + '@c.us')
-    const response = await conn.query({
-        tag: 'iq',
-        attrs: {
-            type: 'set',
-            xmlns: 'w:g2',
-            to: m.chat,
-        },
-        content: users.map(jid => ({
-            tag: 'add',
-            attrs: {},
-            content: [{ tag: 'participant', attrs: { jid } }]
-        }))
-    })
-    const pp = await conn.profilePictureUrl(m.chat).catch(_ => null)
-    const jpegThumbnail = pp ? await (await fetch(pp)).buffer() : Buffer.alloc(0)
-    const add = getBinaryNodeChild(response, 'add')
-    const participant = getBinaryNodeChildren(add, 'participant')
-    for (const user of participant.filter(item => item.attrs.error == 403)) {
-        const jid = user.attrs.jid
-        const content = getBinaryNodeChild(user, 'add_request')
-        const invite_code = content.attrs.code
-        const invite_code_exp = content.attrs.expiration
-        let teks = `✳️ Al usuario @${jid.split('@')[0]} solo lo pueden agregar sus contactos :'v `
-        m.reply(teks, null, {
-            mentions: conn.parseMention(teks)
-        })
-        //await conn.sendGroupV4Invite(m.chat, jid, invite_code, invite_code_exp, await conn.getName(m.chat), 'Invitación para unirse a mi grupo de WhatsApp ', jpegThumbnail)
-    }
+let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+let who 
+if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text
+else who = m.chat
+let name = await conn.getName(m.sender)	
+let user = global.db.data.users[who]
+if (!global.db.data.settings[conn.user.jid].restrict) return conn.reply(m.chat, `${lenguajeGB['smsAvisoAG']()}${lenguajeGB['smsSoloOwner']()}`, fkontak, m) 
+if (!text) throw `${lenguajeGB['smsAvisoMG']()} ${lenguajeGB['smsMalused']()}\n*${usedPrefix + command}* 59355555555`
+if (text.includes('+')) throw  `${lenguajeGB['smsAvisoMG']()} ${lenguajeGB['smsMalused']()}\n*${usedPrefix + command}* 59355555555`
+let group = m.chat
+let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
+await conn.reply(text+'@s.whatsapp.net', `${mid.smsAdd}\n\n${link}`, m, {mentions: [m.sender]})
+m.reply(`*@${who.split`@`[0]}*\n${mid.smsAdd2}`) 
 }
-handler.help = ['add']
+handler.help = ['add', '+'].map(v => v + ' número')
 handler.tags = ['group']
-handler.command = ['اضافه']
-handler.admin = true
+handler.command = /^(add|agregarl|invitar|invite|añadir|\+)$/i
 handler.group = true
-handler.rowner = true
+handler.admin = true
 handler.botAdmin = true
-
+handler.fail = null
 export default handler
