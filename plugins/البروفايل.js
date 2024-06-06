@@ -22,6 +22,6 @@ let str = `*الاسم:* ${username} ${registered ? '(' + name + ') ': ''}
 ${sn}`
 conn.sendButton(m.chat, str, author, pp, [['عرض قائمة الاوامر', '/menu']], m)}}
 handler.help = ['profile [@user]']
-handler.tags = ['xp']
-handler.command = /^perfil7|بروفايل|البروفايل?$/i
+handler.tags = ['tools']
+handler.command = /^البروفايل$/i
 export default handler
