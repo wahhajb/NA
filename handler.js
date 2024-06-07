@@ -959,16 +959,16 @@ export async function handler(chatUpdate) {
         if (!isNumber(chat.expired)) chat.expired = 0;
       } else {
         global.db.data.chats[m.chat] = {
-          isBanned: false,
-          welcome: true,
-          detect: true,
+          isBanned: true,
+          welcome: false,
+          detect: false,
 	  detect2: false,
           sWelcome: '',
           sBye: '',
           sPromote: '',
           sDemote: '',
           antidelete: false,
-          modohorny: true,
+          modohorny: false,
           autosticker: false,
           audios: true,
           antiLink: false,
