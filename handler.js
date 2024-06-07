@@ -918,9 +918,9 @@ export async function handler(chatUpdate) {
 	            } else {
         global.db.data.users[m.sender].akinator = {
           sesi: false,
-          server: false,
+          server: null,
           frontaddr: null,
-          session: false,
+          session: null,
           signature: null,
           question: null,
           progression: null,
@@ -959,16 +959,16 @@ export async function handler(chatUpdate) {
         if (!isNumber(chat.expired)) chat.expired = 0;
       } else {
         global.db.data.chats[m.chat] = {
-          isBanned: true,
-          welcome: false,
-          detect: false,
+          isBanned: false,
+          welcome: true,
+          detect: true,
 	  detect2: false,
           sWelcome: '',
           sBye: '',
           sPromote: '',
           sDemote: '',
           antidelete: false,
-          modohorny: false,
+          modohorny: true,
           autosticker: false,
           audios: true,
           antiLink: false,
