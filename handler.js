@@ -907,9 +907,9 @@ export async function handler(chatUpdate) {
       }
 		    if (akinator) {
         if (!('sesi' in akinator)) akinator.sesi = false;
-        if (!('server' in akinator)) akinator.server = null;
+        if (!('server' in akinator)) akinator.server = false;
         if (!('frontaddr' in akinator)) akinator.frontaddr = null;
-        if (!('session' in akinator)) akinator.session = null;
+        if (!('session' in akinator)) akinator.session = false;
         if (!('signature' in akinator)) akinator.signature = null;
         if (!('question' in akinator)) akinator.question = null;
         if (!('progression' in akinator)) akinator.progression = null;
@@ -918,9 +918,9 @@ export async function handler(chatUpdate) {
 	            } else {
         global.db.data.users[m.sender].akinator = {
           sesi: false,
-          server: null,
+          server: false,
           frontaddr: null,
-          session: null,
+          session: false,
           signature: null,
           question: null,
           progression: null,
@@ -933,9 +933,9 @@ export async function handler(chatUpdate) {
         global.db.data.chats[m.chat] = {};
       }
       if (chat) {
-        if (!('isBanned' in chat)) chat.isBanned = false;
-        if (!('welcome' in chat)) chat.welcome = true;
-        if (!('detect' in chat)) chat.detect = true;
+        if (!('isBanned' in chat)) chat.isBanned = true;
+        if (!('welcome' in chat)) chat.welcome = false;
+        if (!('detect' in chat)) chat.detect = false;
         if (!('detect2' in chat)) chat.detect2 = false;
         if (!('sWelcome' in chat)) chat.sWelcome = '';
         if (!('sBye' in chat)) chat.sBye = '';
