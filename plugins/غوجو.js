@@ -11,9 +11,8 @@ const dir = [
 'https://telegra.ph/file/517702ef07ddd9663e63c.mp4',
 ];
 let handler = async (m, { conn }) => {
-  let message = `تقصد نفسك`;
   conn.sendFile(m.chat, dir[Math.floor(Math.random() * dir.length)], 'dado.webp', '', m)
-  await conn.sendMessage(m.chat, { react: { text: '📹', key: m.key } })
+  await conn.sendMessage(m.chat, { react: { text: '🌠', key: m.key } })
 }
 handler.help = ['dado']
 handler.tags = ['game']
