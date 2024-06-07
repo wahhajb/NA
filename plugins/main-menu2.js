@@ -19,7 +19,7 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
     let uptime = clockString(_uptime)
 let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
-let videoUrl = 'https://telegra.ph/file/370f5ae57b2615403c1d5.mp4';'https://telegra.ph/file/4b3fc3c942cc6ac2647e9.mp4'
+let videoUrl = 'https://telegra.ph/file/350f836a9f34d9090575e.mp4'
   let vn = './media/menu.mp3';
   const user = global.db.data.users[m.sender];
   const {money, joincount} = global.db.data.users[m.sender];
@@ -36,11 +36,13 @@ let readMore = more.repeat(900)
   const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
 let str = `
 
-*💥❯══⊹⊱≼ اوامر البوت ≽⊰⊹══❮💥*
+*💥❯══⊹⊱≼ مرحبا بك ≽⊰⊹══❮💥*
 
 *❮ حط رمز قبل الأمر مثل  ( / . )*
 
-*❆❯══⊹⊱≼ ❄️ ≽⊰⊹══❮❆*
+*❮ اذا عندك طلب او اي شي تريد تقوله للمطور اكتب (.تقرير وحط طلبك)*
+
+*❆❯══⊹⊱≼ قــائــمــه الاوامــر ≽⊰⊹══❮❆*
 
 *『 ️👥 』⇦ قسم الجروبات ╿↶*
 
