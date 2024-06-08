@@ -28,5 +28,5 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
 };
 handler.help = ["slap"];
 handler.tags = ["General"];
-handler.command = /^(حزن)$/i;
+handler.command = /^(يبكي)$/i;
 export default handler;
