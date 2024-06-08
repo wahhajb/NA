@@ -167,7 +167,7 @@ function schedulePrayerNotifications(prayerData, info, conn) {
     }, 60000); 
 }
 
-handler.command = [ الصلاة ,  مواقيت ];
+handler.command = ['الصلاة' ,'الصلاه' ,'مواقيت-الصلاه'];
 handler.tags = [ tools ];
 
 export default handler;
