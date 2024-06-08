@@ -1,29 +1,17 @@
-cmd({
-    pattern: "toaudio",
-    alias:['لصوتي','tomp3','لصوت'],
-    desc: "changes type to audio.",
-    category: "converter",
-    use: '<reply to any Video>',
-    filename: __filename
-},
-async(Void, citel, text) => {
-    if (!citel.quoted) return citel.reply(`*رد عـلـى فـيـديـو*`);
-    let mime = citel.quoted.mtype
-if (mime =="audioMessage" || mime =="videoMessage")
-{
-    let media = await Void.downloadAndSaveMediaMessage(citel.quoted);
-     const { toAudio } = require('../lib');
-     let buffer = fs.readFileSync(media);
-    let audio = await toAudio(buffer);
-    Void.sendMessage(citel.chat, { audio: audio, mimetype: 'audio/mpeg' }, { quoted: citel });
- 
+import { toAudio } from '../lib/converter.js'
 
-fs.unlink(media, (err) => {
-if (err) { return console.error('File Not Deleted from From TOAUDIO AT : ' , media,'\n while Error : ' , err);  }
-else return console.log('File deleted successfully in TOAUDIO MP3 at : ' , media);
-});
+let handler = async (m, { conn, usedPrefix, command }) => {
+    let q = m.quoted ? m.quoted : m
+   /* let mime = (m.quoted ? m.quoted : m.msg).mimetype || ''
+    if (!/video|audio/.test(mime)) throw `🗿 رد على فيديو :\n\n*${usedPrefix + command}*`*/
+    let media = await q.download?.()
+    if (!media) throw '❎ فشل التحويل'
+    let audio = await toAudio(media, 'mp4')
+    if (!audio.data) throw '❎ خطاء في التحويل'
+    conn.sendFile(m.chat, audio.data, 'audio.mp3', '', m, null, { mimetype: 'audio/mp4' })
+}
+handler.help = ['tomp3']
+handler.tags = ['fun']
+handler.command = /^(لصوت|tomp3)$/i
 
-}
-else return citel.reply ("*رد عـلـى فـيـديـو*")
-}
-)
+export default handler
