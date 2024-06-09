@@ -26,7 +26,7 @@ let handler = async (m, {
 		await await conn.sendMessage(m.chat, { text: `${res.result}`, edit: salsa })
 }
   }
-handler.help = ["gemini"].map(a => a + " *<text>*")
-handler.tags = ["ai"]
+handler.help = ['gemini'].map(a => a + " *<text>*")
+handler.tags = ['ai']
 handler.command = /^(عمو)$/i
 module.exports = handler
