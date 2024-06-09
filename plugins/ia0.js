@@ -28,5 +28,5 @@ let handler = async (m, {
   }
 handler.help = ["gemini"].map(a => a + " *<text>*")
 handler.tags = ["ai"]
-handler.command = /^(بوت)$/i
+handler.command = /^(عمو)$/i
 module.exports = handler
