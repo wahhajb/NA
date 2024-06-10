@@ -16,6 +16,6 @@ handler.command = ['kick', 'طرد']
 handler.admin = true
 handler.group = true
 handler.botAdmin = true
-handlee .kicksecretary = true
+handler .kicksecretary = true
 
 export default handler
