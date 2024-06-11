@@ -5,7 +5,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     if (/image/.test(mime)) {
     let img = await q.download()
     if (!img) throw '*رد على الصوره لجعلها بروفايل للحروب.*'
-    await conn.updateProfilePicture(m.chat, img).then(_ => m.reply('*تم تغيير بروفايل الحروب ✅*'))
+    await conn.updateProfilePicture(m.chat, img).then(_ => m.reply('*تم تغيير بروفايل الجروب ✅*'))
     } else throw '*رد على الصوره لجعلها بروفايل للجروب.*'}
     handler.command = /^خلفيه$/i
     handler.group = true
