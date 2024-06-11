@@ -1,5 +1,9 @@
 import fg from 'api-dylux';
 
+// تعريف الرموز التعبيرية أو الرموز الأخرى التي تريد استخدامها
+const rwait = '⏳'; // رمز الانتظار
+const done = '✅'; // رمز الانتهاء
+
 const handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) {
     throw `✳️ قم بإرسال رابط الفيديو من الفيسبوك \n\n📌 مثلاً :\n*${usedPrefix + command}* https://www.facebook.com/Ankursajiyaan/videos/981948876160874/?mibextid=rS40aB7S9Ucbxw6v`;
@@ -23,7 +27,7 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
     const arrayBuffer = await response.arrayBuffer();
     const videoBuffer = Buffer.from(arrayBuffer);
 
-    conn.sendFile(m.chat, videoBuffer, 'fb.mp4', tex, m);
+    await conn.sendFile(m.chat, videoBuffer, 'fb.mp4', tex, m);
     m.react(done);
   } catch (error) {
     console.log(error);
