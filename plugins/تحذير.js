@@ -4,36 +4,36 @@ let handler = async (m, { conn, text, args, groupMetadata, usedPrefix, command }
         let who
         if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : false
         else who = m.chat
-        if (!who) throw `✳️ Tag or mention someone\n\n📌 Example : ${usedPrefix + command} @user`
-        if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
+        if (!who) throw `✳️ منشن على شخص\n\n📌 مثل : ${usedPrefix + command} @user`
+        if (!(who in global.db.data.users)) throw `😀 المستخدم ليس في قاعده البيانات`
         let name = conn.getName(m.sender)
         let warn = global.db.data.users[who].warn
         if (warn < war) {
             global.db.data.users[who].warn += 1
             m.reply(`
-⚠️ *Warned User* ⚠️
+⚠️ *تحذير مستخدم* ⚠️
 
-▢ *Admin:* ${name}
-▢ *User:* @${who.split`@`[0]}
-▢ *Warns:* ${warn + 1}/${war}
-▢ *Reason:* ${text}`, null, { mentions: [who] }) 
+▢ *الادمن:* ${name}
+▢ *المستخدم:* @${who.split`@`[0]}
+▢ *الانذارات:* ${warn + 1}/${war}
+▢ *السبب:* ${text}`, null, { mentions: [who] }) 
             m.reply(`
-⚠️ *caution* ⚠️
-You received a warning from an admin
+⚠️ *انتبه* ⚠️
+لقد تلقيت تحذير من احد المشرفين 
 
-▢ *Warns:* ${warn + 1}/${war} 
-if you receive *${war}* warnings you will be automatically removed from the group`, who)
+▢ *التحذير:* ${warn + 1}/${war} 
+اذا تلقيت *${war}* تحذيرات فسيتم ازالتك تلقائيا من المجموعه`, who)
         } else if (warn == war) {
             global.db.data.users[who].warn = 0
-            m.reply(`⛔ The user exceeded the *${war}* warnings will therefore be removed`)
+            m.reply(`⛔ تجاوز المستخدم *${war}* وبالتالي ستتم ازاله التحذيرات`)
             await time(3000)
             await conn.groupParticipantsUpdate(m.chat, [who], 'remove')
-            m.reply(`♻️ You were removed from the group *${groupMetadata.subject}* because you have been warned *${war}* times`, who)
+            m.reply(🗿 لقد تمت ازالتك من المجموعه *${groupMetadata.subject}* لانه تم تحذيرك اكثر من 3 مرات *${war}* times`, who)
         }
 }
 handler.help = ['warn @user']
 handler.tags = ['group']
-handler.command = ['warn'] 
+handler.command = ['warn' ,'انذار' ,'تحذير'] 
 handler.group = true
 handler.admin = true
 handler.botAdmin = true
