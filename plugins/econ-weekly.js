@@ -16,7 +16,7 @@ let handler = async (m, {conn, isPrems }) => {
   global.db.data.users[m.sender]user.lastweekly = new Date * 1
 }
 handler.help = ['daily']
-handler.tags = ['econ']
+handler.tags = ['game']
 handler.command = ['اسبوعي']
 
 export default handler
