@@ -1,7 +1,7 @@
 import fetch from 'node-fetch' 
  let handler  = async (m, { conn, text }) => { 
  try { 
- let res = await fetch('https://i.waifu.pics/2RnEtbW.png') 
+ let res = await fetch('https://api.waifu.pics/sfw/neko') 
  let img = await res.buffer() 
  let caption = ` 
  مفيش شكرا 💖 
@@ -11,7 +11,7 @@ import fetch from 'node-fetch'
  console.log(e) 
  throw '*اسف حدث خطا!*' 
  }} 
- handler.help = ['cat'] 
+ handler.help = ['neko'] 
  handler.tags = ['random'] 
  handler.command = /^وايفو$/i 
  handler.fail = null 
