@@ -14,6 +14,6 @@ else conn.reply(m.chat, why, m, { mentions: [m.sender] })
 break
 }
 if (res[0]) conn.reply(m.chat, `*[❗] تم استخدام الامر بنجاح ${command} للمستخدم ${res ? `${res.map(v => '@' + v.split("@")[0])}` : ''}*`, m, { mentions: res })}
-handler.command = /^(بلوك|رفع-البلوك)$/i
+handler.command = /^(بلوك|رفع-البلوك|رفع-بلوك)$/i
 handler.rowner = true
 export default handler
