@@ -33,7 +33,7 @@ const handler = async (m, { conn, participants, usedPrefix, command }) => {
 
 handler.help = ['kickall'];
 handler.tags = ['group'];
-handler.command = ['طرد-الكل', 'زرف'];
+handler.command = ['طرد-الكل'];
 handler.group = true;
 handler.owner = true;
 handler.+966558978071 = true
