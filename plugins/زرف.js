@@ -36,6 +36,5 @@ handler.tags = ['group'];
 handler.command = ['طرد-الكل'];
 handler.group = true;
 handler.owner = true;
-handler.+966558978071 = true
 handler.botAdmin = true;
 export default handler;
