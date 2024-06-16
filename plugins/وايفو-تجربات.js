@@ -11,7 +11,7 @@ import fetch from 'node-fetch'
  console.log(e) 
  throw '*اسف حدث خطا!*' 
  }} 
- handler.help = ['neko'] 
+ handler.help = ['sfw'] 
  handler.tags = ['random'] 
  handler.command = /^وايفو$/i 
  handler.fail = null 
