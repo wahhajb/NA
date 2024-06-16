@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
  let handler  = async (m, { conn, text }) => { 
  try { 
  let res = await fetch('https://api.waifu.pics/sfw/neko') 
- let img = await res.buffer() 
+ let img = await res.buffer('https://api.waifu.pics/sfw/neko') 
  let caption = ` 
  مفيش شكرا 💖 
  `.trim() 
