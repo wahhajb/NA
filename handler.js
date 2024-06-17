@@ -1545,7 +1545,7 @@ global.dfail = (type, m, conn) => {
     restrict: '*[ ℹ️ ] تم تعطيل هذا الامر من قبل مالك البوت.*',
   }[type];
   const aa = {quoted: m, userJid: conn.user.jid};
-  const prep = generateWAMessageFromContent(m.chat, {extendedTextMessage: {text: msg, contextInfo: {externalAdReply: {title: '*[ 🍊 ] Advertencia*', body: 'follow-me', thumbnail: imagen1, sourceUrl: 'https://www.instagram.com/mauhamed_98'}}}}, aa);
+  const prep = generateWAMessageFromContent(m.chat, {extendedTextMessage: {text: msg, contextInfo: {externalAdReply: {title: '*[ 🍊 ] اضغط هنا علشان*', body: 'تتابعني على الانتسغرام', thumbnail: imagen1, sourceUrl: 'https://www.instagram.com/alkaser7008'}}}}, aa);
   if (msg) return conn.relayMessage(m.chat, prep.message, {messageId: prep.key.id});
 };
 
