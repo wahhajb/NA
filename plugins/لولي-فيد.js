@@ -11,7 +11,7 @@ const handler = async (m, {conn, usedPrefix, command}) => {
 };
 handler.help = ['lolivid'];
 handler.tags = ['random'];
-handler.command = /^(lolivid|لولي-فيد)$/i;
+handler.command = /^(lolivid|للولي-فيد)$/i;
 export default handler;
 
 global.lolivid = [
