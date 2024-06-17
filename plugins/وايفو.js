@@ -12,9 +12,9 @@ const handler = async (m, {conn, usedPrefix, command}) => {
   const json = await res.json();
   if (!json.url) throw 'Error!';
   conn.sendFile(m.chat, json.url, 'error.jpg', tradutor.texto1, m);
-// conn.sendButton(m.chat, `𝙰-𝙰𝚁𝙰 𝙰𝚁𝙰 𝚂𝙴𝙼𝙿𝙰𝙸~~`, author, json.url, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], m)
+// conn.sendButton(m.chat, `🥵❤️`, author, json.url, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], m)
 };
 handler.help = ['waifu'];
 handler.tags = ['anime'];
-handler.command = /^(waifu)$/i;
+handler.command = /^(وايفو)$/i;
 export default handler;
