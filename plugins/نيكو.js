@@ -1,15 +1,50 @@
-import fetch from 'node-fetch'
-let handler = async (m, { conn, command }) => {
-let ne = await (await fetch('https://raw.githubusercontent.com/ArugaZ/grabbed-results/main/random/anime/neko.txt')).text()
-let nek = ne.split('\n')
-let neko = pickRandom(nek)
-//conn.sendFile(m.chat, neko, 'error.jpg', `Nyaww~ 🐾💗`, m)
-conn.sendButton(m.chat, 'Nyaww~ 🐾💗', wm, neko, [['𝙎𝙄𝙂𝙐𝙄𝙀𝙉𝙏𝙀 | 𝙉𝙀𝙓𝙏 🆕', `/${command}`]], null, null, m)
-}
-handler.command = /^(neko)$/i
+import fetch from 'node-fetch';
+
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+  m.react(rwait);
+
+  let type = (command).toLowerCase();
+  let baseUrl = 'https://weeb-api.vercel.app/';
+
+  const fetchImage = async (endpoint) => {
+    try {
+      const response = await fetch(baseUrl + endpoint);
+      if (!response.ok) throw `❎ Error fetching ${type} image`;
+      const imageBuffer = await response.buffer(); // Get the image data as a buffer
+      conn.sendFile(m.chat, imageBuffer, 'img.jpg', `✅ Random ${type}`, m);
+      m.react(dmoji);
+    } catch (error) {
+      console.error(error);
+      m.reply(`❎ An error occurred while fetching the ${type} image.`);
+    }
+  };
+
+  switch (type) {
+    case 'loli':
+      fetchImage('loli');
+      break;
+
+    case 'waifu':
+      fetchImage('waifu');
+      break;
+
+    case 'neko':
+      fetchImage('neko');
+      break;
+
+    case 'zerotwo':
+      fetchImage('zerotwo');
+      break;
+
+    default:
+      
+      break;
+  }
+};
+
+handler.help = ['waifu', 'neko', 'zerotwo', 'loli']
 handler.tags = ['anime']
-handler.help = ['neko']
+handler.command = ['waifu', 'neko', 'zerotwo', 'loli'] 
+
+
 export default handler
-function pickRandom(list) {
-return list[Math.floor(Math.random() * list.length)]
-}
