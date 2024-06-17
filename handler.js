@@ -1518,12 +1518,12 @@ let date = d.toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'nu
 	if (!chat?.antidelete) return 
         if (!msg) return 
 	if (!msg?.isGroup) return 
-	const antideleteMessage = `_*< ANTI-DELETE />*_\n
- ▢ *Usuario:* @${participant.split`@`[0]}
- ▢ *Hora:* ${time}
- ▢ *Fecha:* ${date}\n
- ▢ *Enviando el mensaje eliminado...*\n
- *[ ℹ️ ] Para desactivar la función* _antidelete_*, envia el siguiente comando:* _/disable antidelete_`.trim();
+	const antideleteMessage = `_*< مضاد الحذف />*_\n
+ ▢ *العضو:* @${participant.split`@`[0]}
+ ▢ *الوقت:* ${time}
+ ▢ *التاريخ:* ${date}\n
+ ▢ *سيتم ارسال الرساله الذي تم حذفها 👇...*\n
+ *[ ملاحظه ]* *اذا كنت تريد ان يتم ايقاف هذه الميزه ف عليك بأن تخبر المطور باستخدام امر تقرير*`.trim();
         await mconn.conn.sendMessage(msg.chat, {text: antideleteMessage, mentions: [participant]}, {quoted: msg})
         mconn.conn.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
     } catch (e) {
