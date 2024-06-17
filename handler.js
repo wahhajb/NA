@@ -1182,10 +1182,10 @@ export async function handler(chatUpdate) {
 
             if (user.bannedMessageCount < 3) {
               const messageNumber = user.bannedMessageCount + 1;
-const messageText = `_*< USUARIO SUSPENDIDO />*_\n
+const messageText = `_*< انت ممنوع من استخدام الاوامر />*_\n
  ▢ *Aviso:* ${messageNumber}/3
- ${user.bannedReason ? `\n▢ *Motivo:* ${user.bannedReason}` : ' ▢ *Motivo:* Sin especificar'}
- *[ ℹ️ ] Si consideras que esto es un error y cuentas con pruebas, puedes comunicarte con el propietario(a) del bot para apelar la suspensión.*`.trim();
+ ${user.bannedReason ? `\n▢ *السبب:* ${user.bannedReason}` : ' ▢ *السبب:* غير محدود'}
+ *[ ℹ️ ] اذا كنت تعتقد انه تم تعلقك عن طريق الخطاء ولديك دليل فقم بإخبار مالك البوت عن طريق كتابه امر تقرير*`.trim();
               m.reply(messageText);
               user.bannedMessageCount++;
             } else if (user.bannedMessageCount === 3) {
@@ -1523,7 +1523,7 @@ let date = d.toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'nu
  ▢ *الوقت:* ${time}
  ▢ *التاريخ:* ${date}\n
  ▢ *سيتم ارسال الرساله الذي تم حذفها 👇...*\n
- *[ ملاحظه ]* *اذا كنت تريد ان يتم ايقاف هذه الميزه ف عليك بأن تخبر المطور باستخدام امر تقرير*`.trim();
+ *[ ملاحظه ] اذا كنت تريد ان يتم ايقاف هذه الميزه ف عليك بأن تخبر المطور باستخدام امر تقرير*`.trim();
         await mconn.conn.sendMessage(msg.chat, {text: antideleteMessage, mentions: [participant]}, {quoted: msg})
         mconn.conn.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
     } catch (e) {
