@@ -1,9 +1,6 @@
-let handler = async (m, { conn }) => {
-    let user = global.db.data.users[m.sender];
-    let name = conn.getName(m.sender);
-    let taguser = '@' + m.sender.split("@s.whatsapp.net")[0];
-    let message = `*⎔⋅ ━ ╼╃✦⊰ •﹝⚡﹞• ⊱✦╄╾ ━ ⋅⎔*
-
+let handler = async (m, { command, text }) => m.reply(`*╔═╼─╾─╾═【🕸️】═╼─╾╾─╾═╗*
+*رد تــلــقــائــي🧑🏻‍💻*
+املئ الاسـ📜ـتماره 
 *⎔⋅ ━*◞✍︎نࢪحب بك في مملكة ريكال⊰⚡→◜*
 *⎔⋅ ━ ╼╃✦⊰ •﹝⚡﹞• ⊱✦╄╾ ━ ⋅⎔*
 
@@ -21,13 +18,12 @@ let handler = async (m, { conn }) => {
 
 * https://docs.google.com/spreadsheets/d/15KXsiTmZ5-jriPosDPjDojzYvGv2kmJT_mQQ6z8KUyw/edit?usp=drivesdk
 * 
-*_مع تحيات ادارة  ⚡「𝑹•𝑲•𝑳」_*`;
-    
+*_مع تحيات ادارة  ⚡「𝑹•𝑲•𝑳」_*`.trim(), null, m.mentionedJid ? {
+  mentions: m.mentionedJid
+} : {})
 
-    conn.sendFile(m.chat, 'https://telegra.ph/file/722efd258d6ac9bd9f645.jpg', 'image.jpg', message, m);
-};
+handler.help = ['الاوامر <teks>?']
+handler.tags = ['الاوامر', 'fun']
+handler.command = /^(وانو|wano)$/i
 
-handler.customPrefix = /^(وانو|wano)$/i;
-handler.command = new RegExp;
-
-export default handler;
+export default handler
