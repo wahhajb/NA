@@ -1495,7 +1495,7 @@ export async function callUpdate(callUpdate) {
   for (const nk of callUpdate) {
     if (nk.isGroup == false) {
       if (nk.status == 'offer') {
-        const callmsg = await mconn.conn.reply(nk.from, `مرحبا *@${nk.from.split('@')[0]}*, las ${nk.isVideo ? 'videollamadas' : 'llamadas'} لا يسمح بالمكالمات, لذالك سيتم حظرك.\n-\nاذا كنت تعتقد انك اتصلت عن طريق الخطاء ف اكتب امر تقرير اخبرني بذلك`, false, {mentions: [nk.from]});
+        const callmsg = await mconn.conn.reply(nk.from, `مرحبا *@${nk.from.split('@')[0]}*, للاسف ${nk.isVideo ? 'videollamadas' : 'برو'} لا يسمح بالمكالمات, لذالك سيتم حظرك.\n-\nاذا كنت تعتقد انك اتصلت عن طريق الخطاء ف اكتب امر تقرير اخبرني بذلك`, false, {mentions: [nk.from]});
         // let data = global.owner.filter(([id, isCreator]) => id && isCreator)
         // await this.sendContact(nk.from, data.map(([id, name]) => [id, name]), false, { quoted: callmsg })
         const vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;العم سكونا;;;\nFN:العم سكونا\nORG:العم سكونا\nTITLE:\nitem1.TEL;waid=201080426509:+201080426509`;
