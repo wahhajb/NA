@@ -1,50 +1,20 @@
 import fetch from 'node-fetch';
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-  m.react(rwait);
 
-  let type = (command).toLowerCase();
-  let baseUrl = 'https://weeb-api.vercel.app/';
+const handler = async (m, {conn, usedPrefix, command}) => {
+  const datas = global
+  const idioma = datas.db.data.users[m.sender].language
+  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
+  const tradutor = _translate.plugins.random_waifu
 
-  const fetchImage = async (endpoint) => {
-    try {
-      const response = await fetch(baseUrl + endpoint);
-      if (!response.ok) throw `❎ Error fetching ${type} image`;
-      const imageBuffer = await response.buffer(); // Get the image data as a buffer
-      conn.sendFile(m.chat, imageBuffer, 'img.jpg', `✅ Random ${type}`, m);
-      m.react(dmoji);
-    } catch (error) {
-      console.error(error);
-      m.reply(`❎ An error occurred while fetching the ${type} image.`);
-    }
-  };
-
-  switch (type) {
-    case 'loli':
-      fetchImage('loli');
-      break;
-
-    case 'waifu':
-      fetchImage('waifu');
-      break;
-
-    case 'neko':
-      fetchImage('neko');
-      break;
-
-    case 'zerotwo':
-      fetchImage('zerotwo');
-      break;
-
-    default:
-      
-      break;
-  }
+  const res = await fetch('https://api.waifu.pics/sfw/neko');
+  if (!res.ok) throw await res.text();
+  const json = await res.json();
+  if (!json.url) throw 'Error!';
+  conn.sendFile(m.chat, json.url, 'error.jpg', tradutor.texto1, m);
+// conn.sendButton(m.chat, `𝙰-𝙰𝚁𝙰 𝙰𝚁𝙰 𝚂𝙴𝙼𝙿𝙰𝙸~~`, author, json.url, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], m)
 };
-
-handler.help = ['waifu', 'neko', 'zerotwo', 'loli']
-handler.tags = ['anime']
-handler.command = ['waifu', 'neko', 'zerotwo', 'loli'] 
-
-
-export default handler
+handler.help = ['waifu'];
+handler.tags = ['anime'];
+handler.command = /^(neko)$/i;
+export default handler;
