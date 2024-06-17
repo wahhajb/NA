@@ -10,7 +10,7 @@ const handler = async (m, {conn, text, command}) => {
   const url = yh[Math.floor(Math.random() * yh.length)];
   conn.sendMessage(m.chat, {image: {url: url}, caption: tradutor.texto1}, {quoted: m});
 };
-handler.command = /^(لولي)$/i;
+handler.command = /^(للولي)$/i;
 handler.tags = ['anime'];
 handler.help = ['loli'];
 export default handler;
