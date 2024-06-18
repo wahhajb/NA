@@ -1,190 +1,167 @@
-// مقدم من قناه 
-// https://whatsapp.com/channel/0029VaL2bnW0rGiPZq8B5S2M
+import fetch from "node-fetch";
+import ytdl from 'youtubedl-core';
+import yts from 'youtube-yts';
+import fs from 'fs';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
+import os from 'os';
 
+const streamPipeline = promisify(pipeline);
 
-import fetch from 'node-fetch';
-import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys';
+const handler = async (m, {
+    conn,
+    command,
+    text,
+    args,
+    usedPrefix
+}) => {
+    if (!text) throw `ادخل شي للبحث عنه\nمثال: *${usedPrefix + command}* ايه الكرسي`;
+    conn.GURUPLAY = conn.GURUPLAY ? conn.GURUPLAY : {};
+    await conn.reply(m.chat, wait, m);
+    const result = await searchAndDownloadMusic(text);
+    const infoText = `🔰──『 *بوت سكونا* 』── 🔰`;
 
-let data;
-let buff;
-let mimeType;
-let fileName;
-let apiUrl;
-let apiUrl2;
-let apiUrlsz;
-let device;
-let dataMessage;
-let enviando = false;
-const handler = async (m, { command, usedPrefix, conn, text }) => {
-  const datas = global;
-  const idioma = datas.db.data.users[m.sender].language;
-  const _translate = JSON.parse(fs.readFileSync(`./language/ar.json`));
-  const tradutor = _translate.plugins.descargas_play_v2;
-  device = await getDevice(m.key.id);
+const orderedLinks = result.allLinks.map((link, index) => {
+    const sectionNumber = index + 1;
+    const {
+        title,
+        url
+    } = link;
+    return `*${sectionNumber}.* ${title}`;
+});
 
-  if (!text) throw `${tradutor.texto1[0]} _${usedPrefix + command} ${tradutor.texto1[1]} _${usedPrefix + command} https://youtu.be/JLWRZ8eWyZo?si=EmeS9fJvS_OkDk7p_`;
-  if (command === 'playyt' && (device == 'desktop' || device == 'web')) throw `*[❗] Los mensajes de botones aun no estan disponibles en WhatsApp web, acceda a su celular para poder ver y usar los mensajes con botones.*`;
-  if (enviando) return;
-  enviando = true;
-
-  try {
-    apiUrlsz = [
-      `https://api.cafirexos.com/api/ytplay?text=${text}`,
-      `https://api-brunosobrino.onrender.com/api/ytplay?text=${text}&apikey=BrunoSobrino`,
-      `https://api-brunosobrino-dcaf9040.koyeb.app/api/ytplay?text=${text}`
-    ];
-    const linkyt = await isValidYouTubeLink(text);
-    if (linkyt) apiUrlsz = [
-        `https://api.cafirexos.com/api/ytinfo?url=${text}`,
-        `https://api-brunosobrino-koiy.onrender.com/api/ytinfo?url=${text}&apikey=BrunoSobrino`,
-        `https://api-brunosobrino-dcaf9040.koyeb.app/api/ytinfo?url=${text}`
-    ];
-    let success = false;
-    for (const url of apiUrlsz) {
-      try {
-        const res = await fetch(url);
-        data = await res.json();
-        if (data.resultado && data.resultado.url) {
-          success = true;
-          break;
-        }
-      } catch {}
-    }
-
-    if (!success) {
-      enviando = false;
-      throw `_*< يوتيوب - تحميل />*_
-
-*[ ℹ️ ] ينقص عنوان فيديو YouTube.*
-
-*[ 💡 ] مثال:* _.شغل Good Feeling - Flo Rida_
-
-*[ 💡 ] مثال 2:* _.شغل https://youtu.be/JLWRZ8eWyZo?si=EmeS9fJvS_OkDk7p_`;
-    }
-
-    const dataMessage = `العنوان : ${data.resultado.title}\nتم النشر : ${data.resultado.publicDate}\nالقناه : ${data.resultado.channel}\nرابط القناه : ${data.resultado.url}`.trim();  
-    if (!text.includes('SN@') && command !== 'شغل') await conn.sendMessage(m.chat, { text: dataMessage }, { quoted: m });      
-      
-    if (command === 'شغل') {
-      var messa = await prepareWAMessageMedia({ image: {url: data.resultado.image}}, { upload: conn.waUploadToServer });
-      let msg = generateWAMessageFromContent(m.chat, {
-          viewOnceMessage: {
-              message: {
-                  interactiveMessage: {
-                      body: { text: dataMessage },
-                      footer: { text: `©${global.wm}`.trim() },
-                      header: {
-                          hasMediaAttachment: true,
-                          imageMessage: messa.imageMessage,
-                      },
-                      nativeFlowMessage: {
-                          buttons: [
-                              {
-                                  name: 'quick_reply',
-                                  buttonParamsJson: JSON.stringify({
-                                      display_text: 'الصوت🎧',
-                                      id: `${usedPrefix}play.1 ${data.resultado.url} SN@`
-                                  })
-                              },
-                              {
-                                  name: 'quick_reply',
-                                  buttonParamsJson: JSON.stringify({
-                                      display_text: 'الفيديو📽️',
-                                      id: `${usedPrefix}play.2 ${data.resultado.url} SN@`
-                                  })
-                              },   
-                          ],
-                          messageParamsJson: "",
-                      },
-                  },
-              },
-          }
-      }, { userJid: conn.user.jid, quoted: m});
-      await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id});
-      enviando = false;    
-      return;
-    }    
-
-    try {
-      if (command === 'play.1') {
-        let apiUrls2 = [
-          `https://api.cafirexos.com/api/v1/ytmp3?url=${data.resultado.url}`,
-          `https://api.cafirexos.com/api/v2/ytmp3?url=${data.resultado.url}`,
-          `https://api-brunosobrino.onrender.com/api/v1/ytmp3?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino.onrender.com/api/v2/ytmp3?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v1/ytmp3?url=${data.resultado.url}`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v2/ytmp3?url=${data.resultado.url}`,
-        ];
-
-        let success2 = false;
-        for (const urll of apiUrls2) {
-          try {
-            apiUrl2 = urll;
-            mimeType = 'audio/mpeg';
-            fileName = 'error.mp3';
-            buff = await conn.getFile(apiUrl2);
-            success2 = true;
-            break;
-          } catch {}
-        }
-
-        if (!success2) {
-          enviando = false;
-          throw `تم بنجاه ٣`;
-        }
-      } else if (command === 'play.2') {
-        let apiUrls22 = [
-          `https://api.cafirexos.com/api/v1/ytmp4?url=${data.resultado.url}`,
-          `https://api.cafirexos.com/api/v2/ytmp4?url=${data.resultado.url}`,            
-          `https://api-brunosobrino.onrender.com/api/v1/ytmp4?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino.onrender.com/api/v2/ytmp4?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v1/ytmp4?url=${data.resultado.url}`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v2/ytmp4?url=${data.resultado.url}`,
-        ];
-
-        let success2 = false;
-        for (const urlll of apiUrls22) {
-          try {
-            apiUrl2 = urlll;
-            mimeType = 'video/mp4';
-            fileName = 'error.mp4';
-            buff = await conn.getFile(apiUrl2);
-            success2 = true;
-            break;
-          } catch (e) {
-             console.log(e.message) 
-          }
-        }
-
-        if (!success2) {
-          enviando = false;
-          throw `تم بنجاح ٢`;
-        }
-      }
-    } catch (ee) {
-      console.log(ee.message)  
-      enviando = false;
-      throw `لوج`;
-    }
-
-    if (buff) {
-      await conn.sendMessage(m.chat, {[mimeType.startsWith('audio') ? 'audio' : 'video']: buff.data, mimetype: mimeType, fileName: fileName}, {quoted: m});
-      enviando = false;
-    } else {
-      enviando = false;
-      throw `ت٥`;
-    }
-  } catch (error) {
-    console.log(error);  
-    enviando = false;
-    throw اريرور;
-  }
+    const orderedLinksText = orderedLinks.join("\n\n");
+    const fullText = `${infoText}\n\n${orderedLinksText}`;
+    const {
+        key
+    } = await conn.reply(m.chat, fullText, m);
+    conn.GURUPLAY[m.sender] = {
+        result,
+        key,
+        timeout: setTimeout(() => {
+            conn.sendMessage(m.chat, {
+                delete: key
+            });
+            delete conn.GURUPLAY[m.sender];
+        }, 60 * 1000),
+    };
 };
 
+handler.before = async (m, {
+    conn
+}) => {
+    conn.GURUPLAY = conn.GURUPLAY ? conn.GURUPLAY : {};
+    if (m.isBaileys || !(m.sender in conn.GURUPLAY)) return;
+    const {
+        result,
+        key,
+        timeout
+    } = conn.GURUPLAY[m.sender];
+    if (!m.quoted || m.quoted.id !== key.id || !m.text) return;
+    const choice = m.text.trim();
+    const inputNumber = Number(choice);
+    if (inputNumber >= 1 && inputNumber <= result.allLinks.length) {
+        const selectedUrl = result.allLinks[inputNumber - 1].url;
+        console.log("selectedUrl", selectedUrl)
+    let title = generateRandomName();
+        const audioStream = ytdl(selectedUrl, {
+            filter: 'audioonly',
+            quality: 'highestaudio',
+        });
+    
+      
+        
+        const tmpDir = os.tmpdir();
+        
+        
+        const writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
+    
+        
+        await streamPipeline(audioStream, writableStream);
+
+        const doc = {
+            audio: {
+            url: `${tmpDir}/${title}.mp3`
+            },
+            mimetype: 'audio/mpeg',
+            ptt: false,
+            waveform: [100, 0, 0, 0, 0, 0, 100],
+            fileName: `${title}`,
+        
+        };
+    
+        await conn.sendMessage(m.chat, doc, { quoted: m });
+    
+    
+        clearTimeout(timeout);
+        delete conn.GURUPLAY[m.sender];
+    } else {
+        m.reply("رقم تسلسلي غير صالح.  الرجاء اختيار الرقم المناسب من القائمة أعلاه.\nبين 1 و " + result.allLinks.length);
+    }
+};
+
+handler.help = ["play3"];
+handler.tags = ["downloader"];
 handler.command = /^(شغل)$/i;
+handler.limit = true;
 export default handler;
 
-async function isValidYouTubeLink(link) {
-    const validPatterns = [/youtube\.com\/watch\?v=/i, /youtube\.com\/shorts\//i, /youtu\.be\//i, /youtube\.com\/embed\//i, /youtube\.com\/v\//i, /youtube\.com\/attribution_link\?a=/i, /yt\.be\//i, /googlevideo\.com\//i, /youtube\.com\.br\//i, /youtube-nocookie\.com\//i, /youtubeeducation\.com\//i, /m\.youtube\.com\//i, /youtubei\.googleapis\.com\//i];
-    return validPatterns.some(pattern => pattern.test(link));
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return "0 B";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+}
+
+async function searchAndDownloadMusic(query) {
+    try {
+        const { videos } = await yts(query);
+        if (!videos.length) return "عذرًا، لم يتم العثور على نتائج فيديو لهذا البحث.";
+
+        const allLinks = videos.map(video => ({
+            title: video.title,
+            url: video.url,
+        }));
+
+        const jsonData = {
+            title: videos[0].title,
+            description: videos[0].description,
+            duration: videos[0].duration,
+            author: videos[0].author.name,
+            allLinks: allLinks,
+            videoUrl: videos[0].url,
+            thumbnail: videos[0].thumbnail,
+        };
+
+        return jsonData;
+    } catch (error) {
+        return "Error: " + error.message;
+    }
+}
+
+
+async function fetchVideoBuffer() {
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        });
+        return await response.buffer();
+    } catch (error) {
+        return null;
+    }
+}
+
+function generateRandomName() {
+    const adjectives = ["happy", "sad", "funny", "brave", "clever", "kind", "silly", "wise", "gentle", "bold"];
+    const nouns = ["cat", "dog", "bird", "tree", "river", "mountain", "sun", "moon", "star", "cloud"];
+    
+    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    
+    return randomAdjective + "-" + randomNoun;
 }
