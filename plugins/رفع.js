@@ -7,8 +7,8 @@ var number = text.split`@`[1]
 var number = text
 }
 	
-if(!text && !m.quoted) return conn.reply(m.chat, `*[❗] تم ترقيته مشرف*\n\n*┯┷*\n*┠≽ ${usedPrefix}daradmin @tag*\n*┠≽ ${usedPrefix}darpoder -> responder a un mensaje*\n*┷┯*`, m)
-if(number.length > 13 || (number.length < 11 && number.length > 0)) return conn.reply(m.chat, `*[ ⚠️ ] El número ingresado es incorrecto, por favor ingrese el número correcto*`, m)
+if(!text && !m.quoted) return conn.reply(m.chat, `*[❗] استخدام خاطئ للامر*\n\n*┯┷*\n*┠≽ ${usedPrefix} @tag*`, m)
+if(number.length > 13 || (number.length < 11 && number.length > 0)) return conn.reply(m.chat, `*[ ⚠️ ] الرقم الذي ادخلته غير صالح. يرجى ادخال رقم صالح*`, m)
 	
 try {
 if(text) {
