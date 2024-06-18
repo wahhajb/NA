@@ -10,7 +10,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
     }
     let src = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakbendera2.json')).json()
   let json = src[Math.floor(Math.random() * src.length)]
-    let caption = `*${command.toUpperCase()}*
+    let caption = `*${command.toUpperCase()}* _رجاء قم بالاجابة باللغه الانجليزيه_
 الوقت *${(timeout / 1000).toFixed(2)} ثواني*
 استخدم .تلميح للتلميح
 الجائزه: ${poin} XP
