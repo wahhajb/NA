@@ -26,6 +26,6 @@ let handler = async (m, { command, text }) => m.reply(`*◉═🏮═⊱⛩️�
 
 handler.help = ['الاوامر <teks>?']
 handler.tags = ['الاوامر', 'fun']
-handler.command = /^(سكايبيا|skibya)$/i
+handler.command = /^(ياكزوا)$/i
 
 export default handler
