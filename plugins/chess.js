@@ -14,12 +14,12 @@ const handler = async (m, { conn, args }) => {
   const { gameData, fen, currentTurn, players, hasJoined } = chessData;
   const feature = args[0]?.toLowerCase();
 
-  if (feature === 'انسحب') {
+  if (feature === 'delete') {
     delete conn.chess[key];
     return conn.reply(m.chat, '🏳️ *توقفت لعبة الشطرنج.*', m);
   }
 
-  if (feature === 'يضيف') {
+  if (feature === 'create') {
     if (gameData) {
       return conn.reply(m.chat, '⚠️ *اللعبة قيد التقدم بالفعل.*', m);
     }
@@ -27,7 +27,7 @@ const handler = async (m, { conn, args }) => {
     return conn.reply(m.chat, '🎮 *بدأت لعبة الشطرنج.*\nفي انتظار انضمام لاعبين آخرين.', m);
   }
 
-  if (feature === 'انضمام') {
+  if (feature === 'join') {
     const senderId = m.sender;
     if (players.includes(senderId)) {
       return conn.reply(m.chat, '🙅‍♂️ *لقد انضممت بالفعل إلى هذه اللعبة.*', m);
@@ -43,16 +43,16 @@ const handler = async (m, { conn, args }) => {
     if (players.length === 2) {
       gameData.status = 'ready';
       const [black, white] = Math.random() < 0.5 ? [players[1], players[0]] : [players[0], players[1]];
-      gameData.black = اسود;
-      gameData.white = ابيض;
-      chessData.currentTurn = ابيض;
+      gameData.black = black;
+      gameData.white = white;
+      chessData.currentTurn = white;
       return conn.reply(m.chat, `🙌 *اللاعبون الذين انضموا:*\n${hasJoined.map(playerId => `- @${playerId.split('@')[0]}`).join('\n')}\n\n*Black:* @${black.split('@')[0]}\n*White:* @${white.split('@')[0]}\n\nPlease use *'chess start'* to begin the game.`, m, { mentions: hasJoined });
     } else {
       return conn.reply(m.chat, '🙋‍♂️ *لقد انضممت إلى لعبة الشطرنج.*\nفي انتظار انضمام لاعبين آخرين.', m);
     }
   }
 
-  if (feature === 'بدء') {
+  if (feature === 'start') {
     if (gameData.status !== 'ready') {
       return conn.reply(m.chat, '⚠️ *لا يمكن بدء اللعبة. انتظر حتى ينضم لاعبان.*', m);
     }
@@ -84,7 +84,7 @@ const handler = async (m, { conn, args }) => {
       return conn.reply(m.chat, '⚠️ *اللعبة لم تبدأ بعد*', m);
     }
     if (currentTurn !== senderId) {
-      return conn.reply(m.chat, `⏳ *انها حاليا ${chessData.currentTurn === gameData.white ? 'ابيض' : 'اسود'}'دور للتحرك.*`, m, {
+      return conn.reply(m.chat, `⏳ *انها حاليا ${chessData.currentTurn === gameData.white ? 'White' : 'Black'}'s turn to move.*`, m, {
         contextInfo: {
           mentionedJid: [currentTurn]
         }
@@ -101,7 +101,7 @@ const handler = async (m, { conn, args }) => {
     }
     if (chess.isDraw()) {
       delete conn.chess[key];
-      return conn.reply(m.chat, `⚠️ *تعادل.*\n🏳️ *توقفت لعبة الشطرنج.*\n*Players:* ${hasJoined.map(playerId => `- @${playerId.split('@')[0]}`).join('\n')}`, m, {
+      return conn.reply(m.chat, `⚠️ *لعبة التعادل.*\n🏳️ *توقفت لعبة الشطرنج.*\n*Players:* ${hasJoined.map(playerId => `- @${playerId.split('@')[0]}`).join('\n')}`, m, {
         contextInfo: {
           mentionedJid: hasJoined
         }
@@ -133,7 +133,7 @@ const handler = async (m, { conn, args }) => {
     return;
   }
 
-  if (feature === 'مساعده') {
+  if (feature === 'help') {
     return conn.reply(m.chat, `
       🌟 *أوامر لعبة الشطرنج:*
 
@@ -148,7 +148,7 @@ const handler = async (m, { conn, args }) => {
 اكتب *انضمام الشطرنج* للانضمام إلى لعبة الشطرنج المنتظرة.
     `, m);
   }
-  return conn.reply(m.chat, '❓ أمر خاطئ. استخدم *"شطرنج مساعده"* لرؤية الأوامر المتاحة.', m);
+  return conn.reply(m.chat, '❓ أمر خاطئ. يستخدم *"شطرنج-مساعده"* لرؤية الأوامر المتاحة.', m);
 };
 
 handler.help = ['chess [from to]', 'chess delete', 'chess join', 'chess start'];
