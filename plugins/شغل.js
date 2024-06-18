@@ -1,6 +1,6 @@
-import fetch from "node-fetch";
-import ytdl from 'youtubedl-core';
-import yts from 'youtube-yts';
+
+import ytdl from 'ytdl-core';
+import yts from 'yt-search';
 import fs from 'fs';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
@@ -8,160 +8,79 @@ import os from 'os';
 
 const streamPipeline = promisify(pipeline);
 
-const handler = async (m, {
-    conn,
-    command,
-    text,
-    args,
-    usedPrefix
-}) => {
-    if (!text) throw `ادخل شي للبحث عنه\nمثال: *${usedPrefix + command}* ايه الكرسي`;
-    conn.GURUPLAY = conn.GURUPLAY ? conn.GURUPLAY : {};
-    await conn.reply(m.chat, wait, m);
-    const result = await searchAndDownloadMusic(text);
-    const infoText = `🔰──『 *بوت سكونا* 』── 🔰`;
+var handler = async (m, { conn, command, text, usedPrefix }) => {
+  if (!text) throw `خطاء في استخدام الامر\nمثال:*${usedPrefix}${command}* اية الكرسي`;
 
-const orderedLinks = result.allLinks.map((link, index) => {
-    const sectionNumber = index + 1;
-    const {
-        title,
-        url
-    } = link;
-    return `*${sectionNumber}.* ${title}`;
-});
+  let search = await yts(text);
+  let vid = search.videos[Math.floor(Math.random() * search.videos.length)];
+  if (!search) throw 'Video Not Found, Try Another Title';
+  let { title, thumbnail, timestamp, views, ago, url } = vid;
+  let wm = 'Downloading audio please wait';
 
-    const orderedLinksText = orderedLinks.join("\n\n");
-    const fullText = `${infoText}\n\n${orderedLinksText}`;
-    const {
-        key
-    } = await conn.reply(m.chat, fullText, m);
-    conn.GURUPLAY[m.sender] = {
-        result,
-        key,
-        timeout: setTimeout(() => {
-            conn.sendMessage(m.chat, {
-                delete: key
-            });
-            delete conn.GURUPLAY[m.sender];
-        }, 60 * 1000),
-    };
-};
+  let captvid = `*❖───┊ ♪ يــوتـــيــوب ♪ ┊───❖*
+  ❏ الـعـنوان: ${title}
 
-handler.before = async (m, {
-    conn
-}) => {
-    conn.GURUPLAY = conn.GURUPLAY ? conn.GURUPLAY : {};
-    if (m.isBaileys || !(m.sender in conn.GURUPLAY)) return;
-    const {
-        result,
-        key,
-        timeout
-    } = conn.GURUPLAY[m.sender];
-    if (!m.quoted || m.quoted.id !== key.id || !m.text) return;
-    const choice = m.text.trim();
-    const inputNumber = Number(choice);
-    if (inputNumber >= 1 && inputNumber <= result.allLinks.length) {
-        const selectedUrl = result.allLinks[inputNumber - 1].url;
-        console.log("selectedUrl", selectedUrl)
-    let title = generateRandomName();
-        const audioStream = ytdl(selectedUrl, {
-            filter: 'audioonly',
-            quality: 'highestaudio',
-        });
-    
-      
-        
-        const tmpDir = os.tmpdir();
-        
-        
-        const writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
-    
-        
-        await streamPipeline(audioStream, writableStream);
+  ❐ الـمده: ${timestamp}
 
-        const doc = {
-            audio: {
-            url: `${tmpDir}/${title}.mp3`
-            },
-            mimetype: 'audio/mpeg',
-            ptt: false,
-            waveform: [100, 0, 0, 0, 0, 0, 100],
-            fileName: `${title}`,
-        
-        };
-    
-        await conn.sendMessage(m.chat, doc, { quoted: m });
-    
-    
-        clearTimeout(timeout);
-        delete conn.GURUPLAY[m.sender];
+  ❑ الــمـشهـدات: ${views}
+
+  ❒ مـنذ: ${ago}
+
+  ❒ الـرابــط: ${url}`;
+
+  conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: captvid, footer: author }, { quoted: m });
+
+
+  const audioStream = ytdl(url, {
+    filter: 'audioonly',
+    quality: 'highestaudio',
+  });
+
+  // Get the path to the system's temporary directory
+  const tmpDir = os.tmpdir();
+
+  // Create writable stream in the temporary directory
+  const writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
+
+  // Start the download
+  await streamPipeline(audioStream, writableStream);
+
+  let doc = {
+    audio: {
+      url: `${tmpDir}/${title}.mp3`
+    },
+    mimetype: 'audio/mp4',
+    fileName: `${title}`,
+    contextInfo: {
+      externalAdReply: {
+        showAdAttribution: true,
+        mediaType: 2,
+        mediaUrl: url,
+        title: title,
+        body: wm,
+        sourceUrl: url,
+        thumbnail: await (await conn.getFile(thumbnail)).data
+      }
+    }
+  };
+
+  await conn.sendMessage(m.chat, doc, { quoted: m });
+
+  // Delete the audio file
+  fs.unlink(`${tmpDir}/${title}.mp3`, (err) => {
+    if (err) {
+      console.error(`Failed to delete audio file: ${err}`);
     } else {
-        m.reply("رقم تسلسلي غير صالح.  الرجاء اختيار الرقم المناسب من القائمة أعلاه.\nبين 1 و " + result.allLinks.length);
+      console.log(`Deleted audio file: ${tmpDir}/${title}.mp3`);
     }
+  });
 };
 
-handler.help = ["play3"];
-handler.tags = ["downloader"];
-handler.command = /^(شغل)$/i;
-handler.limit = true;
+handler.help = ['play'].map((v) => v + ' <query>');
+handler.tags = ['downloader'];
+handler.command = /^شغل$/i;
+
+handler.exp = 0;
+handler.diamond = false;
+
 export default handler;
-
-function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return "0 B";
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
-}
-
-async function searchAndDownloadMusic(query) {
-    try {
-        const { videos } = await yts(query);
-        if (!videos.length) return "عذرًا، لم يتم العثور على نتائج فيديو لهذا البحث.";
-
-        const allLinks = videos.map(video => ({
-            title: video.title,
-            url: video.url,
-        }));
-
-        const jsonData = {
-            title: videos[0].title,
-            description: videos[0].description,
-            duration: videos[0].duration,
-            author: videos[0].author.name,
-            allLinks: allLinks,
-            videoUrl: videos[0].url,
-            thumbnail: videos[0].thumbnail,
-        };
-
-        return jsonData;
-    } catch (error) {
-        return "Error: " + error.message;
-    }
-}
-
-
-async function fetchVideoBuffer() {
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        });
-        return await response.buffer();
-    } catch (error) {
-        return null;
-    }
-}
-
-function generateRandomName() {
-    const adjectives = ["happy", "sad", "funny", "brave", "clever", "kind", "silly", "wise", "gentle", "bold"];
-    const nouns = ["cat", "dog", "bird", "tree", "river", "mountain", "sun", "moon", "star", "cloud"];
-    
-    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-    
-    return randomAdjective + "-" + randomNoun;
-}
