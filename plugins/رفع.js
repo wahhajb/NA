@@ -7,7 +7,7 @@ var number = text.split`@`[1]
 var number = text
 }
 	
-if(!text && !m.quoted) return conn.reply(m.chat, `*[❗] استخدام خاطئ للامر*\n\n*┯┷*\n*┠≽ ${usedPrefix} @tag*`, m)
+if(!text && !m.quoted) return conn.reply(m.chat, `*[❗] استخدام خاطئ للامر*\n\n*┯┷*\n*┠≽ ${usedPrefix}رفع @tag*`, m)
 if(number.length > 13 || (number.length < 11 && number.length > 0)) return conn.reply(m.chat, `*[ ⚠️ ] الرقم الذي ادخلته غير صالح. يرجى ادخال رقم صالح*`, m)
 	
 try {
