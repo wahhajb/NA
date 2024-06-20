@@ -21,8 +21,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                         highlight_label: 'ON',
                         rows: [
                           {
-                            header: '☘️ قـسـم الـنـظـام',
-                            title: '.النظام_كود',
+                            header: '☘️ قـسـم الاستمارات',
+                            title: '.قسم-الاستمارات',
                             description: '',
                             id: 'te'
                           },
