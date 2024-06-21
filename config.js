@@ -11,18 +11,18 @@ global.botnumber = ""
 global.confirmCode = ""
 
 global.owner = [
-  ['967701530463', '👑 HISOKA BOT 👑', true],
+  ['994404282709', '👑 SUKUNA 👑', true],
 ];
 
-global.suittag = ['967701530463'];
-global.prems = ['967701530463'];
+global.suittag = ['994404282709'];
+global.prems = ['994404282709'];
 
 global.packname = 'Sticker';
-global.author = 'HISOKA Bot';
-global.wm = 'HISOKA Bot';
-global.titulowm = 'HISOKA Bot';
-global.titulowm2 = `HISOKA Bot`
-global.igfg = 'HISOKA Bot';
+global.author = '.';
+global.wm = 'SUKUNA BOT';
+global.titulowm = 'SUKUNA BOT';
+global.titulowm2 = `SUKUNA Bot`
+global.igfg = 'SUKUNA Bot';
 global.wait = '*[ ⏳ ] تَحْميل...*';
 
 global.imagen1 = fs.readFileSync('./Menu2.jpg');
@@ -44,8 +44,8 @@ global.año = d.toLocaleDateString('es', {year: 'numeric'});
 global.tiempo = d.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true});
 //* ****************************
 global.wm2 = `${dia} ${fecha}\nshanks - Bot`;
-global.gt = 'hisoka Bot';
-global.mysticbot = 'HISOKA Bot';
+global.gt = 'sukuna Bot';
+global.mysticbot = 'SUKUNA Bot';
 global.md = 'https://github.com/BrunoSobrino/TheMystic-Bot-MD';
 global.mysticbot = 'https://github.com/BrunoSobrino/TheMystic-Bot-MD';
 global.waitt = '*[ ⏳ ] Cargando...*';
