@@ -5,17 +5,17 @@ let img = await(await fetch('https://chat.whatsapp.com/BxBsz6WSLiIK13w2NtWKJm'))
 let _uptime = process.uptime() * 1000
 let uptime = clockString(_uptime)
 let taguser = '@' + m.sender.split("@s.whatsapp.net")[0]
-let str = `╭────『👑┇HISOKA┇🤖┇BOT┇👑』
+let str = `╭────『👑┇SUKUNA┇🤖┇BOT┇👑』
 │
 │ *➤ مرحبا ${taguser}*
 │
 │ *=> 🤖 وقت عمل البوت:* ${uptime}
 │ *=> ✅ البوت عام للجميع*
 
-│ *=> 🔗 رقم المطور:* *https://wa.me/+22247072475*
+│ *=> 🔗 رقم المطور:* *https://wa.me/+994404282709*
 ╰────────────────`.trim()
 let buttons = [{ buttonId: '#menu', buttonText: { displayText: 'قائمة الاوامر 📜' }, type: 1 }]
-let buttonMessage = { image: pp, caption: str.trim(), mentions: [m.sender], footer: global.wm, buttons: buttons, headerType: 4, contextInfo: { mentionedJid: [m.sender], externalAdReply: { showAdAttribution: true, mediaType: 'VIDEO', mediaUrl: null, title: 'اضغط هنا لدخول قروب الدعم', body: 'بواسطة صاصا', thumbnail: img, sourceUrl: `https://chat.whatsapp.com/BxBsz6WSLiIK13w2NtWKJm`}}}
+let buttonMessage = { image: pp, caption: str.trim(), mentions: [m.sender], footer: global.wm, buttons: buttons, headerType: 4, contextInfo: { mentionedJid: [m.sender], externalAdReply: { showAdAttribution: true, mediaType: 'VIDEO', mediaUrl: null, title: 'اضغط هنا لدخول قروب الدعم', body: 'بواسطة سكونا', thumbnail: img, sourceUrl: `https://chat.whatsapp.com/D39UfanghjpJyBo1d4w5JV`}}}
 conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 } catch {
 let _uptime = process.uptime() * 1000
