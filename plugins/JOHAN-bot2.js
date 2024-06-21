@@ -13,7 +13,7 @@ let handler = async (m, { conn }) => {
     conn.sendFile(m.chat, 'https://telegra.ph/file/af5da33940f19be1f8b38.mp4', 'video.mp4' , message, m);
 };
 
-handler.customPrefix = /^(بوت)$/i;
+handler.customPrefix = /^(bot|بوت)$/i;
 handler.command = new RegExp;
 
 export default handler;
