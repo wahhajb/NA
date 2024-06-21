@@ -18,13 +18,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                     sections: [
                       {
                         title: 'List',
-                        highlight_label: 'ON',
+                        highlight_label: 'شغال',
                         rows: [
                           {
                             header: '☘️ قـسـم الاستمارات',
                             title: '.قسم-الاستمارات',
-                            description: '',
-                            id: 'قسم-الاستمارات'
+                            description: 'بيجيب لك الاستمارات',
+                            id: '.قسم-الاستمارات'
                           },
                           {
                             header: '👑 قـسـم الـمـطـور',
