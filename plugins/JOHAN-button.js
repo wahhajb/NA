@@ -57,10 +57,10 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             id: '.قسم-الذكاء'
                           },
                           {
-                            header: 'قــســم الايديت',
-                            title: '.تصاميم',
-                            description: 'بيجيب لك اوامر ايديت',
-                            id: '.قسم-الايديت'
+                            header: 'قــســم الجروبات',
+                            title: 'القروبات',
+                            description: 'بيجيب لك اوامر الجروبات',
+                            id: '.قسم-الجروب'
                           },
                           {
                             header: 'قــســم البحث',
@@ -85,6 +85,12 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             title: 'الاسلام ديننا',
                             description: 'بيجيب لك اوامر الدين',
                             id: '.قسم-الدين'
+                          },
+                                                      {
+                            header: 'قــســم الدعم',
+                            title: 'الدعم',
+                            description: 'بيجيب لك اوامر الدعم',
+                            id: '.قسم-الدعم'
                           },
                           {
                             header: 'قــســم المطور',
