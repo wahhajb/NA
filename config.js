@@ -12,13 +12,14 @@ global.confirmCode = ""
 
 global.owner = [
   ['994404282709', '👑 SUKUNA 👑', true],
+  ['573504272395', 'رقم البوت', true],
 ];
 
-global.suittag = ['994404282709'];
-global.prems = ['994404282709'];
+global.suittag = ['994404282709', '573504272395'];
+global.prems = ['994404282709', '573504272395'];
 
 global.packname = 'Sticker';
-global.author = '.';
+global.author = '';
 global.wm = 'SUKUNA BOT';
 global.titulowm = 'SUKUNA BOT';
 global.titulowm2 = `SUKUNA Bot`
