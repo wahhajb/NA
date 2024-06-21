@@ -10,7 +10,7 @@ let handler = async (m, { conn, text }) => {
   m.reply('تم التحويل')
 }
 handler.help = ['tx']
-handler.tags = ['573504272395']
+handler.tags = ['owner']
 handler.command = /^(نشر)$/i
 handler.owner = true
 
