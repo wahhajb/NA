@@ -80,11 +80,17 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             description: 'بيجيب لك اوامر البنك',
                             id: '.قسم-البنك'
                           },
-                          {
+                                                      {
                             header: 'قــســم الدين الاسلامي',
                             title: 'الاسلام ديننا',
                             description: 'بيجيب لك اوامر الدين',
                             id: '.قسم-الدين'
+                          },
+                          {
+                            header: 'قــســم المطور',
+                            title: 'المطزر',
+                            description: 'بيجيب لك اوامر المطور',
+                            id: '.قسم-المطور'
                           }
                         ]
                       }
