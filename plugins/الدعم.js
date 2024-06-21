@@ -6,9 +6,13 @@ conn.sendFile(m.chat, haha, 'error.jpg', `
 
 *『 ️اليك قائمه الدعم 』*
 
-*『 ️واتساب 』*
+*『 ️انضم للمجتمع 』*
 
-*⊱≼ https://wa.me/+967701530463 ≽⊰⊹*
+*https://chat.whatsapp.com/D39UfanghjpJyBo1d4w5JV*
+
+*『 ️ رقم المطور واتساب  』*
+
+*⊱≼ https://wa.me/+994404282709 ≽⊰⊹*
 
 *◉═══ • ❁ 👑 ❁ • ═══◉* `, m)
 }
