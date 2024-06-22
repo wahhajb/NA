@@ -189,7 +189,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             id: '.كانيكي'
                           },
                           {
-                            header: 'ايــتــوري,
+                            header: 'ايــتــوري',
                             title: 'ايـتـوري',
                             description: '',
                             id: '.ايتوري'
