@@ -144,7 +144,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت زورو',
                             title: 'زورو',
                             description: '',
-                            id: 'زورو'
+                            id: '.زورو'
                           },
                           {
                             header: 'ايـديـت ثورفين',
@@ -156,7 +156,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت ماهيتو',
                             title: 'ماهيتو',
                             description: '',
-                            id: 'ماهيتو'
+                            id: '.ماهيتو'
                           },
                           {
                             header: 'ايـديـت توجي',
