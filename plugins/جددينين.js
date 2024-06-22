@@ -34,7 +34,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                           },
                           {
                             header: 'ايـديـت غـوجـو',
-                            title: '.غوجو ساتورا',
+                            title: 'غوجو ساتورا',
                             description: '',
                             id: '.غوجو'
                           },
@@ -52,7 +52,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                           },
                           {
                             header: 'ايـديـت اسبادا',
-                            title: 'اسبادا'
+                            title: 'اسبادا',
                             description: '',
                             id: '.اسبادا'
                           },
