@@ -147,12 +147,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             id: '.زورو'
                           },
                           {
-                            header: 'ايـديـت ثورفين',
-                            title: 'ثورفين',
-                            description: '',
-                            id: '.ثورفين'
-                          },
-                          {
                             header: 'ايـديـت ماهيتو',
                             title: 'ماهيتو',
                             description: '',
