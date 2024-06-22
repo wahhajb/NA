@@ -51,6 +51,12 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             id: '.قسم-التنزيل'
                           },
                           {
+                            header: 'قــســم الايديت',
+                            title: 'تصاميم',
+                            description: 'بيجيب لك اوامر الايديت',
+                            id: '.قسم-الايديت'
+                          },
+                          {
                             header: 'قــســم الذكاء',
                             title: 'ذكاء اصطناعي',
                             description: 'بيجيب لك اوامر الذكاء الاصطناعي',
