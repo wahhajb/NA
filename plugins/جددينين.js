@@ -36,7 +36,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت غـوجـو',
                             title: '.غوجو ساتورا',
                             description: '',
-                            id: '.غوجو
+                            id: '.غوجو'
                           },
                           {
                             header: 'ايـديـت ميليوداس',
@@ -48,7 +48,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت دومـا',
                             title: 'دوما',
                             description: '',
-                            id: '.دوما
+                            id: '.دوما'
                           },
                           {
                             header: 'ايـديـت اسبادا',
@@ -66,7 +66,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت غوكو',
                             title: 'سون غوكو',
                             description: '',
-                            id: '.غوكو
+                            id: '.غوكو'
                           },
                           {
                             header: 'ايـديـت غون',
@@ -78,13 +78,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت سوكونا',
                             title: 'سوكونا',
                             description: '',
-                            id: '.سوكونا
+                            id: '.سوكونا'
                           },
                           {
                             header: 'ايـديـت استا',
                             title: 'استا',
                             description: '',
-                            id: '.استا
+                            id: '.استا'
                           },
                           {
                             header: 'ايـديـت ميدوريا',
@@ -120,7 +120,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت شادو',
                             title: 'شادو',
                             description: '',
-                            id: '.شادو
+                            id: '.شادو'
                           },
                           {
                             header: 'ايـديـت بانكاي',
@@ -162,7 +162,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             header: 'ايـديـت توجي',
                             title: 'توجي',
                             description: '',
-                            id: '.توجي
+                            id: '.توجي'
                           }
                         ]
                       }
