@@ -37,35 +37,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             title: 'معلومات البوت',
                             description: '',
                             id: '.معلومات'
-                          },
-             nativeFlowMessage: {
-              buttons: [
-                {
-                  name: 'single_select',
-                  buttonParamsJson: JSON.stringify({
-                    title: 'لا تضغط 💻',
-                    sections: [
-                      {
-                        title: 'List',
-                        highlight_label: 'المطور بيحبك',
-                        rows: [
-                          {
-                            header: 'الــمــطــور',
-                            title: 'رقـم الـمـطـور',
-                            description: '',
-                            id: '.المطور'
-                          },
-                          {
-                            header: 'الــدعــم',
-                            title: 'جروبات الدعم',
-                            description: '',
-                            id: '.الدعم'
-                          },
-                          {
-                            header: 'مـعـلـومـات',
-                            title: 'معلومات البوت',
-                            description: '',
-                            id: '.معلومات'
                           }
                         ]
                       }
