@@ -55,7 +55,7 @@ const handler = async (m, {conn, text, command, usedPrefix}) => {
   return !1;
 };
 
-handler.command = /^(advertir|تحذير|انذار)$/i;
+handler.command = /^(advertir|انذار)$/i;
 handler.group = true;
 handler.admin = true;
 handler.botAdmin = true;
