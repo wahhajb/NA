@@ -1,4 +1,4 @@
- ©JOANIMI/KILLUA //https://whatsapp.com/channel/0029Vab5oDNElagpHtJjmT0B
+ //https://whatsapp.com/channel/0029Vab5oDNElagpHtJjmT0B
 import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys';
 
 const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
@@ -91,4 +91,3 @@ handler.help = ['imgboton'];
 handler.tags = ['For Test'];
 handler.command = /^(سوكاا)$/i;
 export default handler;
-```
