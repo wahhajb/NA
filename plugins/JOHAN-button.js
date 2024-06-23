@@ -1,5 +1,4 @@
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-let taguser = '@' + m.sender.split("@s.whatsapp.net")[0];
     conn.relayMessage(m.chat, {
       viewOnceMessage: {
         message: {
