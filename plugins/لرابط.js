@@ -1,23 +1,20 @@
-import uploadFile from '../lib/uploadFile.js';
-import uploadImage from '../lib/uploadImage.js';
+import fetch from 'node-fetch';
 
+let handler = async (m, { conn, args, text }) => {
+  if (!text) throw '*Please provide a URL or link to shorten.*';
 
-const handler = async (m) => {
-  const datas = global
-  const idioma = datas.db.data.users[m.sender].language
-  const _translate = JSON.parse(fs.readFileSync(`./language/ar.json`))
-  const tradutor = _translate.plugins.convertidor_tourl
-
+  let shortUrl1 = await (await fetch(`https://tinyurl.com/api-create.php?url=${args[0]}`)).text();
   
-  const q = m.quoted ? m.quoted : m;
-  const mime = (q.msg || q).mimetype || '';
-  if (!mime) throw `*${tradutor.texto1}*`;
-  const media = await q.download();
-  const isTele = /image\/(png|jpe?g|gif)|video\/mp4/.test(mime);
-  const link = await (isTele ? uploadImage : uploadFile)(media);
-  m.reply(`*${tradutor.texto2}* ${link}`);
+  if (!shortUrl1) throw `*Error: Could not generate a short URL.*`;
+
+  let done = `*SHORT URL CREATED!!*\n\n*Original Link:*\n${text}\n*Shortened URL:*\n${shortUrl1}`.trim();
+  
+  m.reply(done);
 };
-handler.help = ['tourl <reply image>'];
-handler.tags = ['sticker'];
-handler.command = /^(لرابط|tourl)$/i;
+
+handler.help = ['tinyurl', 'shorten'].map(v => v + ' <link>');
+handler.tags = ['tools'];
+handler.command = /^(لرابط|short|acortar|corto)$/i;
+handler.fail = null;
+
 export default handler;
