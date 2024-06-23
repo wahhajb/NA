@@ -25,12 +25,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BrunoSobrino/TheMystic-Bot-MD.git"
-  },
-  "bugs": {
-    "url": "https://github.com/BrunoSobrino/TheMystic-Bot-MD/issues"
-  },
-  "license": "GPL-3.0-or-later",
-  "dependencies": {
+    },
+    "bugs": {
+      "url": "https://github.com/BrunoSobrino/TheMystic-Bot-MD/issues"
+    },
+    "license": "GPL-3.0-or-later",
+    "dependencies": {
     "@whiskeysockets/baileys":
     "npm:@whiskeysockets/baileys@6.7.2",
     "@adiwajshing/keyed-db": "^0.2.4",
