@@ -71,7 +71,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                           {
                             header: 'قــســم البحث',
                             title: '.البحث',
-                            description: 'بيطيب لك اوامر البحث',
+                            description: 'بيجيب لك اوامر البحث',
                             id: '.قسم-البحث'
                           },
                           {
@@ -100,7 +100,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                           },
                           {
                             header: 'قــســم المطور',
-                            title: 'المطزر',
+                            title: 'المطور',
                             description: 'بيجيب لك اوامر المطور',
                             id: '.قسم-المطور'
                           }
