@@ -19,7 +19,7 @@ const handler = async (m, {conn, command, args}) => {
 };
 handler.help = ['Buy', 'Buyall'];
 handler.tags = ['xp'];
-handler.command = ['buy', 'شراء'];
+handler.command = ['buy', 'المهم'];
 
 handler.disabled = false;
 
