@@ -1,9 +1,9 @@
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-if (!text) throw `*ادخل مشكلتك و بلاغك*\n\n*مثال:*\n*${usedPrefix + command} مرحباً هنري${usedPrefix}كيف اخبارك*`
+if (!text) throw `*ادخل مشكلتك و بلاغك*\n\n*مثال:*\n*${usedPrefix + command} مرحباً سكونا${usedPrefix}كيف اخبارك*`
 if (text.length < 10) throw `*البلاغ لا يقل عن عشرة احرف*`
 if (text.length > 1000) throw `*البلاغ لا يزيد عن الف حرف*`
 let teks = `*❒═════[إبلاغ مهم]═════❒*\n*┬*\n*├❧ الرقم:* wa.me/${m.sender.split`@`[0]}\n*┴*\n*┬*\n*├❧ البلاغ:* ${text}\n*┴*`
-conn.reply('3197010291208@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, null, { contextInfo: { mentionedJid: [m.sender] }})
+conn.reply('994404282709@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, null, { contextInfo: { mentionedJid: [m.sender] }})
 conn.reply('@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, null, { contextInfo: { mentionedJid: [m.sender] }})
 m.reply(`*[ ✔️ ] تم إبلاغ المطور و انشاء الله يكون ف خدمتك في أسرع وقت 🐦🫶🏻❤️*`)
 }
