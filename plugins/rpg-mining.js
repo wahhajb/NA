@@ -4,7 +4,7 @@ let handler = async (m, { conn }) => {
 
   let hasil = Math.floor(Math.random() * 5000)
   let time = global.db.data.users[m.sender].lastmiming + 14400000
-  if (new Date - global.db.data.users[m.sender].lastmiming < 14400000) throw `⏳ _Sebentar_ *${msToTime(time - new Date())}* _untuk kembali ke tambang_`
+  if (new Date - global.db.data.users[m.sender].lastmiming < 14400000) throw `⏳ _انتظر_ *${msToTime(time - new Date())}* _لتعود لمنجم التعدين_`
   global.db.data.users[m.sender].exp += hasil
   m.reply(`
 🎉 جيد لقد حصل على *${hasil} XP*`)
@@ -26,5 +26,5 @@ function msToTime(duration) {
   minutes = (minutes < 10) ? "0" + minutes : minutes
   seconds = (seconds < 10) ? "0" + seconds : seconds
 
-  return hours + " hora(s) " + minutes + " minuto(s) " + seconds + " segundo(s)" 
+  return hours + " ساعه(s) " + minutes + " دقيقه(s) " + seconds + " ثانيه(s)" 
 }
