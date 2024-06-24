@@ -10,7 +10,7 @@ let handler = async (m, { conn }) => {
    }
   })
 
-    conn.sendFile(m.chat, 'https://66394f4ae0ff6.site123.me/', 'بنك.link' , message, m);
+    conn.sendFile(m.chat, 'https://66394f4ae0ff6.site123.me/', 'Bank.link' , message, m);
 };
 
 handler.customPrefix = /^(بنك)$/i;
