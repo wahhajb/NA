@@ -1,4 +1,4 @@
-import pkg from '@whiskeysockets/baileys';
+import pkg from  @whiskeysockets/baileys ;
 const { generateWAMessageFromContent, proto } = pkg
 
 var handler = async (m, { conn, usedPrefix }) => {
@@ -26,7 +26,7 @@ let msg = generateWAMessageFromContent(m.chat, {
             buttons: [
               {
                 "name": "single_select",
-                "buttonParamsJson": "{\"title\":\"title\",\"sections\":[{\"title\":\"title\",\"highlight_label\":\"label\",\"rows\":[{\"header\":\"header\",\"title\":\"title\",\"description\":\"description\",\"id\":\"id\"},{\"header\":\"header\",\"title\":\"title\",\"description\":\"description\",\"id\":\"id\"}]}]}"
+                "buttonParamsJson": "{\"اختار هنا\":\"اضغط\",\"sections\":[{\"اختار هنا\":\"اضغط\",\"highlight_label\":\".المطور\",\".الاوامر\":[{\"header\":\"عمك\",\"اضغط هنا\":\"اختار\",\".الاوامر\":\".المطور\",\"id\":\"id\"},{\"header\":\"header\",\"title\":\"title\",\"description\":\"description\",\"id\":\"id\"}]}]}"
               },
               {
                 "name": "quick_reply",
@@ -70,6 +70,6 @@ let msg = generateWAMessageFromContent(m.chat, {
 await conn.relayMessage(msg.key.remoteJid, msg.message, { messageId: msg.key.id })
 
 }
-handler.command = /^(mboton)$/i
+handler.command = /^(تست)$/i
 
 export default handler
