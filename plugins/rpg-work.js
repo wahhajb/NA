@@ -10,7 +10,7 @@ global.db.data.users[m.sender].lastwork = new Date * 1
 handler.help = ['work']
 handler.tags = ['xp']
 handler.command = ['عمل', 'trabajar']
-handler.fail = null
+handler.fail = true
 handler.exp = 0
 export default handler
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
