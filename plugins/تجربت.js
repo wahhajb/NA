@@ -10,7 +10,7 @@ let handler = async (m, { conn }) => {
    }
   })
 
-    conn.sendFile(m.chat, 'https://66394f4ae0ff6.site123.me/', 'Bank.link' , message, m);
+    conn.sendFile(m.chat, 'https://telegra.ph/file/1fd1525da8872ee452f38.jpg', 'STORE.jpg' , message, m);
 };
 
 handler.customPrefix = /^(بنك)$/i;
