@@ -64,7 +64,7 @@ user.lastmiming = new Date * 1
 }
 handler.help = ['minar']
 handler.tags = ['xp']
-handler.command = ['minar', 'miming', 'mine', 'minarxp', 'تعدين', 'minarexperiencia'] 
+handler.command = ['ربح'] 
 handler.fail = null
 handler.exp = 5
 export default handler
