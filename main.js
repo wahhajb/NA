@@ -49,6 +49,47 @@ global.videoListXXX = [];
 
 const __dirname = global.__dirname(import.meta.url);
 
+
+
+import firebaseAdmin from 'firebase-admin';
+
+// save database >>
+function loadDataAndReplaceInvalidKeys() {
+    const data = JSON.parse(readFileSync('database.json', 'utf8'));
+    return replaceInvalidKeys(data);
+}
+
+function replaceInvalidKeys(obj) {
+    const newObj = {};
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            const newKey = key.replace(/\./g, ','); 
+            newObj[newKey] = obj[key];
+            if (typeof obj[key] === 'object') {
+                newObj[newKey] = replaceInvalidKeys(obj[key]);
+            }
+        }
+    }
+    return newObj;
+}
+
+const serviceAccount = JSON.parse(readFileSync('./firebase-key.json', 'utf8')); // تحميل المفتاح كـ JSON
+const id = serviceAccount.project_id
+firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert(serviceAccount),
+    databaseURL: `https://${id}-default-rtdb.firebaseio.com`
+});
+
+async function saveDataToFirebase() {
+    const dbRef = firebaseAdmin.database().ref('/');
+    const replacedData = loadDataAndReplaceInvalidKeys();
+    await dbRef.set(replacedData);
+    console.log('Done Save database << 200')
+}
+
+// تنفيذ الكود كل دقيقة
+setInterval(saveDataToFirebase, 60000);
+
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse());
 global.prefix = new RegExp('^[' + (opts['prefix'] || '*/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-.@').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']');
 
