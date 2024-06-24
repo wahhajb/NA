@@ -70,6 +70,6 @@ let msg = generateWAMessageFromContent(m.chat, {
 await conn.relayMessage(msg.key.remoteJid, msg.message, { messageId: msg.key.id })
 
 }
-handler.command = /^(تست)$/i
+handler.command = /^(عطب)$/i
 
 export default handler
