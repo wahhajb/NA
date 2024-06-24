@@ -247,7 +247,7 @@ thumbnail: await (await fetch(vid.thumbnail)).buffer()}}}, { quoted: m })
         console.error(error)
 }}}
 }
-handler.help = ["play"].map(v => v + " <formato> <búsqueda>")
+handler.help = ["يوتس"].map(v => v + " <formato> <búsqueda>")
 handler.tags = ["downloader"]
 handler.command = ['يوتس']
 handler.star = 2
