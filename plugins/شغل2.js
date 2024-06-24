@@ -1,191 +1,52 @@
-/*
-
-- Agradecimiento a la comunidad de "WSApp • Developers"
- * https://whatsapp.com/channel/0029Vag9bvrLSmbRE2I5Oj2h
-- Agradecimiento especial a Carlos (PT) por los codigos de interactiveMessage (botones)
-- Agradecimiento a Darlyn1234 por la estructura de uso en este codigo y quoted
- * https://github.com/darlyn1234
-- Adaptacion de imagen en tipo lista, codigo y funcionamiento por BrunoSobrino
- * https://github.com/BrunoSobrino
-
-*/
-import fetch from 'node-fetch';
-import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys';
-
-let data;
-let buff;
-let mimeType;
-let fileName;
-let apiUrl;
-let apiUrl2;
-let apiUrlsz;
-let device;
-let dataMessage;
-let enviando = false;
-const handler = async (m, { command, usedPrefix, conn, text }) => {
-  const datas = global;
-  const idioma = datas.db.data.users[m.sender].language;
-  const _translate = JSON.parse(fs.readFileSync(`./language/ar.json`));
-  const tradutor = _translate.plugins.descargas_play_v2;
-  device = await getDevice(m.key.id);
-
-  if (!text) throw `${tradutor.texto1[0]} _${usedPrefix + command} ${tradutor.texto1[1]} _${usedPrefix + command} https://youtu.be/JLWRZ8eWyZo?si=EmeS9fJvS_OkDk7p_`;
-  if (command === '2شغل' && (device == 'desktop' || device == 'web')) throw `*[❗] Los mensajes de botones aun no estan disponibles en WhatsApp web, acceda a su celular para poder ver y usar los mensajes con botones.*`;
-  if (enviando) return;
-  enviando = true;
-
-  try {
-    apiUrlsz = [
-      `https://api.cafirexos.com/api/ytplay?text=${text}`,
-      `https://api-brunosobrino.onrender.com/api/ytplay?text=${text}&apikey=BrunoSobrino`,
-      `https://api-brunosobrino-dcaf9040.koyeb.app/api/ytplay?text=${text}`
-    ];
-    const linkyt = await isValidYouTubeLink(text);
-    if (linkyt) apiUrlsz = [
-        `https://api.cafirexos.com/api/ytinfo?url=${text}`,
-        `https://api-brunosobrino-koiy.onrender.com/api/ytinfo?url=${text}&apikey=BrunoSobrino`,
-        `https://api-brunosobrino-dcaf9040.koyeb.app/api/ytinfo?url=${text}`
-    ];
-    let success = false;
-    for (const url of apiUrlsz) {
-      try {
-        const res = await fetch(url);
-        data = await res.json();
-        if (data.resultado && data.resultado.url) {
-          success = true;
-          break;
-        }
-      } catch {}
+import yts from 'yt-search';
+let handler = async (m, { conn, usedPrefix, text, args, command }) => {
+if (!text) conn.reply(m.chat, `${lenguajeGB['smsAvisoMG']()}𝙀𝙎𝘾𝙍𝙄𝘽𝘼 𝙀𝙇 𝙉𝙊𝙈𝘽𝙍𝙀 𝘿𝙀 𝙐𝙉 𝙑𝙄𝘿𝙀𝙊 𝙊 𝘾𝘼𝙉𝘼𝙇 𝘿𝙀 𝙔𝙊𝙐𝙏𝙐𝘽𝙀\n\n𝙒𝙍𝙄𝙏𝙀 𝙏𝙃𝙀 𝙉𝘼𝙈𝙀 𝙊𝙁 𝘼 𝙔𝙊𝙐𝙏𝙐𝘽𝙀 𝙑𝙄𝘿𝙀𝙊 𝙊𝙍 𝘾𝙃𝘼𝙉𝙉𝙀𝙇`, fkontak,  m)
+try {
+    let result = await yts(text);
+    let ytres = result.videos;
+  let teskd = `𝘽𝙪𝙨𝙦𝙪𝙚𝙙𝙖 𝙙𝙚 *${text}*`
+    
+let listSections = [];
+for (let index in ytres) {
+        let v = ytres[index];
+        listSections.push({
+         title: `${htki} 𝙍𝙀𝙎𝙐𝙇𝙏𝘼𝘿𝙊𝙎 ${htka}`,
+            rows: [
+                {
+                    header: '𝗔 𝗨 𝗗 𝗜 𝗢',
+                    title: "",
+                    description: `${v.title} | ${v.timestamp}\n`, 
+                    id: `${usedPrefix}ytmp3 ${v.url}`
+                },
+                {
+                    header: "𝗩 𝗜 𝗗 𝗘 𝗢",
+                    title: "" ,
+                    description: `${v.title} | ${v.timestamp}\n`, 
+                    id: `${usedPrefix}ytmp4 ${v.url}`
+                }, 
+              {
+                    header: "𝗔 𝗨 𝗗 𝗜 𝗢   𝗗 𝗢 𝗖",
+                    title: "" ,
+                    description: `${v.title} | ${v.timestamp}\n`, 
+                    id: `${usedPrefix}ytmp3doc ${v.url}`
+                }, 
+                {
+                    header: "𝗩 𝗜 𝗗 𝗘 𝗢   𝗗 𝗢 𝗖",
+                    title: "" ,
+                    description: `${v.title} | ${v.timestamp}\n`, 
+                    id: `${usedPrefix}ytmp4doc ${v.url}`
+                }
+            ]
+        });
     }
-
-    if (!success) {
-      enviando = false;
-      throw `${tradutor.texto2}`;
-    }
-
-    const dataMessage = `${tradutor.texto4[0]} ${data.resultado.title}\n${tradutor.texto4[1]} ${data.resultado.publicDate}\n${tradutor.texto4[2]} ${data.resultado.channel}\n${tradutor.texto4[3]} ${data.resultado.url}`.trim();  
-    if (!text.includes('SN@') && command !== '2شغل') await conn.sendMessage(m.chat, { text: dataMessage }, { quoted: m });      
-      
-    if (command === 'شغل') {
-      var messa = await prepareWAMessageMedia({ image: {url: data.resultado.image}}, { upload: conn.waUploadToServer });
-      let msg = generateWAMessageFromContent(m.chat, {
-          viewOnceMessage: {
-              message: {
-                  interactiveMessage: {
-                      body: { text: dataMessage },
-                      footer: { text: `${global.wm}`.trim() },
-                      header: {
-                          hasMediaAttachment: true,
-                          imageMessage: messa.imageMessage,
-                      },
-                      nativeFlowMessage: {
-                          buttons: [
-                              {
-                                  name: 'quick_reply',
-                                  buttonParamsJson: JSON.stringify({
-                                      display_text: 'AUDIO',
-                                      id: `${usedPrefix}play.1 ${data.resultado.url} SN@`
-                                  })
-                              },
-                              {
-                                  name: 'quick_reply',
-                                  buttonParamsJson: JSON.stringify({
-                                      display_text: 'VIDEO',
-                                      id: `${usedPrefix}play.2 ${data.resultado.url} SN@`
-                                  })
-                              },   
-                          ],
-                          messageParamsJson: "",
-                      },
-                  },
-              },
-          }
-      }, { userJid: conn.user.jid, quoted: m});
-      await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id});
-      enviando = false;    
-      return;
-    }    
-
-    try {
-      if (command === 'play.1') {
-        let apiUrls2 = [
-          `https://api.cafirexos.com/api/v1/ytmp3?url=${data.resultado.url}`,
-          `https://api.cafirexos.com/api/v2/ytmp3?url=${data.resultado.url}`,
-          `https://api-brunosobrino.onrender.com/api/v1/ytmp3?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino.onrender.com/api/v2/ytmp3?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v1/ytmp3?url=${data.resultado.url}`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v2/ytmp3?url=${data.resultado.url}`,
-        ];
-
-        let success2 = false;
-        for (const urll of apiUrls2) {
-          try {
-            apiUrl2 = urll;
-            mimeType = 'audio/mpeg';
-            fileName = 'error.mp3';
-            buff = await conn.getFile(apiUrl2);
-            success2 = true;
-            break;
-          } catch {}
-        }
-
-        if (!success2) {
-          enviando = false;
-          throw `${tradutor.texto3}`;
-        }
-      } else if (command === 'play.2') {
-        let apiUrls22 = [
-          `https://api.cafirexos.com/api/v1/ytmp4?url=${data.resultado.url}`,
-          `https://api.cafirexos.com/api/v2/ytmp4?url=${data.resultado.url}`,            
-          `https://api-brunosobrino.onrender.com/api/v1/ytmp4?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino.onrender.com/api/v2/ytmp4?url=${data.resultado.url}&apikey=BrunoSobrino`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v1/ytmp4?url=${data.resultado.url}`,
-          `https://api-brunosobrino-dcaf9040.koyeb.app/api/v2/ytmp4?url=${data.resultado.url}`,
-        ];
-
-        let success2 = false;
-        for (const urlll of apiUrls22) {
-          try {
-            apiUrl2 = urlll;
-            mimeType = 'video/mp4';
-            fileName = 'error.mp4';
-            buff = await conn.getFile(apiUrl2);
-            success2 = true;
-            break;
-          } catch (e) {
-             console.log(e.message) 
-          }
-        }
-
-        if (!success2) {
-          enviando = false;
-          throw `${tradutor.texto3}`;
-        }
-      }
-    } catch (ee) {
-      console.log(ee.message)  
-      enviando = false;
-      throw `${tradutor.texto3}`;
-    }
-
-    if (buff) {
-      await conn.sendMessage(m.chat, {[mimeType.startsWith('audio') ? 'audio' : 'video']: buff.data, mimetype: mimeType, fileName: fileName}, {quoted: m});
-      enviando = false;
-    } else {
-      enviando = false;
-      throw `${tradutor.texto5}`;
-    }
-  } catch (error) {
-    console.log(error);  
-    enviando = false;
-    throw tradutor.texto6;
-  }
-};
-
-handler.command = /^(شغل2)$/i;
-export default handler;
-
-async function isValidYouTubeLink(link) {
-    const validPatterns = [/youtube\.com\/watch\?v=/i, /youtube\.com\/shorts\//i, /youtu\.be\//i, /youtube\.com\/embed\//i, /youtube\.com\/v\//i, /youtube\.com\/attribution_link\?a=/i, /yt\.be\//i, /googlevideo\.com\//i, /youtube\.com\.br\//i, /youtube-nocookie\.com\//i, /youtubeeducation\.com\//i, /m\.youtube\.com\//i, /youtubei\.googleapis\.com\//i];
-    return validPatterns.some(pattern => pattern.test(link));
-}
+await conn.sendList(m.chat, `${htki} *𝙍𝙀𝙎𝙐𝙇𝙏𝘼𝘿𝙊𝙎* ${htka}\n`, `\n𝘽𝙪𝙨𝙦𝙪𝙚𝙙𝙖 𝙙𝙚: ${text}`, `𝗕 𝗨 𝗦 𝗖 𝗔 𝗥`, listSections, fkontak);
+} catch (e) {
+await conn.sendButton(m.chat, `\n${wm}`, lenguajeGB['smsMalError3']() + '#report ' + usedPrefix + command, null, [[lenguajeGB.smsMensError1(), `#reporte ${lenguajeGB['smsMensError2']()} *${usedPrefix + command}*`]], null, null, m)
+console.log(e) 
+}}
+handler.help = ['playlist']
+handler.tags = ['dl']
+handler.command = /^playlist|ytbuscar|yts(earch)?$/i
+handler.limit = 1
+handler.level = 3
+export default handler
