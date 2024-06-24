@@ -12,14 +12,14 @@ let msg = generateWAMessageFromContent(m.chat, {
         },
         interactiveMessage: proto.Message.InteractiveMessage.create({
           body: proto.Message.InteractiveMessage.Body.create({
-            text: "وو"
+            text: "test"
           }),
           footer: proto.Message.InteractiveMessage.Footer.create({
-            text: "ةة"
+            text: "test"
           }),
           header: proto.Message.InteractiveMessage.Header.create({
-            title: "اتل",
-            subtitle: "اال",
+            title: "test",
+            subtitle: "test",
             hasMediaAttachment: false
           }),
           nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
@@ -29,8 +29,8 @@ let msg = generateWAMessageFromContent(m.chat, {
                 "buttonParamsJson": "{\"title\":\"title\",\"sections\":[{\"title\":\"title\",\"highlight_label\":\"label\",\"rows\":[{\"header\":\"header\",\"title\":\"title\",\"description\":\"description\",\"id\":\"id\"},{\"header\":\"header\",\"title\":\"title\",\"description\":\"description\",\"id\":\"id\"}]}]}"
               },
               {
-                "name": "اهلا بك",
-                "buttonParamsJson": "{\"مرحبا بك\":\"اهلا بك\",\".قائمه":\"احيه\"}"
+                "name": "quick_reply",
+                "buttonParamsJson": "{\"display_text\":\"quick_reply\",\"id\":\"message\"}"
               },
               {
                  "name": "cta_url",
