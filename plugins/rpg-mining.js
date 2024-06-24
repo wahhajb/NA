@@ -7,7 +7,7 @@ let handler = async (m, { conn }) => {
   if (new Date - global.db.data.users[m.sender].lastmiming < 14400000) throw `⏳ _Sebentar_ *${msToTime(time - new Date())}* _untuk kembali ke tambang_`
   global.db.data.users[m.sender].exp += hasil
   m.reply(`
-🎉 Itu bagus! Minaste *${hasil} XP*`)
+🎉 جيد لقد حصل على *${hasil} XP*`)
   global.db.data.users[m.sender].lastmiming = new Date * 1
 }
 handler.help = ['mine']
