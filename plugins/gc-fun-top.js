@@ -34,7 +34,7 @@ m.reply(top, null, { mentions: [a, b, c, d, e, f, g, h, i, j]})
 conn.sendFile(m.chat, vn, 'error.mp3', null, m, true, {
 type: 'audioMessage',
 ptt: true })}
-handler.help = handler.command = ['توب']
+handler.help = handler.command = ['توب2']
 handler.tags = ['fun']
 handler.group = true
 handler.limit = 2
