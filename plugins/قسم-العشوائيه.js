@@ -38,7 +38,25 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             description: '',
                             id: '.قط'
                           },
+                          {
+                            header: 'طقم',
+                            title: 'طقم ولد&بنت',
+                            description: '',
+                            id: '.طقم'
+                          },
                                                       {
+                            header: 'طقم بنات',
+                            title: 'بنات',
+                            description: '',
+                            id: '.طقم1'
+                          },
+                                                      {
+                            header: 'طقم اولاد',
+                            title: 'اولاد',
+                            description: '',
+                            id: '.طقم2'
+                          },
+                          {
                             header: 'ميمز انمي',
                             title: 'ميمز',
                             description: '',
