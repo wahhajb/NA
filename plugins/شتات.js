@@ -21,10 +21,10 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
         contextInfo: {
           mentionedJid: [m.sender],
           externalAdReply: {
-          title: "I AM ALIVE",
+          title: "اضغط لمراسله المطور",
           body: "GURU BOT",
           thumbnailUrl: img,
-          sourceUrl: 'https://chat.whatsapp.com/F3sB3pR3tClBvVmlIkqDJp',
+          sourceUrl: 'wa.me//+994404282709',
           mediaType: 1,
           renderLargerThumbnail: true
           }}
@@ -34,8 +34,8 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
     
     }
     
-    handler.help = ['alive']
+    handler.help = ['شت']
     handler.tags = ['main']
-    handler.command = /^(alive)$/i 
+    handler.command = /^(شت|شتات|تبا)$/i 
 
     export default handler;
