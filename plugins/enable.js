@@ -2,46 +2,15 @@
 
 let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isROwner }) => {
 	
-const sections = [
-   {
-	title: `≡ List of options`,
-	rows: [
-	{title: "🔮 | Welcome", rowId: `${usedPrefix + command} welcome`},
-	{title: "🌎 | Public", rowId: `${usedPrefix + command} public`},
-	{title: "🔞 | Nsfw", rowId: `${usedPrefix + command} nsfw`},
-	{title: "🧬 | OnlyEnglish", rowId: `${usedPrefix + command} onlyenglish`},
-	{title: "🔗 | Antilink", rowId: `${usedPrefix + command} antilink`},
-    {title: "🚫 | Antidelete", rowId: `${usedPrefix + command} antidelete`},
-    {title: "🖼 | Autosticker", rowId: `${usedPrefix + command} autosticker`},
-	{title: "⏏️ | Autolevelup", rowId: `${usedPrefix + command} autolevelup`},
-	{title: "🗣️ | ChatBot", rowId: `${usedPrefix + command} chatbot`},
-	{title: "🔎 | Detect", rowId: `${usedPrefix + command} detect`},
-	{title: "📑 | Document", rowId: `${usedPrefix + command} document`},
-	{title: "🛡️ | Restrict", rowId: `${usedPrefix + command} restrict`},
-	{title: "💬 | OnlyPvivate", rowId: `${usedPrefix + command} onlydm`},
-	{title: "👥 | OnlyGroup", rowId: `${usedPrefix + command} onlygp`}
-	]
-    },
-]
 
-const listMessage = {
-  text: '\nHere is a list of what you can turn on and off',
-  footer: igfg,
-  title: `≡ List of options`,
-  buttonText: "Click here",
-  sections
-}
-
-  let isEnable = /true|enable|(turn)?on|1/i.test(command)
+  let isEnable = /true|تشغيل|(turn)?تشغيل|1/i.test(command)
   let chat = global.db.data.chats[m.chat]
   let user = global.db.data.users[m.sender]
   let bot = global.db.data.settings[conn.user.jid] || {}
   let type = (args[0] || '').toLowerCase()
   let isAll = false, isUser = false
   switch (type) {
-    case 'welcome':
-    case 'bv':
-    case 'bienvenida':
+    case 'الترحيب':
       if (!m.isGroup) {
         if (!isOwner) {
           global.dfail('group', m, conn)
@@ -53,8 +22,32 @@ const listMessage = {
       }
       chat.welcome = isEnable
       break
-      
-      case 'detect':
+     case 'تحدث':
+     case 'autotalk':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+           throw false
+          }}
+      chat.jarvis = isEnable
+     break
+	case 'pmblocker':
+isAll = true
+if (!isROwner) {
+global.dfail('rowner', m, conn)
+throw false
+}
+bot.pmblocker = isEnable
+break	  
+case 'البايو':
+  isAll = true
+  if (!isROwner) {
+  global.dfail('rowner', m, conn)
+  throw false
+  }
+  bot.autoBio = isEnable
+  break	 
+      case 'الاشعارات':
       case 'detector':
         if (!m.isGroup) {
          if (!isOwner) {
@@ -67,7 +60,7 @@ const listMessage = {
        }
        chat.detect = isEnable
      break
-      case 'autosticker':
+      case 'اوتواستيكر':
       if (m.isGroup) {
         if (!(isAdmin || isOwner)) {
           global.dfail('admin', m, conn)
@@ -76,7 +69,16 @@ const listMessage = {
       }
       chat.autosticker = isEnable
       break
-    case 'antidelete':
+      case 'مضاد-سبام':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.antiSpam = isEnable
+      break
+    case 'مضاد-الحذف':
     case 'delete':
       if (m.isGroup) {
         if (!(isAdmin || isOwner)) {
@@ -86,6 +88,16 @@ const listMessage = {
       }
       chat.delete = !isEnable
       break
+      case 'مضاد-العلوق':
+    case 'antibadword':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.antiToxic = isEnable
+      break
 
     case 'document':
     case 'documento':
@@ -94,16 +106,16 @@ const listMessage = {
       }
     chat.useDocument = isEnable
     break
-    case 'public':
-    case 'publico':
+    case 'اوتوستيت':
       isAll = true
       if (!isROwner) {
         global.dfail('rowner', m, conn)
         throw false
       }
-      global.opts['self'] = !isEnable
+      chat.viewStory = isEnable
       break
-    case 'antilink':
+
+    case 'مضاد-لينكات':
     case 'antilinkwa':
     case 'antilinkwha':
       if (m.isGroup) {
@@ -115,20 +127,6 @@ const listMessage = {
       chat.antiLink = isEnable
       break
       
-      case 'soloenglish':
-      case 'sololatin':
-      case 'onlyenglishs':
-      case 'onlyeng':
-      case 'onlyenglish':
-      case 'soloenglish':
-      if (m.isGroup) {
-        if (!(isAdmin || isOwner)) {
-          global.dfail('admin', m, conn)
-          throw false
-        }
-      }
-      chat.onlyenglish = isEnable
-      break
       
       case 'nsfw':
       case '+18':
@@ -140,19 +138,22 @@ const listMessage = {
     chat.nsfw = isEnable          
     break
 
-    case 'autolevelup':
+    case 'اوتولفل':
     isUser = true
      user.autolevelup = isEnable
      break
      
-     case 'chatbot':
-     case 'autosimi':
-     case 'autosimsimi':
-      isUser = true
-      user.chatbot = isEnable
-     break
+     case 'شات':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.chatbot = isEnable
+      break
      
-    case 'restrict':
+    case 'القيود':
     case 'restringir':
       isAll = true
       if (!isOwner) {
@@ -161,8 +162,26 @@ const listMessage = {
       }
       bot.restrict = isEnable
       break
-    
-    case 'onlypv':
+      case 'اوتوسين':
+    case 'alwaysonline':
+      isAll = true
+      if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      chat.autotype = isEnable
+      break
+      
+      case 'مضاد-المكالمات':
+        case 'nocall':
+          isAll = true
+          if (!isOwner) {
+            global.dfail('owner', m, conn)
+            throw false
+          }
+          bot.antiCall = isEnable
+          break
+    case 'للخاص':
     case 'onlydm':
     case 'onlymd':
     case 'solopv':
@@ -174,7 +193,7 @@ const listMessage = {
       global.opts['pconly'] = isEnable
       break
       
-    case 'gponly':
+    case 'للجروب':
     case 'onlygp':
     case 'grouponly':
     case 'sologp':
@@ -191,47 +210,39 @@ const listMessage = {
      if (!/[01]/.test(command)) return m.reply(`
 ≡ List of options
 
-┌─⊷ *ADMIN*
-▢ welcome
-▢ antilink
-▢ nsfw
-▢ onlyenglish
-▢ autosticker
-▢ detect
-▢ antidelete
-└───────────── 
-┌─⊷ *USERS*
-▢ autolevelup
-▢ chatbot 
-└─────────────
-┌─⊷ *OWNER*
-▢ public
-▢ onlydm
-▢ grouponly
-└─────────────
-*📌 Example :*
-*${usedPrefix}on* welcome
-*${usedPrefix}off* welcome
+◈──『 *الادمن*』───⳹
+⛊ الترحيب
+⛊ مضاد-لينكات
+⛊ اوتواستيكر
+⛊ الاشعارات
+⛊ البايو
+⛊ مضاد-سبام
+⛊ مضاد-العلوق
+╰──────────⳹ 
+◈──『 *المستخدمين*』───⳹
+⛊ اوتولفل
+⛊ شات 
+╰──────────⳹
+◈──『 *المالك*』───⳹
+⛊ للخاص
+⛊ للجروب
+⛊ اوتوسين
+⛊ القيود
+╰──────────⳹
+*📌 مثال :*
+*${usedPrefix}تشغيل* الترحيب
+*${usedPrefix}تعطيل* الترحيب
 `)
       throw false
   }
-  /*conn.sendButton(m.chat, `
-≡ *OPTIONS*
-┌───────────
-▢ 🗂️ *Type:* ${type} 
-▢ ⚙️ *Condition:* ${isEnable ? 'Active ✅' : 'Deactive 🔴'}
-▢ 🏮 *For:* ${isAll ? 'this bot' : isUser ? '' : 'this chat'}
-└───────────
-`,igfg, null, [[`${isEnable ? '🔴 Deactive' : '✅ Active'}`, `${isEnable ? `${usedPrefix}off ${type}` : `${usedPrefix}on ${type}`}`], ['⦙☰ Menu', `${usedPrefix}help`]],m)
-*/
 
 m.reply(`
-✅ *${type}* Now *${isEnable ? 'Active' : 'Deactive'}* ${isAll ? 'for this bot' : isUser ? '' : 'for this bot'}
+✅ *${type}* الان *${isEnable ? 'نشط' : 'Deactive'}* ${isAll ? 'لهذا البوت' : isUser ? '' : 'لهذا البوت'}
 `.trim()) 
 
 }
 handler.help = ['en', 'dis'].map(v => v + 'able <option>')
-handler.tags = ['nable']
-handler.command = /^((en|dis)able|(tru|fals)e|(turn)?o(n|ff)|[01])$/i
+handler.tags = ['config']
+handler.command = /^((en|dis)able|(turn)?ت(n|عطيل)|[01])$/i
 
 export default handler
