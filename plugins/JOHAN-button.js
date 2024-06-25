@@ -63,12 +63,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             id: '.قسم-الذكاء'
                           },
                           {
-                            header: 'قــســم الجروبات',
-                            title: 'القروبات',
-                            description: 'بيجيب لك اوامر الجروبات',
-                            id: '.قسم-الجروب'
-                          },
-                          {
                             header: 'قــســم البحث',
                             title: '.البحث',
                             description: 'بيجيب لك اوامر البحث',
