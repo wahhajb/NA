@@ -8,10 +8,14 @@ const dir = [
 ];
 let handler = async (m, { conn }) => {
   conn.sendFile(m.chat, dir[Math.floor(Math.random() * dir.length)], 'dado.webp', '', m)
-  m.react('🎲')
+  await conn.sendMessage(m.chat, {
+   react: {
+ text: "🎲",
+ key: m.key,
+   }
 }
 handler.help = ['dado']
 handler.tags = ['game']
-handler.command = ['dado', 'نرد'] 
+handler.command = ['نرد', 'dado'] 
 
 export default handler
