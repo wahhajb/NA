@@ -36,6 +36,6 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
     
     handler.help = ['alive']
     handler.tags = ['main']
-    handler.command = /^(شت)$/i 
+    handler.command = /^(alive)$/i 
 
     export default handler;
