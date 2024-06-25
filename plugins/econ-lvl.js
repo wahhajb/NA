@@ -10,7 +10,6 @@ let user = global.db.data.users[m.sender]
         let { min, xp, max } = xpRange(user.level, global.multiplier)
       let lvl = `┓━━━━【 *الـتصـنـيف* 】━━━━┏
 ┇ *☎️ الاسم* : ${name} ღ
-┇ *💎 الماس* : ${gold}
 ┇ *🚒 الفل :* *${user.level}*
 ┇ *♟️ مصنف :* ${role}
 ┇ *♨️ نقاط الخبرة :* *${user.exp - min}/${xp}*
