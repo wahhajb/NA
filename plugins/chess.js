@@ -14,29 +14,29 @@ const handler = async (m, { conn, args }) => {
   const { gameData, fen, currentTurn, players, hasJoined } = chessData;
   const feature = args[0]?.toLowerCase();
 
-  if (feature === 'delete') {
+  if (feature === 'حذف') {
     delete conn.chess[key];
-    return conn.reply(m.chat, '🏳️ *توقفت لعبة الشطرنج.*', m);
+    return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *تم حذف اللعبه*', m);
   }
 
-  if (feature === 'create') {
+  if (feature === 'صمم') {
     if (gameData) {
-      return conn.reply(m.chat, '⚠️ *اللعبة قيد التقدم بالفعل.*', m);
+      return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *اللعبه قائمه بالفعل*', m);
     }
     chessData.gameData = { status: 'waiting', black: null, white: null };
-    return conn.reply(m.chat, '🎮 *بدأت لعبة الشطرنج.*\nفي انتظار انضمام لاعبين آخرين.', m);
+    return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *تم تصميم الغرقه*\nفي انتظار اللاعبين للانضمام.', m);
   }
 
-  if (feature === 'join') {
+  if (feature === 'ادخل') {
     const senderId = m.sender;
     if (players.includes(senderId)) {
-      return conn.reply(m.chat, '🙅‍♂️ *لقد انضممت بالفعل إلى هذه اللعبة.*', m);
+      return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *انت لقد قمت بالانضمام بالفعل*', m);
     }
     if (!gameData || gameData.status !== 'waiting') {
-      return conn.reply(m.chat, '⚠️ *لا توجد لعبة شطرنج في انتظار اللاعبين حاليًا.*', m);
+      return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *لا يوجد لعبه شطرنج في انتظار اللاعبين حاليا*', m);
     }
     if (players.length >= 2) {
-      return conn.reply(m.chat, '👥 *اللاعبون يكفيون بالفعل.*\nستبدأ اللعبة تلقائيا.', m);
+      return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *اكتمل عدد اللاعبين بالفعل.*\nاللعبه هتبدا لوحدها', m);
     }
     players.push(senderId);
     hasJoined.push(senderId);
@@ -46,15 +46,15 @@ const handler = async (m, { conn, args }) => {
       gameData.black = black;
       gameData.white = white;
       chessData.currentTurn = white;
-      return conn.reply(m.chat, `🙌 *اللاعبون الذين انضموا:*\n${hasJoined.map(playerId => `- @${playerId.split('@')[0]}`).join('\n')}\n\n*Black:* @${black.split('@')[0]}\n*White:* @${white.split('@')[0]}\n\nPlease use *'chess start'* to begin the game.`, m, { mentions: hasJoined });
+      return conn.reply(m.chat, `『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *اللاعبين الي اضمو:*\n${hasJoined.map(playerId => `- @${playerId.split('@')[0]}`).join('\n')}\n\n*الاسود:* @${black.split('@')[0]}\n*الابيض:* @${white.split('@')[0]}\n\nمن فضل استخدم *'شطرنج ابدا'* لبدا اللعبه.`, m, { mentions: hasJoined });
     } else {
-      return conn.reply(m.chat, '🙋‍♂️ *لقد انضممت إلى لعبة الشطرنج.*\nفي انتظار انضمام لاعبين آخرين.', m);
+      return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』*انت لقد انضممت للعبه الشطرنج.*\nفي انتظار اللاعب الاخر', m);
     }
   }
 
-  if (feature === 'start') {
+  if (feature === 'ابدا') {
     if (gameData.status !== 'ready') {
-      return conn.reply(m.chat, '⚠️ *لا يمكن بدء اللعبة. انتظر حتى ينضم لاعبان.*', m);
+      return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *مش عارف ابدا اللعبه. لازم يخش لاعبين الثنين للعب*', m);
     }
     gameData.status = 'playing';
     const senderId = m.sender;
@@ -62,7 +62,7 @@ const handler = async (m, { conn, args }) => {
       const fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
       chessData.fen = fen;
       const encodedFen = encodeURIComponent(fen);
-      const turn = `🎲 *دور: *أبيض @${gameData.white.split('@')[0]}`;
+      const turn = `『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』دور: *الابيض* @${gameData.white.split('@')[0]}`;
       const flipParam = senderId === gameData.black ? '' : '&flip=true';
       const flipParam2 = senderId === gameData.black ? '' : '-flip';
       const boardUrl = `https://www.chess.com/dynboard?fen=${encodedFen}&board=graffiti&piece=graffiti&size=3&coordinates=inside${flipParam}`;
@@ -74,17 +74,17 @@ const handler = async (m, { conn, args }) => {
       }
       return;
     } else {
-      return conn.reply(m.chat, '🙋‍♂️ *لقد انضممت إلى لعبة الشطرنج.*\nفي انتظار انضمام لاعبين آخرين.', m);
+      return conn.reply(m.chat, '『𝙕𝙊𝙍𝙊-𝘽𝙊𝙏』 *انت لقد انضممت الي اللعبه*\nفي انتظار اللاعب الثاني لدخول اللعبه', m);
     }
   }
 
   if (args[0] && args[1]) {
     const senderId = m.sender;
     if (!gameData || gameData.status !== 'playing') {
-      return conn.reply(m.chat, '⚠️ *اللعبة لم تبدأ بعد*', m);
+      return conn.reply(m.chat, '『SUKUNA BOT』 *اللعبه لسه مبدأتش*', m);
     }
     if (currentTurn !== senderId) {
-      return conn.reply(m.chat, `⏳ *انها حاليا ${chessData.currentTurn === gameData.white ? 'White' : 'Black'}'s turn to move.*`, m, {
+      return conn.reply(m.chat, `『SUKUNA BOT』 *المفروض* ${chessData.currentTurn === gameData.white ? 'الابيض' : 'الاسود'}'هو الي يتحرك*`, m, {
         contextInfo: {
           mentionedJid: [currentTurn]
         }
@@ -93,7 +93,7 @@ const handler = async (m, { conn, args }) => {
     const chess = new Chess(fen);
     if (chess.isCheckmate()) {
       delete conn.chess[key];
-      return conn.reply(m.chat, `⚠️ *لعبة كش ملك.*\n🏳️ *توقفت لعبة الشطرنج.*\n*الفائز:* @${m.sender.split('@')[0]}`, m, {
+      return conn.reply(m.chat, `『SUKUNA BOT』 *كش مات☠️*\n*اللعبه خلصت.*\n*الكسبان 🎉:* @${m.sender.split('@')[0]}`, m, {
         contextInfo: {
           mentionedJid: [m.sender]
         }
@@ -101,7 +101,7 @@ const handler = async (m, { conn, args }) => {
     }
     if (chess.isDraw()) {
       delete conn.chess[key];
-      return conn.reply(m.chat, `⚠️ *لعبة التعادل.*\n🏳️ *توقفت لعبة الشطرنج.*\n*Players:* ${hasJoined.map(playerId => `- @${playerId.split('@')[0]}`).join('\n')}`, m, {
+      return conn.reply(m.chat, `『SUKUNA BOT』 *تعادل 😑*\n*اللعبه خلصت*\n*الاعبين:* ${hasJoined.map(playerId => `- @${playerId.split('@')[0]}`).join('\n')}`, m, {
         contextInfo: {
           mentionedJid: hasJoined
         }
@@ -111,15 +111,15 @@ const handler = async (m, { conn, args }) => {
     try {
       chess.move({ from, to, promotion: 'q' });
     } catch (e) {
-      return conn.reply(m.chat, '❌ *حركة غير صالحة.*', m);
+      return conn.reply(m.chat, '『SUKUNA BOT』 *الحركه غير صالحه*', m);
     }
     chessData.fen = chess.fen();
     const currentTurnIndex = players.indexOf(currentTurn);
     const nextTurnIndex = (currentTurnIndex + 1) % 2;
     chessData.currentTurn = players[nextTurnIndex];
     const encodedFen = encodeURIComponent(chess.fen());
-    const currentColor = chessData.currentTurn === gameData.white ? 'أبيض' : 'أسود';
-    const turn = `🎲 *دور:* ${currentColor} @${chessData.currentTurn.split('@')[0]}\n\n${chess.getComment() || ''}`;
+    const currentColor = chessData.currentTurn === gameData.white ? 'الابيض' : 'الاسود';
+    const turn = `『SUKUNA BOT』 *دور:* ${currentColor} @${chessData.currentTurn.split('@')[0]}\n\n${chess.getComment() || ''}`;
     const flipParam = senderId === gameData.black ? '' : '&flip=true';
     const flipParam2 = senderId === gameData.black ? '' : '-flip';
     const boardUrl = `https://www.chess.com/dynboard?fen=${encodedFen}&board=graffiti&piece=graffiti&size=3&coordinates=inside${flipParam}`;
@@ -133,26 +133,26 @@ const handler = async (m, { conn, args }) => {
     return;
   }
 
-  if (feature === 'help') {
+  if (feature === 'مساعده') {
     return conn.reply(m.chat, `
-      🌟 *أوامر لعبة الشطرنج:*
+      الشرح *مساعده اوامر لعبه الشطرنج:*
 
-*إنشاء الشطرنج* - ابدأ لعبة الشطرنج
- *انضمام الشطرنج* - انضم إلى لعبة شطرنج منتظرة
- *بداية الشطرنج* - ابدأ لعبة الشطرنج إذا انضم لاعبان
- *حذف الشطرنج* - أوقف لعبة الشطرنج
- *الشطرنج [من] [إلى]* - قم بخطوة في لعبة الشطرنج
+*شطرنج صمم* - عشان تعمل غرفه 
+*شطرنج ادخل* - عشان تنضم للغرفه الي صممتها انت و صحبك
+*شطرنج ابدا* - عشان تبدا الجيم الي انت وصحب عملتوه بعد ما دخلتو
+*شطرنج حذف* - عشان تطلع من اللعبه
+*شطرنج [من مكان القطعه الاولي] [الي المكان الي انت عايز تحط القطعه الثانيه]* - عشان تحرك القطع
 
 *مثال:*
-اكتب *إنشاء الشطرنج* لبدء لعبة الشطرنج.
-اكتب *انضمام الشطرنج* للانضمام إلى لعبة الشطرنج المنتظرة.
+اكتب *شطرنج صمم* عشان تعمل اللعبه.
+بعدها اكتب *شطرنج ادخل* عشان تخش انت وصاحبك اللعبه.
     `, m);
   }
-  return conn.reply(m.chat, '❓ أمر خاطئ. يستخدم *"شطرنج-مساعده"* لرؤية الأوامر المتاحة.', m);
+  return conn.reply(m.chat, '『SUKUNA BOT』“ امر خاطئ. استعمل*"شطرنج مساعده"* عشان تشوف الاوامر شغاله ازاي.', m);
 };
 
 handler.help = ['chess [from to]', 'chess delete', 'chess join', 'chess start'];
 handler.tags = ['game'];
-handler.command = /^(chess|شطرنج)$/i;
+handler.command = /^شطرنج|شت$/i
 
-export default handler;
+export default handler
