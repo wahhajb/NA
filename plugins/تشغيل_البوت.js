@@ -12,6 +12,6 @@ const handler = async (m) => {
     };
     handler.help = ['banchat'];
     handler.tags = ['owner'];
-    handler.command = /تشغيل$/i;
+    handler.command = /تفعيل$/i;
     handler.rowner = true;
     export default handler;
