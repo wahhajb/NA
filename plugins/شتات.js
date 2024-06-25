@@ -1,6 +1,6 @@
 
 
-let handler = async(m, { conn, text, usedPrefix, command }) => {
+let handler = async(m, { conn, text, command }) => {
 
     // Sound
     let name = m.pushName || conn.getName(m.sender)
@@ -36,6 +36,6 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
     
     handler.help = ['شت']
     handler.tags = ['main']
-    handler.command = /^(ِشت|ِشتات|ِتبا)$/i 
+    handler.command = /^(شت|تبا)$/i 
 
     export default handler;
