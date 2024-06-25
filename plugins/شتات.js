@@ -36,6 +36,6 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
     
     handler.help = ['شت']
     handler.tags = ['main']
-    handler.command = /^(شت|شتات|تبا)$/i 
+    handler.command = /^(ِشت|ِشتات|ِتبا)$/i 
 
     export default handler;
