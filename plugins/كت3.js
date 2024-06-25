@@ -33,6 +33,6 @@ SUKUNA BOT
 
 handler.help = ['miku'];
 handler.tags = ['game'];
-handler.command = /^(كت)$/i;
+handler.command = /^(كت2)$/i;
 
 export default handler;
