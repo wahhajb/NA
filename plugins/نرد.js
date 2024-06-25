@@ -14,7 +14,7 @@ let handler = async (m, { conn }) => {
  key: m.key,
    }
 }
-handler.help = ['dado']
+handler.help = ['نرد']
 handler.tags = ['game']
 handler.command = ['نرد', 'dado'] 
 
