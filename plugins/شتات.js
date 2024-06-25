@@ -22,7 +22,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
           mentionedJid: [m.sender],
           externalAdReply: {
           title: "اضغط لمراسله المطور",
-          body: "GURU BOT",
+          body: "SUKUNA BOT",
           thumbnailUrl: img,
           sourceUrl: 'wa.me//+994404282709',
           mediaType: 1,
