@@ -1474,17 +1474,17 @@ export async function participantsUpdate({id, participants, action}) {
                   pp = 'https://telegra.ph/file/d37b343ee8f981be6ffba.jpg'; // Assign default image URL
                   ppgp = 'https://telegra.ph/file/d37b343ee8f981be6ffba.jpg'; // Assign default image URL
                 } finally {
-                  let text = (chat.sBye || this.bye || conn.bye || 'اهلا, @user')
+                  let text = (chat.sBye || this.bye || conn.bye || 'Bya, @user')
                     .replace('@user', '@' + user.split('@')[0]);
           
                   let nthMember = groupMetadata.participants.length;
-                  let secondText = `وداعا, رقم ${nthMember}عضونا`;
+                  let secondText = `لقد خرج عضو جديد\nرقم العضو *${nthMember}*`;
           
                   let leaveApiUrl = `https://api.popcat.xyz/welcomecard?background=${encodeURIComponent(
                     'https://telegra.ph/file/919c9aa59b8dc5cae41a8.png'
                   )}&text1=${encodeURIComponent(
                     await this.getName(user)
-                  )}&text2=الي+القاء&text3=عدد+الاعضاء:${encodeURIComponent(
+                  )}&text2=ما+كان+لك+فائده&text3=عدد+الاعضاء:${encodeURIComponent(
                     nthMember.toString()
                   )}&avatar=${encodeURIComponent(pp)}`;
           
