@@ -1,23 +1,22 @@
-//import db from '../lib/database.js'
 
-const xpperdiamond = 350 
+const xppercredit = 350 
 let handler = async (m, { conn, command, args }) => {
-  let count = command.replace(/^buy/i, '')
-  count = count ? /all/i.test(count) ? Math.floor(global.db.data.users[m.sender].exp / xpperdiamond) : parseInt(count) : args[0] ? parseInt(args[0]) : 1
+  let count = command.replace(/^شراء/i, '')
+  count = count ? /الكل/i.test(count) ? Math.floor(global.db.data.users[m.sender].exp / xppercredit) : parseInt(count) : args[0] ? parseInt(args[0]) : 1
   count = Math.max(1, count)
-  if (global.db.data.users[m.sender].exp >= xpperdiamond * count) {
-    global.db.data.users[m.sender].exp -= xpperdiamond * count
-    global.db.data.users[m.sender].diamond += count
+  if (global.db.data.users[m.sender].exp >= xppercredit * count) {
+    global.db.data.users[m.sender].exp -= xppercredit * count
+    global.db.data.users[m.sender].credit += count
     conn.reply(m.chat, `
-┌─「 *ملاحظه الدفع* 」
-‣ *مبلغ الشراء* : + ${count}💎 
-‣ *الذي تم دفعه من xp* : -${xpperdiamond * count} XP
+┌─「 *ملاحظة الدفع* 」
+‣ *الشراء بالاسمية* : + ${count} 
+‣ *المصروف* : -${xppercredit * count} XP
 └──────────────`, m)
-  } else conn.reply(m.chat, `❎ معذرةً ، ليس لديك ما يكفي من  *XP* للشراء *${count}* الماس\n\n يمكنك الحصول على *XP* باستخدام الأوامر💎 في* الألعاب والقائمة ؛ اقتصاد*`, m)
+  } else conn.reply(m.chat, `❎ عذرًا، ليس لديك ما يكفي من *XP* لشراء *${count}* ذهب\n\n يمكنك الحصول على *XP* باستخدام أوامر من *قائمة الألعاب والاقتصاد*`, m)
 }
 handler.help = ['buy', 'buyall']
-handler.tags = ['econ']
-handler.command = ['شراء-الكل', 'buyall'] 
+handler.tags = ['economy']
+handler.command = ['شراء', 'buyall'] 
 
 handler.disabled = false
 
