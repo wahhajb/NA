@@ -1,6 +1,6 @@
 
 
-let handler = async(m, { conn, text, command }) => {
+let handler = async(m, { conn }) => {
 
     // Sound
     let name = m.pushName || conn.getName(m.sender)
