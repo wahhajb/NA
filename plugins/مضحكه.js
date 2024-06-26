@@ -5,7 +5,7 @@
 const canal2 = 'https://telegra.ph/file/078014e17aedf4f7a6cd9.jpg'; 
 // COMBINACIÓN DE MENSAJES
 // Adaptar el simple.js
-let handler = async (m, { command, text }) => {
+let handler = async (m, { conn, usedPrefix, command, text }) => {
 
 // MENSAJE CARUSEL CON TODOS LOS BOTONES DISPONIBLES
 // Si las ids no te funciona con usedPrefix, tendrás que definirlas, ejemplo /menu
