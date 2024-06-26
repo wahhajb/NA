@@ -8,7 +8,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
         conn.reply(m.chat, 'هنالك سؤال لم تتم الاجابه عليه', conn.tebakbendera[id][0])
         throw false
     }
-    let src = await (await fetch('https://raw.githubusercontent.com/BochilTeam/database/master/games/tebakbendera2.json')).json()
+    let src = await (await fetch('./ser/game/Tagr.json')).json()
   let json = src[Math.floor(Math.random() * src.length)]
     let caption = `*${command.toUpperCase()}* _رجاء قم بالاجابة باللغه الانجليزيه_
 الوقت *${(timeout / 1000).toFixed(2)} ثواني*
