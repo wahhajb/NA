@@ -1,4 +1,4 @@
-/*let fs = require("fs");
+let fs = require("fs");
 let ytdl = require("distube/ytdl-core");
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
