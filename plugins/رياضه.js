@@ -1,9 +1,7 @@
-كما وعدتكم كود امر .كوره لاتغير الحقوق 
-https://whatsapp.com/channel/0029VafG0N8I1rclRCFLaL0g
-https://whatsapp.com/channel/0029VaL2bnW0rGiPZq8B5S2M
+
 
 let timeout = 60000
-let poin = 500
+let poin = 5000
 let handler = async (m, { conn, command, usedPrefix }) => {
     conn.tebakbendera = conn.tebakbendera ? conn.tebakbendera : {}
     let id = m.chat
@@ -19,7 +17,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
   *🜋↫╎الـوقـت⏳↞ ${(timeout / 1000).toFixed(2)} ┇*
   *استخدم .انسحب للأنسحاب*
   *🜋↫╎الـجـائزة💰↞ ${poin} نقاط┇*
-『بوت هنري:』
+『SUKUNA BOT』
      `.trim()
     conn.tebakbendera[id] = [
         await conn.sendFile(m.chat, json.img, '', caption, m),
@@ -32,6 +30,6 @@ let handler = async (m, { conn, command, usedPrefix }) => {
 }
 handler.help = ['كوره']
 handler.tags = ['fun']
-handler.command = /^رياضه/i
+handler.command = /^رياضه$/i
 
 export default handler
