@@ -146,7 +146,7 @@ m.reply(wait)
 }
 handler.help = ["ytmp4 <url>"]
 handler.tags = ["downloader"];
-handler.command = /^(فيديوو)$/i;
+handler.command = /^(mobo)$/i;
 
 handler.register = false
 handler.premium = false
