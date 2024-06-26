@@ -8,7 +8,7 @@ let handler = async (m, { conn, command, usedPrefix }) => {
         conn.reply(m.chat, 'هنالك سؤال لم تتم الاجابه عليه', conn.tebakbendera[id][0])
         throw false
     }
-    let src = await (await fetch('./src/game/Tagr.json')).json()
+    let src = await (await fetch('https://raw.githubusercontent.com/ze819/game/master/src/game.js/luffy1.json')).json()
   let json = src[Math.floor(Math.random() * src.length)]
     let caption = `*${command.toUpperCase()}*
 الوقت *${(timeout / 1000).toFixed(2)} ثواني*
