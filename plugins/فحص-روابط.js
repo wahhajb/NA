@@ -9,10 +9,10 @@ let handler = async (m, { conn, text }) => {
     pp = await conn.profilePictureUrl(data.id, 'image').catch(console.error)
     let groupinfo = `
 *┏━━━━━━━━━━━━━━━┓*
-*┃☂️ ⫹⫺ المعرف:* ${data.id}◞
-*┃🧪 ⫹⫺ الاسم:* ${data.subject}
-*┃📅 ⫹⫺ التاريخ:* ${data.creation}
-*┃👑 ⫹⫺ المالك:* ${data.owner}
+*┃☂️ المعرف:* ${data.id}◞
+*┃🧪 الاسم:* ${data.subject}
+*┃📅 التاريخ:* ${data.creation}
+*┃👑 المالك:* ${data.owner}
 *┗━━━━━━━━━━━━━━━┛*
 `
   await conn.reply(m.chat, groupinfo, m)
@@ -24,7 +24,7 @@ await conn.sendMessage(m.chat, { text: `*┏━━━━━━━━━━━━
 handler.command = /^فحص$/i
 
 export default handler
-handler.owner = false
+handler.owner = true
 
 const extractGroupMetadata = (result) => {
   const group = baileys.getBinaryNodeChild(result, 'group')
