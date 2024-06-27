@@ -1,24 +1,14 @@
 import { googleImage } from '@bochilteam/scraper'
-
-var handler = async (m, { conn, text, usedPrefix, command }) => {
-
-const prohibited = ['caca', 'polla', 'porno', 'porn', 'gore', 'cum', 'semen', 'puta', 'puto', 'culo', 'putita', 'putito','pussy', 'hentai', 'pene', 'coño', 'asesinato', 'zoofilia', 'mia khalifa', 'desnudo', 'desnuda', 'cuca', 'chocha', 'muertos', 'pornhub', 'xnxx', 'xvideos', 'teta', 'vagina', 'marsha may', 'misha cross', 'sexmex', 'furry', 'furro', 'furra', 'xxx', 'rule34', 'panocha', 'pedofilia', 'necrofilia', 'pinga', 'horny', 'ass', 'nude', 'popo', 'nsfw', 'femdom', 'futanari', 'erofeet', 'sexo', 'sex', 'yuri', 'ero', 'ecchi', 'blowjob', 'anal', 'ahegao', 'pija', 'verga', 'trasero', 'violation', 'violacion', 'bdsm', 'cachonda', '+18', 'cp', 'mia marin', 'lana rhoades', 'cepesito', 'hot', 'buceta', 'xxx']
-if (prohibited.some(word => m.text.toLowerCase().includes(word))) return conn.reply(m.chat, '🚩 *تعذر العثور على نتائج*', m, fake, )
-
-if (!text) return conn.reply(m.chat, `🎌 *سوف تحتاج إلى إدخال النص*\n\nمثال, !${command} سوكونا`, m)
-m.react('🌐')
-
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+if (!text) throw `*[❗خطاء❗] مثال علي الامر ${usedPrefix + command} هنري*`
+if (m.text.includes('gore') || m.text.includes('cp')|| m.text.includes('porno')|| m.text.includes('Gore')|| m.text.includes('rule')|| m.text.includes('CP')|| m.text.includes('Rule34')) return m.reply('[❗خطاء❗] لا يمكنني إرسال هذا المحتوى ، المجموعة محظورة \n إذا كنت مشرفًا وتريد تنشيطها ، اخبر المطور')  
 const res = await googleImage(text)
-let image = res.getRandom()
+let image = await res.getRandom()
 let link = image
-
-conn.sendFile(m.chat, link, 'error.jpg', `🚩 *الطلب:* ${text}`, m)
-
-}
-handler.help = ['gimage', 'imagen']
-handler.tags = ['imagenes']
-handler.command = /^(gimage|صوره)$/i
-
-handler.limit = true
-
+conn.sendFile(m.chat, link, 'error.jpg', `🔎 *النتيجه ل:* ${text}\n🔗 *من* ${link}\n🌎 *محرك البحث:* جوجل`, m)}
+//let captionn = `🔎 *𝚁𝙴𝚂𝚄𝙻𝚃𝙰𝙳𝙾 𝙳𝙴:* ${text}\n🔗 *𝙻𝙸𝙽𝙺* ${link}\n🌎 *𝙱𝚄𝚂𝙲𝙰𝙳𝙾𝚁:* Google`
+//conn.sendButton(m.chat, captionn, author, link, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `#imagen ${text}`]], m)}
+handler.help = ['gimage <query>', 'imagen <query>']
+handler.tags = ['internet', 'tools']
+handler.command = /^(gimage|image|صوره|imagen)$/i
 export default handler
