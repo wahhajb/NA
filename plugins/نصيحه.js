@@ -1,8 +1,8 @@
 let handler = async (m, { conn, text}) => {
-conn.reply(m.chat,`*♚❐═━━━═╊⊰نـصـيـحـه لـك⊱╉═━━━═❐\n*『${pickRandom(global.piropo)}』*\n*❐═━━━═╊⊰SUKUNA BOT⊱╉═━━━═❐*`, m)
+conn.reply(m.chat,`*❐═━━━═╊⊰نـصـيـحـه لـك⊱╉═━━━═❐*\n\n\n*『${pickRandom(global.piropo)}』*\n\n\n*❐═━━━═╊⊰SUKUNA BOT⊱╉═━━━═❐*`, m)
 }
 handler.tags = ['frases']
-handler.command = ['نصايح']
+handler.command = ['نصايح' ,'نصيحه']
 export default handler
 
 function pickRandom(list) {
