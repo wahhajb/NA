@@ -1,4 +1,4 @@
-import * as baileys from '@adiwajshing/baileys'
+import as baileys from '@adiwajshing/baileys'
 
 let handler = async (m, { conn, text }) => {
   let [, code] = text.match(/chat\.whatsapp\.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i) || []
@@ -22,9 +22,9 @@ let handler = async (m, { conn, text }) => {
 await conn.sendMessage(m.chat, { text: `*┏━━━━━━━━━━━━━━┓*\n┃هل تريد نسخ الوصف ؟ •🌷\n*┗━━━━━━━━━━━━━━┛*`, templateButtons: botones, footer: wm })
 }
 handler.command = /^فحص$/i
+handler.owner = true
 
 export default handler
-handler.owner = true
 
 const extractGroupMetadata = (result) => {
   const group = baileys.getBinaryNodeChild(result, 'group')
