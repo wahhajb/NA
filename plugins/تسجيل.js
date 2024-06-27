@@ -22,7 +22,7 @@ handler.help = ['stikertele *<url>*']
 handler.tags = ['sticker', 'downloader']
 handler.command = /^(تليو)$/i
 handler.cookie = 0
-handler.limit = 100
+handler.limit = 1
 handler.register = false
 export default handler
 
