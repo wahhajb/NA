@@ -6,7 +6,7 @@ const prohibited = ['caca', 'polla', 'porno', 'porn', 'gore', 'cum', 'semen', 'p
 if (prohibited.some(word => m.text.toLowerCase().includes(word))) return conn.reply(m.chat, '🚩 *تعذر العثور على نتائج*', m, fake, )
 
 if (!text) return conn.reply(m.chat, `🎌 *سوف تحتاج إلى إدخال النص*\n\nمثال, !${command} سوكونا`, m);
-m.react(🌐)
+m.react('🌐')
 
 const res = await googleImage(text)
 let image = res.getRandom()
