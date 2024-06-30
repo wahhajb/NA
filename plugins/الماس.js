@@ -1,4 +1,3 @@
-
 let handler = async (m, {conn, usedPrefix}) => {
 
     let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
@@ -8,7 +7,7 @@ let handler = async (m, {conn, usedPrefix}) => {
     conn.reply(m.chat, `
 ┌───⊷ *التوازن* ⊶
 ▢ *📌الاسم* : _@${who.split('@')[0]}_
-▢ *عدد الماسك 💎* : _${user.diamond}_
+▢ *عدد الماسك 💎* : _${user.limit}_
 ▢ *اكسبي* : _المجموع ${user.exp}_
 └──────────────
 
