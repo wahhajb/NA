@@ -993,7 +993,7 @@ export async function handler(chatUpdate) {
         if (!('autoread2' in settings)) settings.autoread2 = false;
         if (!('restrict' in settings)) settings.restrict = true;
         if (!('antiCall' in settings)) settings.antiCall = true;
-        if (!('antiPrivate' in settings)) settings.antiPrivate = true;
+        if (!('antiPrivate' in settings)) settings.antiPrivate = false;
 	if (!('modejadibot' in settings)) settings.modejadibot = true;
         if (!('antispam' in settings)) settings.antispam = true;
 	if (!('audios_bot' in settings)) settings.audios_bot = true;  
@@ -1005,7 +1005,7 @@ export async function handler(chatUpdate) {
           autoread2: false,
           restrict: false,
           antiCall: true,
-          antiPrivate: true,
+          antiPrivate: false,
 	  modejadibot: true,
           antispam: false,
 	  audios_bot: true,
