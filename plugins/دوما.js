@@ -6,5 +6,5 @@ conn.sendFile(m.chat, url, 'error.jpg', `*عمك مغزه 😂💕*`, m)}
 //conn.sendButton(m.chat, "*Messi*", author, url, [['⚽ SIGUIENTE ⚽', `${usedPrefix + command}`]], m)}
 handler.help = ['ايديت']
 handler.tags = ['internet']
-handler.command = /^وما)$/i
+handler.command = /^(دوما)$/i
 export default handler
