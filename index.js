@@ -1,4 +1,6 @@
 console.log('[ ℹ️ ] Iniciando...');
+import path from 'path';
+import firebaseAdmin from 'firebaseAdmin';
 import {join, dirname} from 'path';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'url';
