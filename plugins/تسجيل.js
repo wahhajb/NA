@@ -1,29 +1,50 @@
-import fetch from "node-fetch"
-import { sticker } from '../lib/sticker.js'
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-if (!args[0]) throw `${lenguajeGB['smsAvisoIIG']()}𝙄𝙉𝙂𝙍𝙀𝙎𝙀 𝙀𝙇 𝙀𝙉𝙇𝘼𝘾𝙀 𝘿𝙀 𝙎𝙏𝙄𝘾𝙆𝙀𝙍 𝙏𝙀𝙇𝙀𝙂𝙍𝘼𝙈\n𝙀𝙅𝙀𝙈𝙋𝙇𝙊:\n${usedPrefix + command} https://t.me/addstickers/Porcientoreal\n\n𝙀𝙉𝙏𝙀𝙍 𝙏𝙃𝙀 𝙎𝙏𝙄𝘾𝙆𝙀𝙍 𝙏𝙀𝙇𝙀𝙂𝙍𝘼𝙈 𝙇𝙄𝙉𝙆\n𝙀𝙓𝘼𝙈𝙋𝙇𝙀:\n${usedPrefix + command} https://t.me/addstickers/Porcientoreal`
-if (!args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) throw `${lenguajeGB['smsAvisoIIG']()}𝙇𝘼 𝙐𝙍𝙇 𝙀𝙎 𝙄𝙉𝘾𝙊𝙍𝙍𝙀𝘾𝙏𝘼\n𝙏𝙃𝙀 𝙐𝙍𝙇 𝙄𝙎 𝙄𝙉𝘾𝙊𝙍𝙍𝙀𝘾𝙏`
-let packName = args[0].replace("https://t.me/addstickers/", "")
-let gas = await fetch(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getStickerSet?name=${encodeURIComponent(packName)}`, { method: "GET", headers: { "User-Agent": "GoogleBot" } })
-if (!gas.ok) throw eror
-let json = await gas.json()
-m.reply(`${lenguajeGB['smsAvisoIIG']()} *𝙎𝙏𝙄𝘾𝙆𝙀𝙍 𝙏𝙊𝙏𝘼𝙇𝙀𝙎:* ${json.result.stickers.length}\n*𝙀𝙉𝙑𝙄𝘼𝘿𝙊 𝙀𝙇:* ${json.result.stickers.length * 1.5} Segundos`.trim())
-for (let i = 0; i < json.result.stickers.length; i++) {
-let fileId = json.result.stickers[i].thumb.file_id
-let gasIn = await fetch(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=${fileId}`)
-let jisin = await gasIn.json()
-let stiker = await sticker(false, "https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/" + jisin.result.file_path, global.packname, global.author)
-await conn.sendFile(m.chat, stiker, 'sticker.webp', '',m, true, { contextInfo: { 'forwardingScore': 200, 'isForwarded': false, externalAdReply:{ showAdAttribution: false, title: wm, body: ` 😻 𝗦𝘂𝗽𝗲𝗿 𝗚𝗮𝘁𝗮𝗕𝗼𝘁-𝗠𝗗 - 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 `, mediaType: 2, sourceUrl: redesMenu.getRandom(), thumbnail: gataImg.getRandom()}}}, { quoted: m })
-await delay(3000)
-}
-throw `${lenguajeGB['smsAvisoEG']()}`
-}
-handler.help = ['stikertele *<url>*']
-handler.tags = ['sticker', 'downloader']
-handler.command = /^(تليو)$/i
-handler.cookie = 0
-handler.limit = 1
-handler.register = false
-export default handler
+import {createHash} from 'crypto';
 
-const delay = time => new Promise(res => setTimeout(res, time))
+
+
+const Reg = /\|?(.*)([.|] *?)([0-9]*)$/i;
+const handler = async function(m, {conn, text, usedPrefix, command}) {
+  const datas = global
+  const idioma = datas.db.data.users[m.sender].language
+  const _translate = JSON.parse(fs.readFileSync(`./language/ar.json`))
+  const tradutor = _translate.plugins.rpg_verificar
+
+  const user = global.db.data.users[m.sender];
+  const name2 = conn.getName(m.sender);
+  const pp = await conn.profilePictureUrl(m.chat, 'image').catch((_) => global.imagen1);
+  if (user.registered === true) throw `${tradutor.texto1[0]}\n*${usedPrefix}unreg* ${tradutor.texto1[1]}`;
+  if (!Reg.test(text)) throw `${tradutor.texto2[0]} : ${usedPrefix + command} ${tradutor.texto2[1]} ${usedPrefix + command} Shadow.18*`;
+  let [_, name, splitter, age] = text.match(Reg);
+  if (!name) throw tradutor.texto3;
+  if (!age) throw tradutor.texto5;
+  if (name.length >= 30) throw tradutor.texto6;
+  age = parseInt(age);
+  if (age > 100) throw tradutor.texto6;
+  if (age < 5) throw tradutor.texto7;
+  user.name = name.trim();
+  user.age = age;
+  user.regTime = + new Date;
+  user.registered = true;
+  const sn = createHash('md5').update(m.sender).digest('hex');
+  const caption = `${tradutor.texto8[0]}
+${tradutor.texto8[1]}」
+${tradutor.texto8[2]}
+${tradutor.texto8[3]} ${name}
+${tradutor.texto8[4]} ${age} ${tradutor.texto8[5]}
+${tradutor.texto8[6]} 
+┃ ${sn}
+${tradutor.texto8[7]}
+${tradutor.texto8[8]} 
+${tradutor.texto8[9]}
+${tradutor.texto8[10]}
+${tradutor.texto8[11]}`;
+  // let author = global.author
+  await conn.sendFile(m.chat, pp, 'mystic.jpg', caption);
+  // conn.sendButton(m.chat, caption, `¡𝚃𝚄 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴 𝚂𝙴𝚁𝙸𝙴 𝚃𝙴 𝚂𝙴𝚁𝚅𝙸𝚁𝙰 𝙿𝙾𝚁 𝚂𝙸 𝙳𝙴𝚂𝙴𝙰𝚂 𝙱𝙾𝚁𝚁𝙰𝚁 𝚃𝚄 𝚁𝙴𝙶𝙸𝚂𝚃𝚁𝙾 𝙴𝙽 𝙴𝙻 𝙱𝙾𝚃!\n${author}`, [['¡¡𝙰𝙷𝙾𝚁𝙰 𝚂𝙾𝚈 𝚄𝙽 𝚅𝙴𝚁𝙸𝙵𝙸𝙲𝙰𝙳𝙾/𝙰!!', '/profile']], m)
+  global.db.data.users[m.sender].money += 10000;
+  global.db.data.users[m.sender].exp += 10000;
+};
+handler.help = ['verificar'];
+handler.tags = ['xp'];
+handler.command = /^(verify|سجلني|verificar|reg|تسجيل)$/i;
+export default handler;
