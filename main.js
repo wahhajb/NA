@@ -423,9 +423,9 @@ global.reloadHandler = async function(restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate);
   }
 
-  conn.welcome = '👋 ¡منور/ة!\n@user \n@subject \n@desc';
-  conn.bye = '👋 ¡لاترجع!\n@user';
-  conn.spromote = '*[ ℹ️ ] @user تمت ترقيته إلى مشرف.*';
+  conn.welcome = '*دخـل عـضـو جـديـد لـلـمـجـمـوعـه🥺♥️\nمنور الجروب يا🌚 @user*\n*اسـم الــجــروب😌*: @subject \n*رجـاء اقراء الوصف لكي لا تخالف القوانين*\n*💎الــوصـــف:-* @desc';
+  conn.bye = '*لـقـد غادر عضو المجموعه او تمت ازالته*\n\nمــا كــان لـه فـائـده اصلا 👋 *@user*';
+  conn.spromote = '*[ ℹ️ ] @user تمت ترقيته إلى مشرف*\n *مبروك على الاشراف🌚♥️*';
   conn.sdemote = '*[ ℹ️ ] @user تم تخفيضه من مشرف.*';
   conn.sDesc = '*[ ℹ️ ] تم تعديل وصف المجموعة.*';
   conn.sSubject = '*[ ℹ️ ] تم تغيير اسم المجموعة.*';
@@ -584,7 +584,7 @@ setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return;
   const _uptime = process.uptime() * 1000;
   const uptime = clockString(_uptime);
-  const bio = `[ 🍊 ] وقت تشغيل:: ${uptime}`;
+  const bio = `[ 💀 ] وقت تشغيل بوت سوكونا:: ${uptime}`;
   await conn.updateProfileStatus(bio).catch((_) => _);
 }, 60000);
 function clockString(ms) {
