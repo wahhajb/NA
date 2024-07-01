@@ -1,4 +1,3 @@
-console.log('[ ℹ️ ] Iniciando...');
 import fs from 'fs';
 import path from 'path';
 import firebaseAdmin from 'firebaseAdmin';
