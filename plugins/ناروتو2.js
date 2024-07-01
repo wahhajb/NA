@@ -1,10 +1,63 @@
-import axios from 'axios'
-let handler = async(m, { conn, usedPrefix, command }) => {
-let res = (await axios.get(`https://raw.githubusercontent.com/BrunoSobrino/TheMystic-Bot-MD/master/src/JSON/naroto.json`)).data  
-let url = await res[Math.floor(res.length * Math.random())]
-conn.sendFile(m.chat, url, 'error.jpg', `*NARUTO*`, m)}
-//conn.sendButton(m.chat, "*Messi*", author, url, [['⚽ SIGUIENTE ⚽', `${usedPrefix + command}`]], m)}
-handler.help = ['مسي', 'ميسي']
-handler.tags = ['internet']
-handler.command = /^(naroto)$/i
+const dir = [
+  'https://i.imgur.com/SbUMOM4.mp4',
+'https://i.imgur.com/6iCwEPS.mp4',
+'https://i.imgur.com/gA7Zcy1.mp4',
+'https://i.imgur.com/4RoU5Jv.mp4',
+'https://i.imgur.com/ZEK6Rm0.mp4',
+'https://i.imgur.com/JkLVDf5.mp4',
+'https://i.imgur.com/whUDt3C.mp4',
+'https://i.imgur.com/IMTbVow.mp4',
+'https://i.imgur.com/TZOi5Al.mp4',
+'https://i.imgur.com/kn8tFpn.mp4',
+'https://i.imgur.com/7x0NWtl.mp4',
+'https://i.imgur.com/dixgnla.mp4',
+'https://i.imgur.com/0uUHDp3.mp4',
+'https://i.imgur.com/22ch70B.mp4',
+'https://i.imgur.com/IsxaZ1y.mp4',
+'https://i.imgur.com/WHf38sX.mp4',
+'https://i.imgur.com/fmsoM62.mp4',
+'https://i.imgur.com/LNcKlut.mp4',
+'https://i.imgur.com/wKp5am9.mp4',
+'https://i.imgur.com/qzfm1vy.mp4',
+'https://i.imgur.com/TUc1prx.mp4',
+'https://i.imgur.com/fHNEXaM.mp4',
+'https://i.imgur.com/UzWK9yP.mp4',
+'https://i.imgur.com/ou4K5mI.mp4',
+'https://i.imgur.com/ReiuFSS.mp4',
+'https://i.imgur.com/DpHODBH.mp4',
+'https://i.imgur.com/4jinWU2.mp4',
+'https://i.imgur.com/Rowvh0q.mp4',
+'https://i.imgur.com/4rNiRHx.mp4',
+'https://i.imgur.com/eBK3Ijo.mp4',
+'https://i.imgur.com/sP560UU.mp4',
+'https://i.imgur.com/ILZbH1j.mp4',
+'https://i.imgur.com/BiO2wlh.mp4',
+'https://i.imgur.com/aDuKJyL.mp4',
+'https://i.imgur.com/c04XPvW.mp4',
+'https://i.imgur.com/Nglfe8K.mp4',
+'https://i.imgur.com/bywGFLK.mp4',
+'https://i.imgur.com/aQs4Wox.mp4',
+'https://i.imgur.com/MbBN6HS.mp4',
+'https://i.imgur.com/b640js5.mp4',
+'https://i.imgur.com/wqEqMRN.mp4',
+'https://i.imgur.com/DHWwPFJ.mp4',
+'https://i.imgur.com/c7ZnRoV.mp4',
+'https://i.imgur.com/iLEf2vH.mp4',
+'https://i.imgur.com/VcUt45Y.mp4',
+'https://i.imgur.com/fs39XIs.mp4',
+'https://i.imgur.com/XUhpWRR.mp4',
+'https://i.imgur.com/5ACESF0.mp4', 
+'https://i.imgur.com/ICM88Nd.mp4', 
+'https://i.imgur.com/CWT9H7K.mp4',
+'https://i.imgur.com/3y9JcTn.mp4',
+'https://i.imgur.com/inVK9fe.mp4',
+];
+let handler = async (m, { conn }) => {
+  conn.sendFile(m.chat, dir[Math.floor(Math.random() * dir.length)], 'dado.webp', '', m)
+  await conn.sendMessage(m.chat, { react: { text: '🌠', key: m.key } })
+}
+handler.help = ['dado']
+handler.tags = ['game']
+handler.command = ['naroto'] 
+handler.limite = true 
 export default handler
