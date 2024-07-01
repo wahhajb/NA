@@ -12,7 +12,7 @@ const handler = async function(m, {conn, text, usedPrefix, command}) {
   const user = global.db.data.users[m.sender];
   const name2 = conn.getName(m.sender);
   const pp = await conn.profilePictureUrl(m.chat, 'image').catch((_) => global.imagen1);
-  if (user.registered === true) throw `${tradutor.texto1[0]}\n*${usedPrefix}unreg* ${tradutor.texto1[1]}`;
+  if (user.registered === true) throw `${tradutor.texto1[0]}\n*${usedPrefix}حذف-تسجيل* ${tradutor.texto1[1]}`;
   if (!Reg.test(text)) throw `${tradutor.texto2[0]} : ${usedPrefix + command} ${tradutor.texto2[1]} ${usedPrefix + command} Shadow.18*`;
   let [_, name, splitter, age] = text.match(Reg);
   if (!name) throw tradutor.texto3;
@@ -46,5 +46,5 @@ ${tradutor.texto8[11]}`;
 };
 handler.help = ['verificar'];
 handler.tags = ['xp'];
-handler.command = /^(verify|سجلني|verificar|reg|تسجيل)$/i;
+handler.command = /^(verify|سجلني|سجل|reg|تسجيل)$/i;
 export default handler;
