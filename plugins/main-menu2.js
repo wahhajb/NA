@@ -8,7 +8,7 @@ import { promises } from 'fs'
 import { join } from 'path'
 const time = moment.tz('Egypt').format('HH')
 let wib = moment.tz('Egypt').format('HH:mm:ss')
-//import db from '../lib/database.js'
+import db from '../lib/database.js'
 
 let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPrems}) => {
     let d = new Date(new Date + 3600000)
@@ -35,7 +35,7 @@ let more = String.fromCharCode(8206)
 let readMore = more.repeat(900) 
   const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
 let str = `
-*💥❯══⊹⊱≼ ${username} ≽⊰⊹══❮💥*
+*💥❯══⊹⊱≼ ${user} ≽⊰⊹══❮💥*
 
 *❯حط رمز قبل كل قسم حاجه من 👈  ( / . )❮*
 
@@ -108,7 +108,7 @@ conn.sendMessage(m.chat, {
 }; 
 handler.help = ['main']
 handler.tags = ['group']
-handler.command = ['اوامر'] 
+handler.command = ['قائمه', 'القائمه', 'القائمة', 'قائمة'] 
 
 export default handler
 function clockString(ms) {
