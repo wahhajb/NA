@@ -11,7 +11,7 @@ handleCommand(req, res) {
     
    
     switch(command) {
-        case ''.لقبي':
+        case '.لقبي':
             res.send('لقبك هو يوهان');
             break;
         case '.الألقاب':
