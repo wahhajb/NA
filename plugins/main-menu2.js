@@ -19,8 +19,8 @@ let handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPr
     let uptime = clockString(_uptime)
 let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
-let videoUrl = 'https://telegra.ph/file/350f836a9f34d9090575e.mp4'
-  let vn = './media/menu.mp3';
+let videoUrl = 'https://telegra.ph/file/1bf2957806c18f423b4ec.mp4'
+  let vn = './media/menu.mp4';
   const user = global.db.data.users[m.sender];
   const {money, joincount} = global.db.data.users[m.sender];
   const {exp, limit, level, role} = 
