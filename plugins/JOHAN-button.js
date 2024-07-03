@@ -14,7 +14,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                 {
                   name: 'single_select',
                   buttonParamsJson: JSON.stringify({
-                    title: 'اضغط هنا للأختيار 😀',
+                    title: 'اضغط هنا للأختيار 💎',
                     sections: [
                       {
                         title: 'List',
@@ -115,6 +115,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
 handler.help = ['info']
 handler.tags = ['main']
-handler.command = ['القائمة', 'قائمه', '🤖']
+handler.command = ['اوامر', 'الاوامر', 'أوامر']
 
 export default handler
