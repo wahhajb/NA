@@ -6,9 +6,9 @@ async function getimg(req_id) {
     try {
         const response = await axios.get(`https://apis-awesome-tofu.koyeb.app/api/seaart/getimg?token=${token}&req_id=${req_id}`);
         const data = response.data;
-        return data.status !== "FINISHED" ? getimg(req_id) : { url: data.imgUri.url, info: data.imgUri };
+        return data.status !== "انتهيت" ? getimg(req_id) : { url: data.imgUri.url, info: data.imgUri };
     } catch (error) {
-        throw new Error('Error fetching image: ' + error.message);
+        throw new Error('حدث خطاء اثناء جلب الصوره: ' + error.message);
     }
 }
 
@@ -23,7 +23,7 @@ async function getmodel(modelid) {
         });
         return response.data.data.name;
     } catch (error) {
-        throw new Error('Error fetching model: ' + error.message);
+        throw new Error('حدث خطاء اثناء جلب النموذج ' + error.message);
     }
 }
 
@@ -37,7 +37,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
     try {
         const text = args.length >= 1 ? args.join(" ") : m.quoted && m.quoted.text || '';
         if (!text.trim()) {
-            await m.reply(`تخيل و انا سأرسل لك ما تخيلته انا سكونا استطيع فعلها نعم ! \nمـــثال:\n*.artdraw* girl with hijan  style`);
+            await m.reply(`اكتب ما تريده ان تحوله الى صوره! \nمـــثال:\n*.انشا* girl with hijan  style`);
             return;
         }
 
@@ -64,5 +64,5 @@ const handler = async (m, { conn, args, usedPrefix }) => {
 };
 handler.help = ["artdraw"];
 handler.tags = ["drawing"];
-handler.command = /^(انشاء)$/i;
+handler.command = /^(انشا)$/i;
 export default handler;
