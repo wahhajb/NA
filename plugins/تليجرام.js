@@ -1,31 +1,52 @@
-/**
-[ By @NeKosmic || https://github.com/NeKosmic/ ]
-**/
-import{sticker as e}from"../lib/sticker.js";import{stickerLine as n,stickerTelegram as t}from"@bochilteam/scraper";let handler=async(r,{conn:a,args:i,usedPrefix:l,command:s})=>{let c=/tele/i.test(s);if(!i[0])return r.reply(`*Este comando es para obtener stickers de ${c?"Telegram":"Line"}*
+import { stickerTelegram } from '@bochilteam/scraper'
+import axios from 'axios'
 
-مــثــال عـلـى الـاسـتـخـدامـ:
-${l+s} sukuna`);let o=await (c?t:n)(i[0]);for(let d of(r.reply(`
-*النتائج التي تم العثور عليها لـ ~${i[0]}~, مجموع الملصقات:* ${(o[0]?.stickers||o).length}
-_جاري ارسال الملصقات..._
-`.trim()),o[0]?.stickers||o)){let m=await e(!1,d.sticker||d,"",`
-*< SUKUNA BOT >*
+var handler = async (m, { conn, args }) => {
+	if (args[0] && args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) {
+		let res = await Telesticker(args[0])
+		await m.reply(`ارسال ${res.length} ملصقات...`)
+		if (m.isGroup && res.length > 300000) {
+			await m.reply('عدد الملصقات يتجاوز 300000 البوت بيرسلهم لك خاص.')
+			for (let i = 0; i < res.length; i++) {
+				conn.sendMessage(m.sender, { sticker: { url: res[i].url }})
+			}
+		} else {
+			for (let i = 0; i < res.length; i++) {
+				conn.sendMessage(m.chat, { sticker: { url: res[i].url }})
+			}
+		}
+	} else if (args && args.join(' ')) {
+		let [query, page] = args.join(' ').split('|')
+		let res = await stickerTelegram(query, page)
+		if (!res.length) throw `Query "${args.join(' ')}" not found`
+		m.reply(res.map(v => `*${v.title}*\n_${v.link}_`).join('\n\n'))
+	} else throw 'استعلام الادخال / رابط تليجرام'
+}
+handler.help = ['telesticker']
+handler.tags = ['tools']
+handler.command = /^(تيليجرام|تليجرام)$/i
+handler.limit = true
 
+export default handler
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[ NeKosmic ]`);await a.sendFile(r.chat,m,"sticker.webp","",r).catch(console.error),await delay(1500)}};handler.help=["telesticker <buscar>","linesticker <buscar>"],handler.tags=["conversor"],handler.command=/^(تليجرام)$/i,handler.limit=1;export default handler;let delay=e=>new Promise(n=>setTimeout(n,e));
+//Thanks Xfarr : https://github.com/xfar05
+async function Telesticker(url) {
+	return new Promise(async (resolve, reject) => {
+	  if (!url.match(/(https:\/\/t.me\/addstickers\/)/gi)) throw '*حط رابط حزمه الملصقات من التليجرام*';
+	  const packName = url.replace('https://t.me/addstickers/', '');
+	  const data = await axios(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getStickerSet?name=${encodeURIComponent(packName)}`, { method: 'GET', headers: { 'User-Agent': 'GoogleBot' } });
+	  const hasil = [];
+	  for (let i = 0; i < data.data.result.stickers.length; i++) {
+		const fileId = data.data.result.stickers[i].thumb.file_id;
+		const data2 = await axios(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=${fileId}`);
+		const result = {
+		  status: 200,
+		  author: 'Xfarr05',
+		  url: `https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/${data2.data.result.file_path}`,
+		};
+		hasil.push(result);
+	  }
+	  resolve(hasil);
+	});
+  }
+  
