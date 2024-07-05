@@ -34,8 +34,7 @@ let handler = async(m, { conn }) => {
     
     }
     
-    handler.help = ['شت']
-    handler.tags = ['main']
     handler.customPrefix = /^(شت|تبا|شتات)$/i 
+    handler.command = new RegExp;
 
     export default handler;
