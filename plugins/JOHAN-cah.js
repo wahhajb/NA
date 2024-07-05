@@ -9,7 +9,8 @@ let handler = async (m, { conn }) => {
     conn.sendFile(m.chat, 'https://telegra.ph/file/caafdb2292db8180b99fe.mp4', 'video.mp4', message, m);
 };
 
-handler.customPrefix = /^(تخمين|خمن)$/i;
-handler.command = new RegExp;
+handler.help = ['cah']
+handler.tag = ['game']
+handler.command = /^(تخمين|خمن)$/i;
 
 export default handler;
