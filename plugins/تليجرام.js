@@ -8,7 +8,7 @@ ${l+s} sukuna`);let o=await (c?t:n)(i[0]);for(let d of(r.reply(`
 *النتائج التي تم العثور عليها لـ ~${i[0]}~, مجموع الملصقات:* ${(o[0]?.stickers||o).length}
 _جاري ارسال الملصقات..._
 `.trim()),o[0]?.stickers||o)){let m=await e(!1,d.sticker||d,"",`
-< ${NombreDelBot} >
+*< SUKUNA BOT >*
 
 
 
