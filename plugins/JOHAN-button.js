@@ -97,7 +97,22 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             title: 'المطور',
                             description: 'بيجيب لك اوامر المطور',
                             id: '.قسم-المطور'
-                          }
+                          },
+                                            {
+                  name: 'single_select',
+                  buttonParamsJson: JSON.stringify({
+                    title: 'اضغط هنا للأختيار 💎',
+                    sections: [
+                      {
+                        title: 'List',
+                        highlight_label: 'لاتلعب بالازرار 🌚',
+                        rows: [
+                          {
+                            header: 'ســرعــة الــبـــوت',
+                            title: 'البينق',
+                            description: '',
+                            id: '.ping'
+                          },
                         ]
                       }
                     ]
