@@ -20,7 +20,7 @@ var handler = async (m, { conn, args }) => {
 		let res = await stickerTelegram(query, page)
 		if (!res.length) throw `Query "${args.join(' ')}" not found`
 		m.reply(res.map(v => `*${v.title}*\n_${v.link}_`).join('\n\n'))
-	} else throw 'استعلام الادخال / رابط تليجرام'
+	} else throw '🗿 جيب رابط اول'
 }
 handler.help = ['telesticker']
 handler.tags = ['tools']
