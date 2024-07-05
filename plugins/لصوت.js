@@ -1,21 +1,17 @@
-import {toAudio} from '../lib/converter.js';
+import { toAudio } from '../lib/converter.js'
 
-const handler = async (m, {conn, usedPrefix, command}) => {
-  const datas = global
-  const idioma = datas.db.data.users[m.sender].language
-  const _translate = JSON.parse(fs.readFileSync(`./language/ar.json`))
-  const tradutor = _translate.plugins.convertidor_tomp3
+let handler = async (m, { conn, usedPrefix, command }) => {
+    let q = m.quoted ? m.quoted : m
+   /* let mime = (m.quoted ? m.quoted : m.msg).mimetype || ''
+    if (!/video|audio/.test(mime)) throw `✳️ Reply to the video or voice note you want to convert to mp3 with the command :\n\n*${usedPrefix + command}*`*/
+    let media = await q.download?.()
+    if (!media) throw '*فشل تنزيل الوسائط 😓*'
+    let audio = await toAudio(media, 'mp4')
+    if (!audio.data) throw '*حدث خطاء اثناء التحويل 😕*'
+    conn.sendFile(m.chat, audio.data, 'audio.mp3', '', m, null, { mimetype: 'audio/mp4' })
+}
+handler.help = ['tomp3']
+handler.tags = ['fun']
+handler.command = /^ل(صوت|فويس?)$/i
 
-
-  const q = m.quoted ? m.quoted : m;
-  const mime = (q || q.msg).mimetype || q.mediaType || '';
-  if (!/video|audio/.test(mime)) throw `*${tradutor.texto1}*`;
-  const media = await q.download();
-  if (!media) throw `*${tradutor.texto2}*`;
-  const audio = await toAudio(media, 'mp4');
-  if (!audio.data) throw `*${tradutor.texto3}*`;
-  conn.sendMessage(m.chat, {audio: audio.data, mimetype: 'audio/mpeg'}, {quoted: m});
-};
-handler.alias = ['tomp3', 'toaudio'];
-handler.command = /^(لصوت)$/i;
-export default handler;
+export default handler
