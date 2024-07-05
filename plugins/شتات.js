@@ -16,7 +16,7 @@ let handler = async(m, { conn }) => {
         mimetype: 'audio/mpeg',
         ptt: true,
         waveform:  [100, 0, 100, 0, 100, 0, 100],
-        fileName: "Guru",
+        fileName: "SUKUNA",
     
         contextInfo: {
           mentionedJid: [m.sender],
@@ -24,7 +24,7 @@ let handler = async(m, { conn }) => {
           title: "اضغط لمراسله المطور",
           body: "SUKUNA BOT",
           thumbnailUrl: img,
-          sourceUrl: 'wa.me//+994404282709',
+          sourceUrl: 'https://wa.me//+994404282709',
           mediaType: 1,
           renderLargerThumbnail: true
           }}
@@ -36,6 +36,6 @@ let handler = async(m, { conn }) => {
     
     handler.help = ['شت']
     handler.tags = ['main']
-    handler.command = /^(شت|تبا)$/i 
+    handler.customPrefix = /^(شت|تبا|شتات)$/i 
 
     export default handler;
