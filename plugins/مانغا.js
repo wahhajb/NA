@@ -5,8 +5,8 @@ import fetch from 'node-fetch'
 var handler = async (m, { conn, text }) => {
 if (!text) throw `*🏷️يرجى إدخال إسم المانجا  الذي تريد البحث عنه وأيضاً باللغة الإنجليزية !*
 
-📌 مثال: *مانغا one piece*`
-conn.reply(m.chat, 'Sedang mencari manga... Silahkan tunggu', m)
+📌 مثال: *مانغا dragon ball*`
+conn.reply(m.chat, 'يرجى الانتظار.....', m)
 let res = await fetch('https://api.jikan.moe/v4/manga?q=' + text)
 if (!res.ok) throw 'Tidak Ditemukan'
 let json = await res.json()
@@ -35,8 +35,7 @@ let animeingfo = `📚 الـعـنوان: ${judul}
 📝 الغلاف: ${background}
 💬 ملخص: ${synopsis}
 `
-conn.sendFile(m.chat, json.data[0].images.jpg.image_url, 'manga.jpg', `*MANGA INFO*\n` + animeingfo, m)
-    conn.reply(m.chat, 'JANGAN LUPA SUPPORT DEVELOPERNYA\nXnuvers007\nhttps://saweria.co/xnuvers007', m)
+conn.sendFile(m.chat, json.data[0].images.jpg.image_url, 'manga.jpg', `*مــعـــلـــومـــات الــــمـــانـــــغــــــــا*\n` + animeingfo, m)
 }
 handler.help = ['mangainfo <manga>', 'manga <namaManga>', 'infomanga <NamaManga/Anime>']
 handler.tags = ['anime']
