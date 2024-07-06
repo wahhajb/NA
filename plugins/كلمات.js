@@ -12,7 +12,12 @@ let handler = async (m, {conn, text }) => {
 ▢ *${json.title}*
 *${json.author}*\n
 ${json.lyrics}`, m)
-m.react(done)
+await conn.sendMessage(m.chat, {
+   react: {
+ text: "💀",
+ key: m.key,
+   }
+   })		
 } catch (e) {
 	m.react(error)
 	} 
