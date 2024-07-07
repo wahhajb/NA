@@ -35,7 +35,7 @@ const dir = [
 'https://telegra.ph/file/970ef3402da4475288706.jpg',
 ];
 let handler = async (m, { conn }) => {
-  conn.sendFile(m.chat, dir[Math.floor(Math.random() * dir.length)], 'dado.webp', 'تم يا ${taguser} شوف صوره زوجتك/زوجك🌚♥️🎀', m)
+  conn.sendFile(m.chat, dir[Math.floor(Math.random() * dir.length)], 'dado.webp', 'تم يا حبيب/ه ابوك شوف صوره زوجتك/زوجك 🌚♥️🎀', m)
 }
 handler.help = ['dado']
 handler.tags = ['game']
