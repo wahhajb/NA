@@ -8,6 +8,7 @@ const da = [
 ];
 let handler = async (m, { conn }) => {
   conn.sendFile(m.chat, pickRandom(da), 'dado.webp', '', m)
+  await conn.sendMessage(m.chat, { react: { text: '🎲', key: m.key } })
 }
 handler.help = ['dado']
 handler.tags = ['game', 'group']
