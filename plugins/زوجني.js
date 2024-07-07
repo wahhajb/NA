@@ -36,8 +36,6 @@ const dir = [
 ];
 let handler = async (m, { conn }) => {
 conn.sendFile(m.chat, url, 'error.jpg', `*عمك مغزه 😂💕*`, m)}
-  
-}
 handler.help = ['dado']
 handler.tags = ['game']
 handler.command = ['زوجني'] 
