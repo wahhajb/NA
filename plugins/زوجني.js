@@ -35,7 +35,8 @@ const dir = [
 'https://telegra.ph/file/970ef3402da4475288706.jpg',
 ];
 let handler = async (m, { conn }) => {
-conn.sendFile(m.chat, jpg, 'error.jpg', `*عمك مغزه 😂💕*`, m)}
+conn.sendFile(m.chat, img, 'error.jpg', `*عمك مغزه 😂💕*`, m)}
+
 handler.help = ['dado']
 handler.tags = ['game']
 handler.command = ['زوجني'] 
