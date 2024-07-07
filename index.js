@@ -1,4 +1,5 @@
-import fs from 'fs'
+console.log('[ ℹ️ ] Iniciando...');
+import fs from 'fs';
 import path from 'path'
 import { fileURLToPath } from 'url';
 import {join, dirname} from 'path';
