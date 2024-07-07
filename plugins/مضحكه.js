@@ -124,7 +124,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
     throw e
   }
 }
-handler.command = /^(المهاظ)$/i
+handler.command = /^(alkaser)$/i
 handler.exp = 3
 
 export default handler
