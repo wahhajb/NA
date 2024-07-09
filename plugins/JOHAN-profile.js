@@ -14,8 +14,8 @@ let handler = async (m, { conn }) => {
 *رقم:* ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
 *رابط:* https://wa.me/${who.split`@`[0]}
 *عمر:*      _${registered ? age : ''}_
-*طلب:* ${registered ? '❌ مسجل ✅': 'ليس مسجل'}
-*مميز:* ${premium ? "😕 نعم💎 " :"لا"}
+*طلب:* ${registered ? 'مسجل ✅': 'ليس مسجل'}
+*مميز:* ${premium ? " نعم💎 " :"لا 😕"}
 *وقت مميز:* 
 ${clockString(user.premiumTime)}
 `.trim()
