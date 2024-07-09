@@ -990,7 +990,7 @@ export async function handler(chatUpdate) {
       if (settings) {
         if (!('self' in settings)) settings.self = false;
         if (!('autoread' in settings)) settings.autoread = true;
-        if (!('autoread2' in settings)) settings.autoread2 = false;
+        if (!('autoread2' in settings)) settings.autoread2 = true;
         if (!('restrict' in settings)) settings.restrict = true;
         if (!('antiCall' in settings)) settings.antiCall = true;
         if (!('antiPrivate' in settings)) settings.antiPrivate = true;
@@ -1002,7 +1002,7 @@ export async function handler(chatUpdate) {
         global.db.data.settings[this.user.jid] = {
           self: false,
           autoread: true,
-          autoread2: false,
+          autoread2: true,
           restrict: false,
           antiCall: true,
           antiPrivate: true,
