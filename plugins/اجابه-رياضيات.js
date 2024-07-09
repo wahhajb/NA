@@ -17,7 +17,7 @@ handler.before = async function (m) {
                 clearTimeout(this.math[id][3])
                 delete this.math[id]
                 m.reply(`*لقد انتهت الفرص*\n\n إجابة : *${math.result}*`)
-      } else m.reply(`❎ *إجابة خاطئة*\n\nلا تزال هناك  ${this.math[id][2]} فرص`)
+      } else m.reply(`❌ *إجابة خاطئة*\n\nلا تزال هناك  ${this.math[id][2]} فرص`)
         }
     }
     return !0
