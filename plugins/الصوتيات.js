@@ -16,7 +16,7 @@ if (/تخينن/.test(command)) set = '-filter:a "atempo=1.6,asetrate=22100"'
 if (/رفيع/.test(command)) set = '-filter:a atempo=1.06,asetrate=44100*1.25'
 if (/تقطيع/.test(command)) set = '-filter_complex "areverse"'
 if (/روبوت/.test(command)) set = '-filter_complex "afftfilt=real=\'hypot(re,im)*sin(0)\':imag=\'hypot(re,im)*cos(0)\':win_size=512:overlap=0.75"'
-if (/بطيء/.test(command)) set = '-filter:a "atempo=0.7,asetrate=44100"'
+if (/بطى/.test(command)) set = '-filter:a "atempo=0.7,asetrate=44100"'
 if (/ناعم/.test(command)) set = '-filter:v "minterpolate=\'mi_mode=mci:mc_mode=aobmc:vsbmc=1:fps=120\'"'
 if (/سنجاب/.test(command)) set = '-filter:a "atempo=0.5,asetrate=65100"'
 if (/audio/.test(mime)) {
@@ -31,15 +31,14 @@ conn.sendFile(m.chat, buff, ran, null, m, true, {
 type: 'audioMessage', 
 ptt: true 
 })})
-} else throw `*رد على الصوت الذي تريد تحويله، استخدم الامر التالي ${usedPrefix + command}*`
+} else throw `*رد على الصوت بالامر ${usedPrefix + command}*`
 } catch (e) {
 throw e
 }}
 handler.help = ['bass', 'blown', 'deep', 'earrape', 'fast', 'fat', 'nightcore', 'reverse', 'robot', 'slow', 'smooth', 'tupai'].map(v => v + ' [vn]')
 handler.tags = ['audio']
-handler.command = /^(عميق|منفوخ|تخين|صاخب|سريع|تخينن|رفيع|روبوت|بطيء|ناعم|سنجاب)$/i
+handler.command = /^(عميق|منفوخ|تخين|صاخب|سريع|تخينن|رفيع|تقطيع|روبوت|بطى|ناعم|سنجاب)$/i
 export default handler
 
 const getRandom = (ext) => {
 return `${Math.floor(Math.random() * 10000)}${ext}`}
-  
