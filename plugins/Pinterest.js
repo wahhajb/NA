@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `*يمكنك تحميل صور داك جودة عالية وممتازة من منصة pinterest عبر كتابة الامر متبوعا باسم الصورة التي تريد تحميلها مثال*\n\n*${usedPrefix + command} صورة الكون*`
+  if (!text) throw `*يمكنك تحميل صور داك جودة عالية وممتازة من منصة بين3 عبر كتابة الامر متبوعا باسم الصورة التي تريد تحميلها مثال*\n\n*${usedPrefix + command} صورة الكون*`
   conn.reply(m.chat, '*انتظر قليلا يا عزيزي ...*', m)
 
   try {
@@ -24,7 +24,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       let imageBuffer = await imageRes.buffer();
 
       // Menggunakan fungsi sendImage untuk mengirim gambar ke WhatsApp
-      await conn.sendFile(m.chat, imageBuffer, 'boibza.jpg', '');
+      await conn.sendFile(m.chat, imageBuffer, 'sukuna.jpg', '');
 
       // Tambahkan jeda agar tidak mengirim gambar terlalu cepat
       await new Promise(resolve => setTimeout(resolve, 500));
