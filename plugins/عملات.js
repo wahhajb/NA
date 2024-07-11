@@ -1,29 +1,49 @@
-//import db from '../lib/database.js'
+import * as baileys from '@whiskeysockets/baileys';
 
-let handler = async (m, { conn }) => {
+let handler = async (m, { conn, text }) => {
+  let [, code] = text.match(/chat\.whatsapp\.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i) || [];
+  if (!code) throw '*[❗INFO❗] Please provide a valid group link.*';
+  
+  let res = await conn.query({ tag: 'iq', attrs: { type: 'get', xmlns: 'w:g2', to: '@g.us' }, content: [{ tag: 'invite', attrs: { code } }] });
+  let data = extractGroupMetadata(res);
+  let txt = Object.keys(data).map(v => `*${v.capitalize()}:* ${data[v]}`).join('\n');
+  
+  let pp = await conn.profilePictureUrl(data.id, 'image').catch(console.error);
+  if (pp) {
+    return conn.sendMessage(m.chat, { image: { url: pp }, caption: txt }, { quoted: m });
+  } else {
+    let groupinfo = `*┏━━━━━━━━━━━━━━━┓*
+*┃☂️ المعرف:* ${data.id}◞
+*┃🧪 الاسم:* ${data.subject}
+*┃📅 التاريخ:* ${data.creation}
+*┃👑 المالك:* ${data.owner}
+*┃✍️الوصف:* ${data.desc}
+*┗━━━━━━━━━━━━━━━┛*`;
+    await conn.reply(m.chat, groupinfo, m)
+  const botones = [
+{index: 1, urlButton: {displayText: `نسخ الوصف 🍧`, url: `https://www.whatsapp.com/otp/copy/${data.desc}`}},
+]
+await conn.sendMessage(m.chat, { text: `*┏━━━━━━━━━━━━━━┓*\n┃هل تريد نسخ الوصف ؟ •🌷\n*┗━━━━━━━━━━━━━━┛*`, templateButtons: botones, footer: wm })
+  };
 
-  let hasil = Math.floor(Math.random() * 35)
-  let time = global.db.data.users[m.sender].lastmiming + 14400000
-  if (new Date - global.db.data.users[m.sender].lastmiming < 14400000) throw `╮───────────────╭ـ\n*لقد أخذت عملاتك بالفعل انتظر* \n︎︎${msToTime(time - new Date())}\n︎╯───────────────╰ـ`
-  global.db.data.users[m.sender].limit += hasil
-  m.reply(`╮───────────────╭ـ\n*تـم تـجـمـيـع عـمـلاتك* \n︎︎│ *المبلغ » ${hasil} 🪙* \n︎╯───────────────╰ـ`)
-  global.db.data.users[m.sender].lastmiming = new Date * 1
-}
-handler.help = ['amlet']
-handler.tags = ['econ']
-handler.command = ['عملات'] 
+handler.command = /^(فحص)$/i;
 
-export default handler
+export default handler;
 
-function msToTime(duration) {
-  var milliseconds = parseInt((duration % 1000) / 100),
-    seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24)
-
-  hours = (hours < 10) ? "0" + hours : hours
-  minutes = (minutes < 10) ? "0" + minutes : minutes
-  seconds = (seconds < 10) ? "0" + seconds : seconds
-
-  return hours + "🕰️ساعات |" + minutes + "💠 دقايق| " + seconds + "🛎️ ثواني |" 
-      }
+const extractGroupMetadata = (result) => {
+  const group = baileys.getBinaryNodeChild(result, 'group');
+  const descChild = baileys.getBinaryNodeChild(group, '');
+  let desc;
+  if (descChild) desc = baileys.getBinaryNodeChild(descChild, 'body')?.content;
+  
+  const metadata = {
+    id: group.attrs.id.includes('@') ? group.attrs.id : baileys.jidEncode(group.attrs.id, 'g.us'),
+    subject: group.attrs.subject,
+    creation: new Date(+group.attrs.creation * 1000).toLocaleString('id', { timeZone: 'Asia/Jakarta' }),
+    owner: group.attrs.creator ? 'wa.me/' + baileys.jidNormalizedUser(group.attrs.creator).split('@')[0] :
+      group.attrs.id.includes('-') ? 'wa.me/' + group.attrs.id.split('-')[0] : '',
+    desc
+  };
+  
+  return metadata;
+};
