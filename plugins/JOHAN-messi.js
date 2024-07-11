@@ -20,7 +20,7 @@ if (!db.data.chats[m.chat].modohorny && m.isGroup) throw `${tradutor.texto1} ${u
     if (global.videoListXXX[0]?.from == m.sender) {
       global.videoListXXX.splice(0, global.videoListXXX.length);
     }
-    const res = await xnxxsearch(text);
+    const res = await arabshentaisearch(text);
     const json = res.result;
     let cap = `${tradutor.texto3} ${text.toUpperCase()}\n\n`;
     let count = 1;
