@@ -2,7 +2,7 @@ import * as baileys from '@whiskeysockets/baileys';
 
 let handler = async (m, { conn, text }) => {
   let [, code] = text.match(/chat\.whatsapp\.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i) || [];
-  if (!code) throw '*[❗INFO❗] Please provide a valid group link.*';
+  if (!code) throw '*حط رابط الجروب*';
   
   let res = await conn.query({ tag: 'iq', attrs: { type: 'get', xmlns: 'w:g2', to: '@g.us' }, content: [{ tag: 'invite', attrs: { code } }] });
   let data = extractGroupMetadata(res);
@@ -25,8 +25,9 @@ let handler = async (m, { conn, text }) => {
 ]
 await conn.sendMessage(m.chat, { text: `*┏━━━━━━━━━━━━━━┓*\n┃هل تريد نسخ الوصف ؟ •🌷\n*┗━━━━━━━━━━━━━━┛*`, templateButtons: botones, footer: wm })
   };
-
-handler.command = /^(فحص)$/i;
+handler.help = ['chk'];
+handler.tag = ['game'];
+handler.command = /^(chk)$/i;
 
 export default handler;
 
