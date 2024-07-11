@@ -29,7 +29,7 @@ handler.command = /^(هنتاي)$/i;
 export default handler;
 async function searchHentai(search) {
   return new Promise((resolve, reject) => {
-    axios.get('https://hentai.tv/?s=' + search).then(async ({data}) => {
+    axios.get('https://arabshentai.com' + search).then(async ({data}) => {
       const $ = cheerio.load(data);
       const result = {};
       const res = [];
