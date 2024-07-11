@@ -10,7 +10,7 @@ const handler = async (m, {conn, text, __dirname, usedPrefix, command}) => {
 
   if (!global.db.data.chats[m.chat].modohorny && m.isGroup) throw `${tradutor.texto1}`;
   if (!text) throw `${tradutor.texto2}`;
-  const searchResults = await searchHentai(text);
+  const searchResults = await arabshentaisearch(text);
   let teks = searchResults.result.map((v, i) => `
 ${i+1}. *_${v.title}_*
 ↳ 📺 *_Vistas:_* ${v.views}
@@ -27,7 +27,7 @@ ${i+1}. *_${v.title}_*
 };
 handler.command = /^(هنتاي)$/i;
 export default handler;
-async function searchHentai(search) {
+async function arabshentaisearch(search) {
   return new Promise((resolve, reject) => {
     axios.get('https://arabshentai.com' + search).then(async ({data}) => {
       const $ = cheerio.load(data);
