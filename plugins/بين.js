@@ -1,14 +1,18 @@
-import { pinterest } from '@bochilteam/scraper'
+import Starlights from "@StarlightsTeam/Scraper"
 
-let handler = async(m, { conn, text, usedPrefix, command }) => {
-  if (!text) throw `🐦ماهي الصوره التي تريد البحث عنها؟\n\n🗿 مثال : ${usedPrefix + command} gojo satura`
-  const json = await pinterest(text)
-  conn.sendFile(m.chat, json.getRandom(), 'pinterest.jpg', `
-*▢ pinterest:*  ${text}
-`.trim(), m)
-}
-handler.help = ['pinterest']
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+if (!text) return m.reply('*اكتب ما تريد البحث عنه في بنترست*.\n\n`مثال:`\n' + `> *${usedPrefix + command}* سوكونا`)
+await m.react('🕓')
+try {
+let { dl_url } = await Starlights.pinterest(text)
+await conn.sendFile(m.chat, dl_url, 'thumbnail.jpg', `*» النتيجه* : ${text}`, m, null, rcanal)
+await m.react('✅')
+} catch {
+await m.react('✖️')
+}}
+handler.help = ['pinterest *<búsqueda>*']
 handler.tags = ['img']
-handler.command = ['بين'] 
-
+handler.command = ['بين']
+handler.register = true 
+//handler.limit = 1
 export default handler
