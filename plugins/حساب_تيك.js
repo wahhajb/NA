@@ -30,5 +30,5 @@ ${tradutor.texto2[6]}  ${json.result.bio}
 };
 handler.help = ['tiktokstalk'].map((v) => v + ' <username>');
 handler.tags = ['stalk'];
-handler.command = /^(tiktokstalk|حساب_تيك)$/i;
+handler.command = /^(tiktokstalk|اك-تيك)$/i;
 export default handler;
