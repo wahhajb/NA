@@ -237,12 +237,14 @@ case 'البايو':
   }
 
 m.reply(`
-✅ *${type}* الان *${isEnable ? 'نشط' : 'Deactive'}* ${isAll ? 'لهذا البوت' : isUser ? '' : 'لهذا البوت'}
+✅ *${type}* الان *${isEnable ? 'نشط' : 'متوقف'}* ${isAll ? 'لهذا البوت' : isUser ? '' : 'لهذا البوت'}
 `.trim()) 
 
 }
 handler.help = ['en', 'dis'].map(v => v + 'able <option>')
-handler.tags = ['config']
+handler.tags = ['config', 'group']
 handler.command = /^((en|dis)able|(turn)?ت(شغيل|عطيل)|[01])$/i
+handler.group = true
+handler.admin = true
 
 export default handler
