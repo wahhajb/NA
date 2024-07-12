@@ -35,7 +35,7 @@ let more = String.fromCharCode(8206)
 let readMore = more.repeat(900) 
   const taguser = '@' +  m.sender.split('@s.whatsapp.net')[0];
 let str = `
-*💥❯══⊹⊱≼ ${user} ≽⊰⊹══❮💥*
+*💥❯══⊹⊱≼ ${taguser} ≽⊰⊹══❮💥*
 
 *❯حط رمز قبل كل قسم حاجه من 👈  ( / . )❮*
 
