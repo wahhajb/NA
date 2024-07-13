@@ -6,9 +6,9 @@ conn.sendFile(m.chat, haha, 'error.jpg', `
 
 *『 ️اليك قائمه الدعم 』*
 
-*『 ️انضم للمجتمع 』*
+*『 ️انضم للجروب 』*
 
-*https://chat.whatsapp.com/D39UfanghjpJyBo1d4w5JV*
+*https://chat.whatsapp.com/B9fZR4lNk5N0SnYYTZRMOq*
 
 *『 ️ رقم المطور واتساب  』*
 
