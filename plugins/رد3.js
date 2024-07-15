@@ -8,10 +8,10 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
     const gojo2 = conn.getName(m.sender);
     const yunapp = "https://telegra.ph/file/84e6126972bd66816b309.png";
     
-    let stiker = await sticker(null, yunapp, `「✱╏${gojo2}╏✱」⊰🪐⊱「✱╏${gojo}╏✱」`,);
+    let stiker = await sticker(null, yunapp, `${gojo}`,);
     conn.sendFile(m.chat, stiker, null, { asSticker: true }, m, true, { contextInfo: { forwardingScore: 200, isForwarded: true } }, { quoted: m });
 
-    const audioFiles = ['./media/قامبري.mp3']
+    const audioFiles = ['./media/قامبري.m4a']
   
     const randomIndex = Math.floor(Math.random() * audioFiles.length);
     const randomAudio = audioFiles[randomIndex];
