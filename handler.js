@@ -1183,7 +1183,7 @@ export async function handler(chatUpdate) {
             if (user.bannedMessageCount < 3) {
               const messageNumber = user.bannedMessageCount + 1;
 const messageText = `_*< انت ممنوع من استخدام الاوامر />*_\n
- ▢ *Aviso:* ${messageNumber}/3
+ ▢ *عدد الانذارات:* ${messageNumber}/3
  ${user.bannedReason ? `\n▢ *السبب:* ${user.bannedReason}` : ' ▢ *السبب:* غير محدود'}
  *[ ℹ️ ] اذا كنت تعتقد انه تم تعلقك عن طريق الخطاء ولديك دليل فقم بإخبار مالك البوت عن طريق كتابه امر تقرير*`.trim();
               m.reply(messageText);
@@ -1200,7 +1200,7 @@ const messageText = `_*< انت ممنوع من استخدام الاوامر />
             if (user.commandCount === 2) {
               const remainingTime = Math.ceil((user.lastCommandTime + 5000 - Date.now()) / 1000);
               if (remainingTime > 0) {
-                const messageText = `*[ ℹ️ ] Espera* _${remainingTime} segundos_ *antes de utilizar otro comando.*`;
+                const messageText = `*[ ℹ️ ] انتظر* _${remainingTime} ثواني_ *قبل استخدام امر اخر.*`;
                 m.reply(messageText);
                 return;
               } else {
@@ -1266,11 +1266,11 @@ const messageText = `_*< انت ممنوع من استخدام الاوامر />
           m.exp += xp;
         }
         if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-          mconn.conn.reply(m.chat, `*[ ℹ️ ] Sus diamantes se han agotado, puede adquirir más con el comando:* _${usedPrefix}buyall_`, m);
+          mconn.conn.reply(m.chat, `*[ ℹ️ ] لقد نفذ الالماس الخاص بك اكتب الامر* _${usedPrefix}شراء-الكل_ لشراء المزيد من الالماس`, m);
           continue; 
         }
         if (plugin.level > _user.level) {
-          mconn.conn.reply(m.chat, `*[ ℹ️ ] Se require tener el nivel ${plugin.level} para poder utilizar el comando. Tú nivel actual es ${_user.level}, usa el comando ${usedPrefix}lvl para subir tu nivel con XP.*`, m);
+          mconn.conn.reply(m.chat, `*[ ℹ️ ] يشترط ان يكون المستوى ${plugin.level} لتتمكن من الاستخدام ، مستواك الحالي هو ${_user.level}, استخدم امر ${usedPrefix}لفل لرفع مستواك.*`, m);
           continue; 
         }
         const extra = {
@@ -1339,7 +1339,7 @@ const messageText = `_*< انت ممنوع من استخدام الاوامر />
             }
           }
           if (m.limit) {
-            m.reply('*[ ℹ️ ] Se utilizaron ' + +m.limit + ' diamante(s) (limites).*');
+            m.reply('*[ ℹ️ ] تم استخدام ' + +m.limit + ' من الالماس.*');
           }
         }
         break;
