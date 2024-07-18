@@ -44,13 +44,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             description: '',
                             id: '.طقم'
                           },
-                                                      {
+                          {
                             header: 'طقم بنات',
                             title: 'بنات',
                             description: '',
                             id: '.طقم1'
                           },
-                                                      {
+                          {
                             header: 'طقم اولاد',
                             title: 'اولاد',
                             description: '',
@@ -109,6 +109,18 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             title: 'غــوجــو',
                             description: '',
                             id: '.صور-غوجو'
+                          },
+                          {
+                            header: 'كيوراكو شينسوي',
+                            title: 'كــيــوراكــو',
+                            description: '',
+                            id: '.صور-كيوراكو'
+                          },
+                          {
+                            header: 'مايكي',
+                            title: 'مــايــكــي',
+                            description: '',
+                            id: '.صور-مايكي'
                           },
                           {
                             header: 'اكـــيــامــا',
