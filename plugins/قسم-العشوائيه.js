@@ -105,6 +105,12 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                             id: '.نيكو'
                           },
                           {
+                            header: 'غـوجـو سـاتـورا',
+                            title: 'غــوجــو',
+                            description: '',
+                            id: '.صور-غوجو'
+                          },
+                          {
                             header: 'اكـــيــامــا',
                             title: 'اكـيـامـا',
                             description: '',
