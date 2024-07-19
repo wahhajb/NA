@@ -248,7 +248,6 @@ thumbnail: await (await fetch(vid.thumbnail)).buffer()}}}, { quoted: m })
 }}}
 }
 handler.help = ["يوتس"].map(v => v + " <formato> <búsqueda>")
-handler.tags = ["downloader"]
-handler.command = ['يوتس']
-handler.star = 2
+handler.tags = ['downloader'];
+handler.command = ['يوتس'];
 export default handler
