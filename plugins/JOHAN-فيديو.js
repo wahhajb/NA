@@ -113,10 +113,10 @@ let n3 = lolh.result.size
 let n4 = lolh.result.thumbnail
 await conn.sendMessage(m.chat, { video: { url: n2 }, fileName: `${n}.mp4`, mimetype: 'video/mp4', caption: `*Titulo:* ${n}\n*Peso:* ${n3}`, thumbnail: await fetch(n4) }, { quoted: m })
 } catch {
-await conn.reply(m.chat, '🚩 *حدث فشل*', m, fake, ) }}}    
+await conn.reply(m.chat, '🚩 *حدث فشل*', m) }}}    
 }} catch {
 
-return conn.reply(m.chat, '🚩 *حاول ثانيه*', m, fake, )}
+return conn.reply(m.chat, '🚩 *حاول ثانيه*', m)}
 
 }
 handler.help = ['اغنيه', 'فيديو']
