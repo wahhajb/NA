@@ -32,6 +32,8 @@ conn.reply(m.chat, `*سـتـتـم إزالـة كـل عـضـو رمـز دو
   }
 };
 handler.command = /^(تدمير|kicknum)$/i;
-handler.group = handler.botAdmin = handler.admin = true;
-handler.fail = null;
+handler.group = true
+handler.botAdmin = true
+handler.admin = true
+handler.fail = true
 export default handler;
